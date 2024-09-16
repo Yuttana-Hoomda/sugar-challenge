@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { Kanit } from '@next/font/google';
+import NavBar from "@/components/NavBar";
+import Header from "@/components/Header";
 
 const kanit = Kanit({
   subsets: ['latin'],
@@ -22,9 +24,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${kanit} antialiased`}
+        className={`${kanit} antialiased h-screen`}
       >
+        <Header/>
         {children}
+        <NavBar/>
       </body>
     </html>
   );

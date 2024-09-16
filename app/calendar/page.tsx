@@ -1,9 +1,15 @@
-import React from 'react'
+import Calendar from "react-calendar";
+import 'react-calendar/dist/Calendar.css';
+import './custom-calender.css';
 
-const Calendar = () => {
-  return (
-    <div>Calendar</div>
-  )
+//npm install react-calendar ด้วยนะจ๊ะ
+
+export default function CalendarPage() {
+    return (
+        <div className="flex justify-center rounded-xl">
+            <Calendar
+                className="custom-calendar"    
+            />
+        </div>
+    );
 }
-
-export default Calendar

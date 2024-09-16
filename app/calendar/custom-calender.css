@@ -1,0 +1,29 @@
+/* custom-calendar.css */
+.custom-calendar {
+    @apply rounded-xl p-4 bg-white border-white ; /* ขอบมน พื้นหลังสีฟ้าอ่อน */
+  }
+  
+  .custom-calendar .react-calendar__tile {
+    @apply rounded-full h-11 w-full p-2; /* ขอบมนกับวันที่แต่ละวัน */
+  }
+
+  .react-calendar__navigation{
+    @apply font-semibold;
+  }
+
+  .react-calendar__month-view__weekdays {
+    @apply border-b-2 ;
+    border-color: #4F80C0 ;
+  }
+
+  /* สีวันที่จ้า อยู่ในเดือนเดียวกันสีเดียวกัน อยู่คนละเดือนแต่วันที่โผล่มาสีฟ้าอ่อน*/
+  .custom-calendar .react-calendar__tile, .react-calendar__navigation, .react-calendar__month-view__weekdays{
+    color: #002D63;
+  }
+  .custom-calendar .react-calendar__month-view__days__day--neighboringMonth, .react-calendar__decade-view__years__year--neighboringDecade, .react-calendar__century-view__decades__decade--neighboringCentury {
+    @apply text-blue-300; /* กำหนดสีของวันหยุดสุดสัปดาห์ */
+  }
+
+
+
+  

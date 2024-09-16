@@ -1,5 +1,6 @@
 import React from 'react'
 import { FaCircleInfo } from "react-icons/fa6";
+import Calender from "./calendar/page";
 
 const Home = () => {
   return (

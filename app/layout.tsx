@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${kanit.className} antialiased h-screen relative grid grid-rows-10-80-10`}
+        className={`${kanit.className} antialiased h-screen grid grid-rows-10-80-10`}
       >
         <Header/>
           {children}

@@ -7,6 +7,10 @@ custom-calendar.css
     @apply rounded-full h-11 w-full p-2; /* ขอบมนกับวันที่แต่ละวัน */
   }
 
+  .react-calendar {
+    @apply border-white;
+  }
+
   .react-calendar__navigation{
     @apply font-semibold;
   }

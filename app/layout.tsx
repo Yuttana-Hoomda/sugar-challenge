@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
-import { Kanit } from '@next/font/google';
+import { Kanit } from 'next/font/google';
 import NavBar from "@/components/NavBar";
 import Header from "@/components/Header";
 
 const kanit = Kanit({
   subsets: ['latin'],
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
-  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -24,11 +22,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${kanit} antialiased h-screen`}
+        className={`${kanit.className} antialiased h-screen grid grid-rows-10-80-10`}
       >
         <Header/>
-        {children}
-        <NavBar/>
+          {children}
+        
+        <NavBar IconSize={26}/>
       </body>
     </html>
   );

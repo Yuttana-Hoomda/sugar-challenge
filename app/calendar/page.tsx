@@ -6,10 +6,12 @@ import './custom-calender.css';
 
 export default function CalendarPage() {
     return (
+        <div>
         <div className="flex justify-center rounded-xl">
             <Calendar
                 className="custom-calendar"    
             />
+        </div>
         </div>
     );
 }

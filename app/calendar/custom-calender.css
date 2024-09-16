@@ -1,10 +1,14 @@
-/* custom-calendar.css */
+custom-calendar.css
 .custom-calendar {
     @apply rounded-xl p-4 bg-white border-white ; /* ขอบมน พื้นหลังสีฟ้าอ่อน */
   }
   
   .custom-calendar .react-calendar__tile {
     @apply rounded-full h-11 w-full p-2; /* ขอบมนกับวันที่แต่ละวัน */
+  }
+
+  .react-calendar {
+    @apply border-white;
   }
 
   .react-calendar__navigation{

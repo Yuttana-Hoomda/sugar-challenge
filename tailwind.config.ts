@@ -15,6 +15,12 @@ const config: Config = {
         "darkBlue": '#002D63',
         "lightBlue": '#EBF4FF'
       },
+      boxShadow: {
+        'top': '0px -2px 15px rgba(0, 0, 0, 0.15)',
+      },
+      gridTemplateRows: {
+        '10-80-10':  '10% 80% 10%',
+      }
     },
   },
   plugins: [],

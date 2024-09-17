@@ -24,4 +24,10 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+  .flex-center {
+    @apply flex justify-center items-center
+  }
+  .stroke-rounded {
+    stroke-linecap: round;
+  }
 }

@@ -17,6 +17,7 @@ const config: Config = {
       },
       boxShadow: {
         'top': '0px -2px 15px rgba(0, 0, 0, 0.15)',
+        'beverage': '0px 0px 10px rgba(79, 128, 192, 0.3)',
       },
       gridTemplateRows: {
         '10-80-10':  '10% 80% 10%',

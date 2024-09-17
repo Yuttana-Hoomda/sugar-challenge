@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Kanit } from 'next/font/google';
-import NavBar from "@/components/NavBar";
-import Header from "@/components/Header";
+import BottomBar from "@/components/layout/NavBar";
+import Header from "@/components/layout/Header";
 
 const kanit = Kanit({
   subsets: ['latin'],
@@ -22,12 +22,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${kanit.className} antialiased h-screen relative grid grid-rows-10-80-10`}
+        className={`${kanit.className} antialiased h-screen flex flex-col`}
       >
-        <Header/>
+        <Header />
+        <main className="flex-grow py-8 px-6">
           {children}
-        
-        <NavBar IconSize={26}/>
+        </main>
+        <BottomBar IconSize={25} />
       </body>
     </html>
   );

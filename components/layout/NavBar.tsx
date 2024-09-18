@@ -28,11 +28,7 @@ const NavBar:React.FC<navBarProps> = ({IconSize}) => {
     }
     
   return (
-<<<<<<< HEAD:components/NavBar.tsx
-    <nav className='flex items-center justify-between px-10 py-6 shadow-top left-0 bottom-0'>
-=======
     <nav className='flex items-center justify-between px-10 py-5 shadow-top bg-white sticky bottom-0'>
->>>>>>> cba16f6ac71bfdd76d850a86a55528f6e579b642:components/layout/NavBar.tsx
        {Object.keys(IconData).map((path) => (
         <div key={path} onClick={handleClick(path)}>
             <Image

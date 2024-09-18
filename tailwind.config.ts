@@ -13,7 +13,8 @@ const config: Config = {
         foreground: "var(--foreground)",
         "blue": '#4F80C0',
         "darkBlue": '#002D63',
-        "lightBlue": '#EBF4FF'
+        "lightBlue": '#EBF4FF',
+        'buttonActive': '#D7E9FF'
       },
       boxShadow: {
         'top': '0px -2px 15px rgba(0, 0, 0, 0.15)',

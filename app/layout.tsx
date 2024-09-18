@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${kanit.className} antialiased h-screen flex flex-col`}
+        className={`${kanit.className} antialiased h-screen flex flex-col relative`}
       >
         <Header />
         <main className="flex-grow py-8 px-6">

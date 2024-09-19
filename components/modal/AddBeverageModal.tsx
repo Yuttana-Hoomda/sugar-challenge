@@ -60,50 +60,52 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({ menu, img, sugarVal
 
   const handleSweetLevelButton = (index: number) => {
     setActiveSweet(index)
-
-    //calculate sugarValue by index
-    let updateSugar = sugarValue
-    switch (index) {
-      case 0:
-        updateSugar = sugarValue / 2;
-        break;
-      case 1:
-        updateSugar = sugarValue;
-        break
-      case 2:
-        updateSugar = sugarValue * 1.5
-        break
-    }
-    setSugar(updateSugar)
   }
 
   const handleQuantitieLevelButton = (index: number) => {
     setActiveQuantitie(index)
-
-    let updateSugar = sugar
-    switch (index) {
-      case 0:
-        updateSugar = sugar
-        break
-      case 1:
-        updateSugar = sugar * 0.75
-        break;
-      case 2:
-        updateSugar = sugar * 0.5
-        break;
-      case 3:
-        updateSugar = sugar * 0.25
-        break;
-    }
-    setSugar(updateSugar)
   }
 
+  const calculateSugar = (sugarValue: number, activeSweet: number | null, activeQuantitie: number | null) => {
+    let updatedSugar = sugarValue;
+  
+    // Calculate sweetness level
+    switch (activeSweet) {
+      case 0:
+        updatedSugar = sugarValue / 2; 
+        break;
+      case 1:
+        updatedSugar = sugarValue; 
+        break;
+      case 2:
+        updatedSugar = sugarValue * 1.5; 
+        break;
+    }
+  
+    // Calculate quantity level
+    switch (activeQuantitie) {
+      case 0:
+        updatedSugar = updatedSugar;
+        break;
+      case 1:
+        updatedSugar = updatedSugar * 0.75; 
+        break;
+      case 2:
+        updatedSugar = updatedSugar * 0.5; 
+        break;
+      case 3:
+        updatedSugar = updatedSugar * 0.25;
+        break;
+    }
+  
+    return updatedSugar;
+  };
+
   const handleSubmit = () => {
-    //write post value backend here
-    console.log(sugar)
-    setActiveQuantitie(null)
-    setActiveSweet(null)
-    handleClose()
+    let updatedSugar = calculateSugar(sugarValue, activeSweet,activeQuantitie)
+    console.log(updatedSugar)
+    setSugar(updatedSugar)
+    handleModalClose()
   }
 
   return (
@@ -115,6 +117,7 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({ menu, img, sugarVal
           <h2 className='font-bold text-3xl text-darkBlue'>{menu}</h2>
         </div>
         <div className='space-y-4 pt-4'>
+
           {/* sweetLevel */}
           <div className='space-y-2'>
             <h3 className='text-xl text-darkBlue'>ความหวาน</h3>
@@ -133,6 +136,7 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({ menu, img, sugarVal
               ))}
             </div>
           </div>
+          
           {/* Quantitie Level */}
           <div className='space-y-2'>
             <h3 className='text-[18px] text-darkBlue'>ปริมาณที่ดื่ม</h3>

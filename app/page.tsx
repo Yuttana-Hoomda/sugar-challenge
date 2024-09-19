@@ -2,6 +2,7 @@ import React from 'react'
 import { FaCircleInfo } from "react-icons/fa6";
 import Calender from "./calendar/page";
 import CircularProgress from '@/components/CircularProgress';
+import BeverageDrank from '@/components/modal/BeverageDrank';
 
 const Home = () => {
   return (
@@ -17,9 +18,9 @@ const Home = () => {
         </div>
 
         <div>
-          <h3 className='font-semibold text-lg'>ล่าสุด</h3>
+          <h3 className='font-semibold text-2xl mt-2 text-[#002D63]'>ล่าสุด</h3>
           <div>
-
+            <BeverageDrank name={'น้ำผลไม้'} image={'/images/juice.svg'} sugar={12} consume={'50'} level={'หวานมาก'}/>
           </div>
         </div>
     </div>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import DropDown from "./dropDown";
+import Avartar1 from "../images/avartar1.svg";
 
 const Account = () => {
   return (
@@ -15,6 +16,8 @@ const Account = () => {
         />
       </div>
       <h1 className="mt-3 text-[20px] text-center">โอเด็ต อิอิ</h1>
+
+      {/* Edit button */}
       <div className="flex justify-center mt-4">
         <button
           type="button"

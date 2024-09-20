@@ -18,7 +18,6 @@ export const POST = async (req: Request) => {
             dailySugar: []
         };
 
-        // Merge default values with the body
         const userData = { ...defaultValues, ...body };
 
         await connect();

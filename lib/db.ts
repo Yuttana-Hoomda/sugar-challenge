@@ -6,7 +6,6 @@ const connect = async () => {
     try {
         mongoose.connect(MONGODB_URL!, {
             dbName: 'SC-DB',
-            bufferCommands: false,
         });
         console.log("mongoDb connected")
     } catch (err: any) {

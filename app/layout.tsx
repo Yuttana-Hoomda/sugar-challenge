@@ -3,6 +3,7 @@ import "./globals.css";
 import { Kanit } from 'next/font/google';
 import BottomBar from "@/components/layout/NavBar";
 import Header from "@/components/layout/Header";
+import {NextAuthProvider } from "@/app/Providers"
 
 const kanit = Kanit({
   subsets: ['latin'],
@@ -21,14 +22,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${kanit.className} antialiased h-screen flex flex-col relative`}
-      >
-        <Header />
-        <main className="flex-grow py-8 px-6">
-          {children}
-        </main>
-        <BottomBar IconSize={25} />
+      <body className={`${kanit.className} antialiased h-screen flex flex-col relative`}>
+        <NextAuthProvider>
+          <Header />
+          <main className="flex-grow py-8 px-6">
+            {children}
+          </main>
+          <BottomBar IconSize={25} />
+        </NextAuthProvider>
       </body>
     </html>
   );

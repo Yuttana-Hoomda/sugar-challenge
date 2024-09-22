@@ -9,10 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+<<<<<<< HEAD
     "lucide-react": "^0.445.0",
+=======
+    "@nextui-org/react": "^2.4.8",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+>>>>>>> 20f1b05 (create: auth login, api creature and get user)
     "mongodb": "^6.9.0",
     "mongoose": "^8.6.3",
     "next": "14.2.11",
+    "next-auth": "^4.24.7",
     "react": "^18.3.1",
     "react-calendar": "^5.0.0",
     "react-dom": "^18.3.1",

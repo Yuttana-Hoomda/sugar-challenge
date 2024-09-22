@@ -78,3 +78,5 @@ const CircularProgressBMI:React.FC<CircularProgressBMI> = ({bmiValue, size}) => 
         </div>
     )
 }
+
+export default CircularProgressBMI;

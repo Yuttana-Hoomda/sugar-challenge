@@ -1,7 +1,6 @@
 import BeverageCard from '@/components/modal/BeverageCard'
 import React from 'react'
 import IndexBeverage from '@/data/indexBeverage'
-import AddBeverageModal from '@/components/modal/AddBeverageModal'
 
 function Beverage() {
   return (

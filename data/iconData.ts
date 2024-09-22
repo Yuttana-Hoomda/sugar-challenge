@@ -9,7 +9,7 @@ import AccountIconActive from '../public/icons/icon-user-active.svg'
 
 type Path = '/' | '/beverage' | '/calendar' | '/account';
 const IconData = {
-    '/' : {
+    '/home' : {
         default: HomeIcon,
         active: HomeIconActive
     },

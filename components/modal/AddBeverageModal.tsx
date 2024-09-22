@@ -19,10 +19,20 @@ interface AddBeverageModalProps {
   sugarValue: number
 }
 
+interface BeverageData {
+  menu: string;
+  img: string;
+  value: number;
+  quantities: string | null;
+  sweetLevel: string | null;
+}
+
+
 const AddBeverageModal: React.FC<AddBeverageModalProps> = ({ menu, img, sugarValue, handleOpen, handleClose }) => {
   const [activeSweet, setActiveSweet] = useState<number | null>(null);
   const [activeQuantitie, setActiveQuantitie] = useState<number | null>(null);
   const [sugar, setSugar] = useState(0);
+  const userName = 'John Doe'
 
   if (handleOpen === false) {
     return null
@@ -36,27 +46,11 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({ menu, img, sugarVal
 
   const sweetLevel = ['หวานน้อย', 'หวานปกติ', 'หวานมาก'];
   const quantitieLevel = [
-    {
-      quantities: '100%',
-      icon: Hundred,
-      iconActive: HundredActive
-    },
-    {
-      quantities: '75%',
-      icon: Seventyfive,
-      iconActive: SeventyfiveActive
-    },
-    {
-      quantities: '50%',
-      icon: Fifty,
-      iconActive: FiftyActive
-    },
-    {
-      quantities: '25%',
-      icon: Twentyfive,
-      iconActive: TwentyfiveActive
-    },
-  ]
+    { quantities: '100%', icon: Hundred, iconActive: HundredActive },
+    { quantities: '75%', icon: Seventyfive, iconActive: SeventyfiveActive },
+    { quantities: '50%', icon: Fifty, iconActive: FiftyActive },
+    { quantities: '25%', icon: Twentyfive, iconActive: TwentyfiveActive },
+  ];
 
   const handleSweetLevelButton = (index: number) => {
     setActiveSweet(index)
@@ -68,44 +62,76 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({ menu, img, sugarVal
 
   const calculateSugar = (sugarValue: number, activeSweet: number | null, activeQuantitie: number | null) => {
     let updatedSugar = sugarValue;
-  
+
     // Calculate sweetness level
     switch (activeSweet) {
       case 0:
-        updatedSugar = sugarValue / 2; 
+        updatedSugar = sugarValue / 2;
         break;
       case 1:
-        updatedSugar = sugarValue; 
+        updatedSugar = sugarValue;
         break;
       case 2:
-        updatedSugar = sugarValue * 1.5; 
+        updatedSugar = sugarValue * 1.5;
         break;
     }
-  
+
     // Calculate quantity level
     switch (activeQuantitie) {
       case 0:
         updatedSugar = updatedSugar;
         break;
       case 1:
-        updatedSugar = updatedSugar * 0.75; 
+        updatedSugar = updatedSugar * 0.75;
         break;
       case 2:
-        updatedSugar = updatedSugar * 0.5; 
+        updatedSugar = updatedSugar * 0.5;
         break;
       case 3:
         updatedSugar = updatedSugar * 0.25;
         break;
     }
-  
+
     return updatedSugar;
   };
 
+  const PostData = async (data: BeverageData) => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/user/${userName}/addBeverage`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text(); // Read raw response text
+        throw new Error(errorText || 'Failed to post beverage data');
+      }
+
+      const result = await response.json();
+      console.log('Beverage added:', result);
+      handleModalClose();
+    } catch (error) {
+      console.error('Error to post beverageHistory:', error);
+    }
+  };
+
+
   const handleSubmit = () => {
-    let updatedSugar = calculateSugar(sugarValue, activeSweet,activeQuantitie)
+    let updatedSugar = calculateSugar(sugarValue, activeSweet, activeQuantitie)
     console.log(updatedSugar)
-    setSugar(updatedSugar)
-    handleModalClose()
+
+    const BeverageData: BeverageData = {
+      menu: menu,
+      img: img.src,
+      value: updatedSugar,
+      quantities: activeQuantitie !== null ? ['100%', '75%', '50%', '25%'][activeQuantitie] : null,
+      sweetLevel: activeSweet !== null ? sweetLevel[activeSweet] : null
+    }
+
+    PostData(BeverageData)
   }
 
   return (
@@ -127,8 +153,8 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({ menu, img, sugarVal
                   <SelectButton
                     title={level}
                     className={`w-[90px] ${activeSweet === index
-                        ? 'bg-buttonActive border-darkBlue text-darkBlue'
-                        : ''
+                      ? 'bg-buttonActive border-darkBlue text-darkBlue'
+                      : ''
                       }`}
                     onClick={() => handleSweetLevelButton(index)}
                   />
@@ -136,7 +162,7 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({ menu, img, sugarVal
               ))}
             </div>
           </div>
-          
+
           {/* Quantitie Level */}
           <div className='space-y-2'>
             <h3 className='text-[18px] text-darkBlue'>ปริมาณที่ดื่ม</h3>
@@ -150,12 +176,12 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({ menu, img, sugarVal
                         ? items.iconActive : items.icon
                     }
                     className={`w-[75px] ${activeQuantitie === index
-                        ? 'bg-buttonActive border-darkBlue text-darkBlue' : ''
+                      ? 'bg-buttonActive border-darkBlue text-darkBlue' : ''
                       } ${activeSweet === null
                         ? 'opacity-50' : ''
                       }`}
                     onClick={() => handleQuantitieLevelButton(index)}
-                    disable = {activeSweet === null}
+                    disable={activeSweet === null}
                   />
                 </div>
               ))}

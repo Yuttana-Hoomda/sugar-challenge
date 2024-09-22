@@ -46,7 +46,7 @@ export default function CreateUserForm({ email }: CreateUserFormProps) {
         const errorData = await res.json();
         throw new Error(errorData.message || 'Failed to update profile');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error updating profile:', error);
       setError(error.message || 'An error occurred while updating the profile');
     }

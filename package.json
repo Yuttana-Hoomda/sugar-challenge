@@ -9,12 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-<<<<<<< HEAD
-    "mongodb": "^6.9.0",
-=======
     "express": "^4.21.0",
     "mongoose": "^8.6.3",
->>>>>>> 00f7ef3b06cd88ca125a4634ee88f3a8993ada22
     "next": "14.2.11",
     "react": "^18.3.1",
     "react-calendar": "^5.0.0",

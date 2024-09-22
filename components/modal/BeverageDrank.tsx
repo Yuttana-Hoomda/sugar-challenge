@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { RiDeleteBin6Line } from "react-icons/ri";
 import Image from 'next/image'
+import Coffee from '@/public/images/coffee.svg'
 
 type props = {
     name: string,
@@ -12,21 +13,23 @@ type props = {
 
 function BeverageDrank({ name, image, sugar, consume, level}: props) {
     return (
-        <div className='grid grid-cols-2 gap-3 rounded-3xl border-2 border-blue shadow-lg w-[152px] h-[109px] mt-2 p-2'>
-            <div>
-              <Image src={image} alt='' width={45} height={40} className='col-span-1 object-cover ml-3 mb-2' />
-              <h2 className='text-lg text-[#002D63] font-medium'>{name}</h2>
+        <div className='grid grid-cols-2 gap-2 rounded-2xl border border-blue shadow-beverage p-2 w-[160px] h-[110px]'>
+            <div className='flex flex-col justify-between items-center gap-2'>
+              <Image src={image} alt='' width={40} height={40}/>
+              <h2 className='text-lg text-darkBlue'>{name}</h2>
             </div>
-            <div className='grid '>
-              <div className='flex w-[61px] h-[23px] bg-[#EBF4FF] text-center rounded-xl justify-center p-1'>
-                <RiDeleteBin6Line size={12} color='#E95322'/> 
-                <h2 className='ml-2 text-[#002D63] text-[10px]'>{sugar} g</h2>
+            <div className='flex flex-col justify-between items-center'>
+              <div className='flex justify-center items-center bg-lightBlue rounded-md gap-2 px-2 w-full'>
+                <div className='bg-blue w-2 h-2 rounded-full'/>
+                <h3 className='text-light text-darkBlue text-sm'>{sugar} g</h3>
               </div>
-              <div className='flex justify-center p-1 w-[61px] h-[23px] bg-[#EBF4FF] text-center rounded-xl'>
-                <RiDeleteBin6Line size={12} color='#E95322'/> 
-                <h2 className='ml-2 text-[#002D63] text-[10px]'>{consume} %</h2>
+              <div className='flex justify-center items-center bg-lightBlue rounded-md gap-2 px-2 w-full'>
+                <div className='bg-blue w-2 h-2 rounded-full'/>
+                <h3 className='text-light text-darkBlue text-sm'>{consume}</h3>
               </div>
-                <h2 className='text-[#002D63] w-[61px] h-[23px] text-[10px] bg-[#EBF4FF] text-center p-1 rounded-xl'>{level}</h2>
+              <div className='flex justify-center items-center bg-lightBlue rounded-md w-full'>
+                <h3 className='text-light text-darkBlue text-sm'>{level}</h3>
+              </div>
             </div>
         </div>
     );

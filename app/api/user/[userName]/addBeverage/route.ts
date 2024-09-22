@@ -14,6 +14,8 @@ export const POST = async (req: Request, {params} : {params: {userName: string}}
         }
 
         user.beverageHistory.unshift(newBeverageHistory)
+        //update currentSugar value
+        user.currentSugar += newBeverageHistory.value;
         await user.save()
         return NextResponse.json(user, {status: 200})
     } catch (error: any) {

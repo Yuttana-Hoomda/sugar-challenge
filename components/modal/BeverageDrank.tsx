@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { RiDeleteBin6Line } from "react-icons/ri";
 import Image from 'next/image'
-import Coffee from '@/public/images/coffee.svg'
 
 type props = {
     name: string,

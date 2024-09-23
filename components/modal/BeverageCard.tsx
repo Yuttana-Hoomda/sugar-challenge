@@ -1,6 +1,6 @@
 'use client'
 import Image from 'next/image'
-import React, { use, useState } from 'react'
+import React, { useState } from 'react'
 import { FaCirclePlus } from "react-icons/fa6";
 import AddBeverageModal from './AddBeverageModal';
 

@@ -22,7 +22,7 @@ const UserSchema = new mongoose.Schema({
     bmi: { type: Number, default: 0 },
     currentSugar: { type: Number, default: 0 },
     beverageHistory: [BeverageHistorySchema],
-    dailySugar: [BeverageHistorySchema],
+    dailySugar: [DailySugarSchema],
 });
 
 const User = mongoose.models.User || mongoose.model("User", UserSchema);

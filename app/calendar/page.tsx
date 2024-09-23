@@ -4,7 +4,8 @@ import './custom-calender.css';
 
 //npm install react-calendar ด้วยนะจ๊ะ
 
-export default function CalendarPage() {
+export default async function CalendarPage() {
+
     return (
         <div>
         <div className="flex justify-center rounded-xl">

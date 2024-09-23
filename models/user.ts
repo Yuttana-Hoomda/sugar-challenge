@@ -1,5 +1,10 @@
 import mongoose from "mongoose";
 
+const DailySugarSchema = new mongoose.Schema({
+    date: { type: Date, required: true }, 
+    value: { type: Number, required: true },
+})
+
 const BeverageHistorySchema = new mongoose.Schema({
     menu: {type: String, required: true},
     img: {type: String, required: true},
@@ -17,7 +22,7 @@ const UserSchema = new mongoose.Schema({
     bmi: { type: Number, default: 0 },
     currentSugar: { type: Number, default: 0 },
     beverageHistory: [BeverageHistorySchema],
-    dailySugar: [{type: mongoose.Schema.Types.ObjectId, ref: 'DailySugar'}],
+    dailySugar: [DailySugarSchema],
 });
 
 const User = mongoose.models.User || mongoose.model("User", UserSchema);

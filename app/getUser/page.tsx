@@ -2,7 +2,19 @@
 import { useEffect, useState } from "react";
 
 const GetUser = () => {
-  const [user, setUser] = useState(null);
+  interface User {
+    name: string;
+    email: string;
+    gender: string;
+    weight: number;
+    height: number;
+    bmi: number;
+    currentSugar: number;
+    beverageHistory: string[];
+    dailySugar: string[];
+  }
+  
+  const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState(null);
   
   useEffect(() => {

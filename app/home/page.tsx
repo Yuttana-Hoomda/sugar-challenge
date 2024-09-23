@@ -21,26 +21,26 @@ const HomePage = () => {
   const [userData, setUserData] = useState<User | null>(null);
   const userName = 'John Doe';
 
-  const getUserData = async () => {
-    try {
-      const response = await fetch(`http://localhost:3000/api/user/${userName}`, {
-        method: 'GET'
-      });
+  // const getUserData = async () => {
+  //   try {
+  //     const response = await fetch(`http://localhost:3000/api/user/${userName}`, {
+  //       method: 'GET'
+  //     });
 
-      if (response.ok) {
-        const data = await response.json(); 
-        setUserData(data);
-      } else {
-        console.error('Failed to fetch data, response status:', response.status);
-      }
-    } catch (error) {
-      console.error('Error fetching user data:', error);
-    }
-  };
+  //     if (response.ok) {
+  //       const data = await response.json(); 
+  //       setUserData(data);
+  //     } else {
+  //       console.error('Failed to fetch data, response status:', response.status);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error fetching user data:', error);
+  //   }
+  // };
 
-  useEffect(() => {
-    getUserData();
-  }, []);
+  // useEffect(() => {
+  //   getUserData();
+  // }, []);
 
   return (
     <div>

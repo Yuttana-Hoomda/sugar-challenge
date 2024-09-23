@@ -51,39 +51,6 @@ const CircularProgressBMI: React.FC<CircularProgressPropsBMI> = ({
     height: size,
   };
 
-<<<<<<< HEAD
-                <circle 
-                    cx={radius}
-                    cy={radius}
-                    strokeWidth={padding}
-                    r={outerCircleRadius}
-                    className='fill-none stroke-white'
-                />
-                <circle 
-                    cx={radius}
-                    cy={radius}
-                    strokeWidth={padding}
-                    r={outerCircleRadius}
-                    className='fill-none'
-                    strokeDasharray={dashArray}
-                    strokeDashoffset={dashOffset}
-                    stroke='url(#gradient)'
-                />
-                <text
-                    x='50%'
-                    y='50%'
-                    dominantBaseline='middle'
-                    textAnchor='middle'
-                    fontSize='2.5rem'
-                    fill='#4F80C0'
-                >
-                    {animatedValue.toFixed(1)}
-                </text>
-            </svg>
-        </div>
-    )
-}
-=======
   const svgStyle = {
     width: '100%',
     height: '100%',
@@ -141,4 +108,3 @@ const CircularProgressBMI: React.FC<CircularProgressPropsBMI> = ({
 };
 
 export default CircularProgressBMI;
->>>>>>> master

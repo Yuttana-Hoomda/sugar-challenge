@@ -41,7 +41,7 @@ export default function CreateUserForm({ email }: CreateUserFormProps) {
         const data = await res.json();
         console.log('Profile updated:', data);
         // Redirect to the data fetching page
-        router.push('/getUser'); // Adjust this URL to your actual data fetching page
+        router.push(`/getUser?email=${encodeURIComponent(email)}`); // Adjust this URL to your actual data fetching page
       } else {
         const errorData = await res.json();
         throw new Error(errorData.message || 'Failed to update profile');
@@ -51,6 +51,8 @@ export default function CreateUserForm({ email }: CreateUserFormProps) {
       setError(error.message || 'An error occurred while updating the profile');
     }
   };
+
+  //Calculate BMI
 
   const calculateBMI = (weight: number, height: number) => {
     const heightInMeters = height / 100;
@@ -91,7 +93,7 @@ export default function CreateUserForm({ email }: CreateUserFormProps) {
       />
       <button 
         type="submit"
-        className="w-full p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        className="w-full p-2 bg-blue-500 text-black rounded hover:bg-blue-600"
       >
         บันทึกข้อมูล
       </button>

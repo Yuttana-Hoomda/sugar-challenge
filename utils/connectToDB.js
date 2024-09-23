@@ -11,7 +11,7 @@ export const connectToDB = async () => {
   }
   try {
     await mongoose.connect(process.env.MONGODB_URI, {
-      dbName: 'SC-DB',
+      dbName: 'sugar-challenge',
       useNewUrlParser: true, // Can be removed in newer Mongoose versions
       useUnifiedTopology: true, // Can be removed in newer Mongoose versions
       serverSelectionTimeoutMS: 20000, // Adjust timeout if needed

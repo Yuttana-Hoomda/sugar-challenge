@@ -1,10 +1,23 @@
-import { connectToDB } from "@/models/connectToDB";
-import User from "@/models/user";
-import { NextResponse } from "next/server";
+import mongoose from 'mongoose';
 
-export async function POST(request) {
-  const { name, email } = await request.json();
-  await connectToDB();
-  await User.create({ name, email });
-  return NextResponse.json({ message: "User Registered" }, { status: 201 });
-}
+let isConnected = false; // Track the connection status
+
+export const connectToDB = async () => {
+  if (isConnected) {
+    console.log('Already connected to the database');
+    return;
+  }
+
+  try {
+    await mongoose.connect(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+
+    isConnected = true;
+    console.log('Connected to the database');
+  } catch (error) {
+    console.error('Failed to connect to the database', error);
+    throw new Error('Failed to connect to the database');
+  }
+};

@@ -41,7 +41,7 @@ export default function CreateUserForm({ email }: CreateUserFormProps) {
         const data = await res.json();
         console.log('Profile updated:', data);
         // Redirect to the data fetching page
-        router.push(`/getUser?email=${encodeURIComponent(email)}`); // Adjust this URL to your actual data fetching page
+        router.push(`/home?email=${encodeURIComponent(email)}`); // Adjust this URL to your actual data fetching page
       } else {
         const errorData = await res.json();
         throw new Error(errorData.message || 'Failed to update profile');

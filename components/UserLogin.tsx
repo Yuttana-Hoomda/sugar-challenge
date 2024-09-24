@@ -24,12 +24,12 @@ export default function UserLogin() {
       if (response.ok) {
         const userData = await response.json();
         if (userData.gender && userData.weight && userData.height) {
-          router.push('/getUser');
+          router.push('/home');
         } else {
-          router.push('/createUser');
+          router.push('/register');
         }
       } else if (response.status === 404) {
-        router.push('/createUser');
+        router.push('/register');
       } else {
         console.error('Unexpected error:', response.statusText);
       }

@@ -52,8 +52,6 @@ const GetUser = () => {
       <p>Height: {user.height}</p>
       <p>BMI: {user.bmi}</p>
       <p>Current Sugar: {user.currentSugar}</p>
-      <p>Beverage History: {user.beverageHistory.join(", ")}</p>
-      <p>Daily Sugar: {user.dailySugar.join(", ")}</p>
     </div>
   );
 };

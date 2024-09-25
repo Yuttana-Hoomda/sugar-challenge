@@ -38,10 +38,12 @@ export const useManageCookies = () => {
     };
 
     const updateBeverageHistory = (newBeverage: Beverage) => {
-        let updateHistory = [...beverageHistory, newBeverage];
+        let updateHistory = [newBeverage, ...beverageHistory];
         if (updateHistory.length > 4) {
-            updateHistory.shift();
+            updateHistory.pop();
+            updateHistory.unshift();
         }
+
         setBeverageHistory(updateHistory)
         setCookie('beverage', JSON.stringify(updateHistory))
     }

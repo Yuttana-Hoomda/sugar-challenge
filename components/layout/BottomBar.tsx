@@ -3,16 +3,17 @@ import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation';
 import IconData from '@/data/iconData';
-import path from 'path';
+import { useSession } from 'next-auth/react';
 
 interface navBarProps {
     IconSize:number
 }
 
-const NavBar:React.FC<navBarProps> = ({IconSize}) => {
+const BottomBar:React.FC<navBarProps> = ({IconSize}) => {
     const router = useRouter()
     const pathName = usePathname()
     const [activePath, setActivePath] = useState<string>('/');
+    const { data: session } = useSession();
 
     useEffect(() => {
         setActivePath(pathName || '/');
@@ -24,7 +25,13 @@ const NavBar:React.FC<navBarProps> = ({IconSize}) => {
     }
 
     const handleClick = (path: string) => () => {
-        router.push(path)
+      if (!session) {
+        alert('User is not logged in');
+        return;
+      }
+      const email = session?.user?.email;
+      const url = `${path}?email=${encodeURIComponent(email || '')}`;
+      router.push(url);
     }
     
   return (
@@ -43,4 +50,4 @@ const NavBar:React.FC<navBarProps> = ({IconSize}) => {
   )
 }
 
-export default NavBar
+export default BottomBar;

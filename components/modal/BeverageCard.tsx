@@ -28,7 +28,7 @@ const BeverageCard: React.FC<BeverageCardProps> = ({ menu, img, sugarValue}) => 
       >
         <FaCirclePlus color='4F80C0' size={25} className='absolute top-2 right-2' />
         <div className='flex flex-col justify-center items-center gap-2'>
-          <Image src={img} alt='' width={50} />
+          <Image src={img} alt='' width={50} height={50}/>
           <h2 className='text-darkBlue font-medium text-lg'>{menu}</h2>
         </div>
       </div>

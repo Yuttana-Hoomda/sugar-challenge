@@ -3,13 +3,13 @@ import React, { useState } from 'react'
 import { IoIosCloseCircle } from "react-icons/io";
 import SelectButton from './SelectButton';
 import Hundred from '../../public/icons/hundred.svg'
-import Twentyfive from '../../public/icons/seventyfive.svg'
+import Twentyfive from '../../public/icons/twentyfive.svg'
 import Fifty from '../../public/icons/fifty.svg'
-import Seventyfive from '../../public/icons/twentyfive.svg'
+import Seventyfive from '../../public/icons/seventyfive.svg'
 import HundredActive from '../../public/icons/hundred-active.svg'
-import TwentyfiveActive from '../../public/icons/seventyfive-active.svg'
+import TwentyfiveActive from '../../public/icons/twentyfive-active.svg'
 import FiftyActive from '../../public/icons/fifty-active.svg'
-import SeventyfiveActive from '../../public/icons/twentyfive-active.svg'
+import SeventyfiveActive from '../../public/icons/seventyfive-active.svg'
 import { useManageCookies } from '@/hooks/useManageCookies';
 
 interface AddBeverageModalProps {

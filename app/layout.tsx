@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Kanit } from 'next/font/google';
-import BottomBar from "@/components/layout/NavBar";
+import BottomBar from "@/components/layout/BottomBar";
 import Header from "@/components/layout/Header";
 import {NextAuthProvider } from "@/app/Providers"
 

@@ -4,7 +4,7 @@ custom-calendar.css
   }
   
   .custom-calendar .react-calendar__tile {
-    @apply rounded-full h-11 w-full p-2; /* ขอบมนกับวันที่แต่ละวัน */
+    @apply rounded-full h-12 p-2; /* ขอบมนกับวันที่แต่ละวัน */
   }
 
   .react-calendar {
@@ -31,6 +31,20 @@ custom-calendar.css
   .custom-calendar .react-calendar__month-view__days__day--neighboringMonth, .react-calendar__decade-view__years__year--neighboringDecade, .react-calendar__century-view__decades__decade--neighboringCentury {
     @apply text-blue; /* กำหนดสีของวันหยุดสุดสัปดาห์ */
   }
+
+  .react-calendar__tile--active, .react-calendar__tile:enabled:hover, .react-calendar__tile--active:enabled:hover {
+    background-color: transparent;
+  }
+
+  .bg-red {
+    background-color: #FF7E7E; /* สีแดงสำหรับค่าน้ำตาล > 20 */
+  }
+  
+  .bg-green {
+    background-color: #BEFFB3; /* สีเขียวสำหรับค่าน้ำตาล <= 20 */
+  }
+  
+  
 
 
 

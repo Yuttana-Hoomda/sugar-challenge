@@ -1,7 +1,7 @@
 "use client";
 
 import Header from "@/components/layout/Header";
-import NavBar from "@/components/layout/NavBar";
+import NavBar from "@/components/layout/BottomBar";
 import { SessionProvider, useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { ReactNode } from "react";

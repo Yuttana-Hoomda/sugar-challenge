@@ -25,8 +25,6 @@ export async function POST(req) {
           weight: Number(weight),
           height: Number(height),
           bmi: Number(bmi),
-          currentSugar: 0,
-          beverageHistory: [],
           dailySugar: []
         }
       },

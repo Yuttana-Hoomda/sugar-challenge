@@ -7,29 +7,41 @@ interface CircularProgressProps {
 }
 
 const CircularProgress:React.FC<CircularProgressProps> = ({sugarValue, size}) => {
-  const [animatedValue, setAnimatedValue] = useState(0)
+  const [animatedValue, setAnimatedValue] = useState(0);
+  const [primaryColor, setPrimaryColor] = useState('#002D63');
+  const [secondaryColor, setSecondaryColor] = useState('#4F80C0');
+  const [text, setText] = useState('ปกติ')
+
   const radius = size / 2;
   const padding = radius / 6;
   const outerCircleRadius = radius - padding / 2;
   const dashArray = radius * Math.PI * 2;
 
-  const maxVlaue = 20
+  const maxValue = 20
   const duration = 500
-  const dashOffset = dashArray - (dashArray * sugarValue) / maxVlaue
+
+  const cappedSugarValue = Math.min(sugarValue, maxValue);
+  const dashOffset = dashArray - (dashArray * cappedSugarValue) / maxValue;
 
   useEffect(() => {
-    let start = 0;
-    const increment = sugarValue / (duration / 10)
+    let start = animatedValue;
+    const increment = sugarValue / (duration / 10);
+
     const animate = () => {
       start += increment;
       if (start >= sugarValue) {
-        setAnimatedValue(sugarValue)
+        setAnimatedValue(Math.min(sugarValue, maxValue));
       } else {
         setAnimatedValue(start)
-        setTimeout(animate, 10)
+        setTimeout(animate, 10);
       }
     };
     animate()
+    if (sugarValue >= maxValue) {
+      setPrimaryColor('#D2042D');
+      setSecondaryColor('#F88379');
+      setText('เกินมาตรฐาน')
+    }
   },[sugarValue, duration])
   return (
     <div>
@@ -40,8 +52,8 @@ const CircularProgress:React.FC<CircularProgressProps> = ({sugarValue, size}) =>
       >
         <defs>
           <linearGradient id='gradient'>
-            <stop offset='10%' stopColor='#002D63'/>
-            <stop offset='50%' stopColor='#4F80C0'/>
+            <stop offset='10%' stopColor={primaryColor}/>
+            <stop offset='50%' stopColor={secondaryColor}/>
           </linearGradient>
         </defs>
 
@@ -73,18 +85,18 @@ const CircularProgress:React.FC<CircularProgressProps> = ({sugarValue, size}) =>
           dy='0.3rem'
           textAnchor='middle'
           className='text-[45px] font-bold'
-          fill='#002D63'
+          fill={primaryColor}
         >
-          {Math.round(animatedValue)} g
+          {Math.round(sugarValue)} g
         </text>
         <text
           x='50%'
           y='70%'
           textAnchor='middle'
           className='text-[16px]'
-          fill='#4F80C0'
+          fill={secondaryColor}
         >
-          ปกติ
+          {text}
         </text>
       </svg>
     </div>

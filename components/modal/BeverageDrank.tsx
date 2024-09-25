@@ -6,14 +6,14 @@ type props = {
     name: string,
     image: string,
     sugar: number,
-    consume: string,
-    level: string,
+    consume: string | null,
+    level: string | null,
 }
 
 function BeverageDrank({ name, image, sugar, consume, level}: props) {
     return (
         <div className='grid grid-cols-2 gap-2 rounded-2xl border border-blue shadow-beverage p-2 w-[160px] h-[110px]'>
-            <div className='flex flex-col justify-between items-center gap-2'>
+            <div className='flex flex-col justify-center items-center gap-2'>
               <Image src={image} alt='' width={40} height={40}/>
               <h2 className='text-lg text-darkBlue'>{name}</h2>
             </div>

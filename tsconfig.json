@@ -33,7 +33,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-, "app/api/user/crude_app/server.ts"  ],
+, "app/api/user/crude_app/server.ts", "utils/cookies.ts"  ],
   "exclude": [
     "node_modules"
   ]

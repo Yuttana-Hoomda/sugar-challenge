@@ -20,8 +20,6 @@ const UserSchema = new mongoose.Schema({
     weight: { type: Number, default: 0 },
     height: { type: Number, default: 0 },
     bmi: { type: Number, default: 0 },
-    currentSugar: { type: Number, default: 0 },
-    beverageHistory: [BeverageHistorySchema],
     dailySugar: [DailySugarSchema],
 });
 

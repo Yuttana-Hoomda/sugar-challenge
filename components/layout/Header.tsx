@@ -23,7 +23,7 @@ const Header = () => {
             >
               Sign Out
             </button>
-            <h4 className='font-light text-blue text-sm'>{session.user.name || 'User'}</h4>
+            <h4 className='font-light text-blue text-sm'>{session?.user?.name || 'User'}</h4>
             <FaUserCircle size={25} color='#4F80C0'/>
           </>
         )}

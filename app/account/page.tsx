@@ -2,8 +2,15 @@ import React, { useState } from "react";
 import Image from "next/image";
 import DropDown from "./dropDown";
 import Avartar1 from "../images/avartar1.svg";
-
+import { useRouter } from "next/router";
 const Account = () => {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push("/editAccount");
+  };
+
+
   return (
     <div className="relative">
       <h1 className="font-semibold text-[25px] text-center">ข้อมูลทั่วไป</h1>
@@ -21,6 +28,7 @@ const Account = () => {
       <div className="flex justify-center mt-4">
         <button
           type="button"
+          onClick={handleClick}
           className="text-white bg-gradient-to-r from-blue to-blue font-medium rounded-full text-m px-5 py-2.5 text-center me-2 mb-2"
         >
           แก้ไขข้อมูล

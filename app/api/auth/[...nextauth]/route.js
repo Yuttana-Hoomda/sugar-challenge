@@ -41,7 +41,9 @@ export const authOptions = {
             return `/createUser?email=${encodeURIComponent(email)}`;
           }
           
-          return `/getUser?email=${encodeURIComponent(email)}`;
+          return `/editAccount?email=${encodeURIComponent(email)}` ;
+          
+
         } catch (error) {
           console.error("เกิดข้อผิดพลาดระหว่างการเข้าสู่ระบบ:", error);
           return `/auth/error?error=${encodeURIComponent(error.message)}`;

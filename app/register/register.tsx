@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState } from "react";
@@ -157,6 +158,7 @@ const Register = () => {
             <div className="text-4xl text-black text-center">{bmiCategory}</div>
           </div>
         )}
+        
       </div>
 
       <div 

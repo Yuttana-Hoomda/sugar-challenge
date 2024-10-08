@@ -5,7 +5,7 @@ import { NextResponse } from 'next/server';
 export async function POST(req) {
   try {
     await connectToDB();
-    const { email, gender, weight, height, bmi } = await req.json();
+    const { name , email, gender, weight, height, bmi } = await req.json();
     
     // Validate required fields
     if (!email || !gender || !weight || !height || !bmi) {
@@ -21,6 +21,7 @@ export async function POST(req) {
       { email },
       { 
         $set: {
+          name,
           gender,
           weight: Number(weight),
           height: Number(height),

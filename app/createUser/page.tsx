@@ -29,8 +29,11 @@ export default function CreateUserPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-4">สร้างโปรไฟล์ผู้ใช้</h1>
+    <div>
+    <div className="text-center font-light text-2xl">Hey there,</div>
+    <div className="text-center mt-4 font-bold text-3xl">
+      Create an account
+    </div>
       <CreateUserForm email={session?.user?.email || email || ''} />
     </div>
   );

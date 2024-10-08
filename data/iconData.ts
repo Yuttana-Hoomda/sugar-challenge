@@ -6,8 +6,9 @@ import CalendarIcon from '../public/icons/icon-calendar.svg'
 import CalendarIconActive from '../public/icons/icon-calendar-active.svg'
 import AccountIcon from '../public/icons/icon-user.svg'
 import AccountIconActive from '../public/icons/icon-user-active.svg'
+import { useRouter } from 'next/navigation';
 
-type Path = '/' | '/beverage' | '/calendar' | '/account';
+type Path = '/' | '/beverage' | '/calendar' | `/getUser?email=${string}`;
 const IconData = {
     '/home' : {
         default: HomeIcon,
@@ -21,7 +22,7 @@ const IconData = {
         default: CalendarIcon,
         active: CalendarIconActive
     },
-    '/account' : {
+    '/getUser?email=' : {
         default: AccountIcon,
         active: AccountIconActive
     }

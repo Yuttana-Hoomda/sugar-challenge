@@ -1,8 +1,9 @@
+'use client'
 import React, { useState } from "react";
 import Image from "next/image";
 import DropDown from "./dropDown";
 import Avartar1 from "../images/avartar1.svg";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 const Account = () => {
   const router = useRouter();
 

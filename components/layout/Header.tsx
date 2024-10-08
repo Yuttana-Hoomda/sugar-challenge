@@ -1,14 +1,14 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { FaUserCircle } from "react-icons/fa";
 import { signOut, useSession } from "next-auth/react";
 import Image from 'next/image';
+import Avatar from '@/public/icons/avatar.svg'
 
 const Header = () => {
   const {data: session} = useSession()
   const userName = session?.user?.name || 'userName'
-  const userImg = session?.user?.image || '/default-user.png'
+  const userImg = session?.user?.image || Avatar
 
   const handleSignOut = () => {
     signOut({ callbackUrl: '/' });

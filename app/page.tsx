@@ -23,9 +23,9 @@ const Longin = () => {
         if (response.ok) {
           const userData = await response.json();
           if (userData.gender && userData.weight && userData.height) {
-            router.push('/home');
+            router.push(`/home?email=${encodeURIComponent(session.user.email)}`);
           } else {
-            router.push('/createUser');
+            router.push(`/createUser?email=${encodeURIComponent(session.user.email)}`);
           }
         } else if (response.status === 404) {
           router.push('/createUser');

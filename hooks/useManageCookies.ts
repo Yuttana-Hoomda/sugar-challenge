@@ -34,7 +34,7 @@ export const useManageCookies = () => {
         const currentSugarValue = sugarValue; 
         const newSugarValue = currentSugarValue + valueToAdd;
         setSugarValue(newSugarValue);
-        setCookie('sugar', newSugarValue.toString()); 
+        setCookie('sugarValue', newSugarValue.toString()); 
     };
 
     const updateBeverageHistory = (newBeverage: Beverage) => {
@@ -49,7 +49,7 @@ export const useManageCookies = () => {
     }
 
     useEffect(() => {
-        const storeSugarValue = getCookie('sugar')
+        const storeSugarValue = getCookie('sugarValue')
         if (storeSugarValue) {
             setSugarValue(parseFloat(storeSugarValue));
         }

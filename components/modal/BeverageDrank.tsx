@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { RiDeleteBin6Line } from "react-icons/ri";
+import BeverageIcon from '@/public/icons/beverageIcon.svg';
 import Image from 'next/image'
 
 type props = {
@@ -23,7 +23,7 @@ function BeverageDrank({ name, image, sugar, consume, level}: props) {
                 <h3 className='text-light text-darkBlue text-sm'>{sugar} g</h3>
               </div>
               <div className='flex justify-center items-center bg-lightBlue rounded-md gap-2 px-2 w-full'>
-                <div className='bg-blue w-2 h-2 rounded-full'/>
+                <Image src={BeverageIcon} alt='beverageIcon' width={10} height={10}/>
                 <h3 className='text-light text-darkBlue text-sm'>{consume}</h3>
               </div>
               <div className='flex justify-center items-center bg-lightBlue rounded-md w-full'>

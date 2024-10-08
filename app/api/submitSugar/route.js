@@ -1,12 +1,21 @@
-import { connectToDB } from "@/utils/connectToDB";
-import User from "@/models/user";
-import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '../auth/[...nextauth]/route'
+import { connectToDB } from '@/utils/connectToDB'
+import User from '@/models/user'
+import { getSession } from 'next-auth/react'
 
-export async function POST(req) {
-    const email = req.nextUrl.searchParams.get("email");
-    const { date, value } = await req.json(); 
-
+export const POST = async (req) => {
     try {
+        const session = await getServerSession(authOptions)
+        console.log(session)
+        if (!session) {
+            return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+        }
+
+        const email = session.user.email;
+        const { date, value } = await req.json();
+
         await connectToDB();
 
         let user = await User.findOne({ email });

@@ -29,8 +29,6 @@ export const authOptions = {
               weight: 0,
               height: 0,
               bmi: 0,
-              currentSugar: 0,
-              beverageHistory: [],
               dailySugar: []
             });
             return `/createUser?email=${encodeURIComponent(email)}`;
@@ -41,9 +39,7 @@ export const authOptions = {
             return `/createUser?email=${encodeURIComponent(email)}`;
           }
           
-          return `/editAccount?email=${encodeURIComponent(email)}` ;
-          
-
+          return true;
         } catch (error) {
           console.error("เกิดข้อผิดพลาดระหว่างการเข้าสู่ระบบ:", error);
           return `/auth/error?error=${encodeURIComponent(error.message)}`;

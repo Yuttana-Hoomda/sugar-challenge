@@ -3,13 +3,14 @@ import React, { useState } from 'react'
 import { IoIosCloseCircle } from "react-icons/io";
 import SelectButton from './SelectButton';
 import Hundred from '../../public/icons/hundred.svg'
-import Twentyfive from '../../public/icons/seventyfive.svg'
+import Twentyfive from '../../public/icons/twentyfive.svg'
 import Fifty from '../../public/icons/fifty.svg'
-import Seventyfive from '../../public/icons/twentyfive.svg'
+import Seventyfive from '../../public/icons/seventyfive.svg'
 import HundredActive from '../../public/icons/hundred-active.svg'
-import TwentyfiveActive from '../../public/icons/seventyfive-active.svg'
+import TwentyfiveActive from '../../public/icons/twentyfive-active.svg'
 import FiftyActive from '../../public/icons/fifty-active.svg'
-import SeventyfiveActive from '../../public/icons/twentyfive-active.svg'
+import SeventyfiveActive from '../../public/icons/seventyfive-active.svg'
+import { useManageCookies } from '@/hooks/useManageCookies';
 
 interface AddBeverageModalProps {
   menu: string,
@@ -21,7 +22,7 @@ interface AddBeverageModalProps {
 
 interface BeverageData {
   menu: string;
-  img: string;
+  img: any;
   value: number;
   quantities: string | null;
   sweetLevel: string | null;
@@ -31,8 +32,7 @@ interface BeverageData {
 const AddBeverageModal: React.FC<AddBeverageModalProps> = ({ menu, img, sugarValue, handleOpen, handleClose }) => {
   const [activeSweet, setActiveSweet] = useState<number | null>(null);
   const [activeQuantitie, setActiveQuantitie] = useState<number | null>(null);
-  const [sugar, setSugar] = useState(0);
-  const userName = 'John Doe'
+  const {updateSugarValue, updateBeverageHistory} = useManageCookies();
 
   if (handleOpen === false) {
     return null
@@ -95,43 +95,22 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({ menu, img, sugarVal
     return updatedSugar;
   };
 
-  const PostData = async (data: BeverageData) => {
-    try {
-      const response = await fetch(`http://localhost:3000/api/user/${userName}/addBeverage`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text(); // Read raw response text
-        throw new Error(errorText || 'Failed to post beverage data');
-      }
-
-      const result = await response.json();
-      console.log('Beverage added:', result);
-      handleModalClose();
-    } catch (error) {
-      console.error('Error to post beverageHistory:', error);
-    }
-  };
-
-
   const handleSubmit = () => {
     let updatedSugar = calculateSugar(sugarValue, activeSweet, activeQuantitie)
     console.log(updatedSugar)
 
+    updateSugarValue(updatedSugar);
+
     const BeverageData: BeverageData = {
       menu: menu,
-      img: img.src,
+      img: img,
       value: updatedSugar,
-      quantities: activeQuantitie !== null ? ['100%', '75%', '50%', '25%'][activeQuantitie] : null,
-      sweetLevel: activeSweet !== null ? sweetLevel[activeSweet] : null
+      quantities: activeQuantitie !== null ? ['100%', '75%', '50%', '25%'][activeQuantitie] : '100%',
+      sweetLevel: activeSweet !== null ? sweetLevel[activeSweet] : 'หวานปกติ'
     }
 
-    PostData(BeverageData)
+    updateBeverageHistory(BeverageData);
+    handleModalClose()
   }
 
   return (

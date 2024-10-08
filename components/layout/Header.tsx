@@ -1,11 +1,14 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaUserCircle } from "react-icons/fa";
-import { useSession, signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
+import Image from 'next/image';
 
 const Header = () => {
-  const { data: session, status } = useSession();
+  const {data: session} = useSession()
+  const userName = session?.user?.name || 'userName'
+  const userImg = session?.user?.image || '/default-user.png'
 
   const handleSignOut = () => {
     signOut({ callbackUrl: '/' });
@@ -15,7 +18,6 @@ const Header = () => {
     <div className='flex items-center justify-between px-5 py-4 border-b border-blue bg-white sticky top-0 z-50'>
       <h1 className='font-bold text-4xl text-blue'>LOGO</h1>
       <div className='flex items-center gap-2'>
-        {status === 'authenticated' && (
           <>
             <button 
               onClick={handleSignOut}
@@ -23,10 +25,15 @@ const Header = () => {
             >
               Sign Out
             </button>
-            <h4 className='font-light text-blue text-sm'>{session?.user?.name || 'User'}</h4>
-            <FaUserCircle size={25} color='#4F80C0'/>
+            <h4 className='font-light text-blue text-sm'>{userName}</h4>
+            <Image
+              src={userImg}
+              width={30}
+              height={30}
+              alt='user profile'
+              className='rounded-full'
+            />
           </>
-        )}
       </div>
     </div>
   );

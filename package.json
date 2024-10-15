@@ -12,10 +12,8 @@
     "express": "^4.21.0",
     "firebase": "^10.13.2",
     "firebase-admin": "^12.5.0",
-<<<<<<< HEAD
-=======
+    "idb": "^8.0.0",
     "js-cookie": "^3.0.5",
->>>>>>> 93d19f84b72b2baa1f06bd950b1fde502393de44
     "lucide-react": "^0.445.0",
     "mongoose": "^8.6.3",
     "next": "14.2.11",

@@ -31,10 +31,12 @@ const GetUser = () => {
     const fetchUser = async () => {
       const email = new URLSearchParams(window.location.search).get("email");
       const response = await fetch(`/api/getuser?email=${email}`);
+    
       
       if (response.ok) {
         const userData = await response.json();
         setUser(userData);
+      
       } else {
         const errorData = await response.json();
         setError(errorData.error);
@@ -52,15 +54,7 @@ const GetUser = () => {
     return <div>Loading...</div>;
   }
 
-  const getProfileImage = (gender: string) => {
-    if (gender === "female") {
-      return "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80";
-    } else if (gender === "male") {
-      return "https://images.unsplash.com/photo-1502767089025-6572583495b4?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"; // Replace with the actual male image URL
-    } else {
-      return "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"; // Default image
-    }
-  };
+
 
 
 

@@ -10,7 +10,6 @@ interface CreateUserFormProps {
 
 export default function CreateUserForm({ email }: CreateUserFormProps) {
   const [formData, setFormData] = useState({
-    name: "",
     gender: "",
     weight: "",
     height: "",
@@ -31,18 +30,25 @@ export default function CreateUserForm({ email }: CreateUserFormProps) {
     return (weight / (heightInMeters * heightInMeters)).toFixed(2);
   };
 
+  
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
     console.log("Form data:", formData);
 
     // Check if all fields are filled
-    if (!formData.name || !formData.gender || !formData.weight || !formData.height || !formData.email) {
+    if ( !formData.gender || !formData.weight || !formData.height || !formData.email) {
       setError("All fields are required");
-      
       return;
     }
 
+    // Check if weight and height are non-negative
+    if (Number(formData.weight) <= 0 || Number(formData.height) <= 0) {
+      setError("Weight and height must be positive values");
+      return;
+  }
+  
     try {
       const res = await fetch("/api/createuser", {
         method: "POST",
@@ -72,7 +78,7 @@ export default function CreateUserForm({ email }: CreateUserFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 max-w-md mx-auto">
-      <div className="flex items-center p-3 rounded-xl mt-6 border border-indigo-950">
+      {/* <div className="flex items-center p-3 rounded-xl mt-6 border border-indigo-950">
         <User className="text-gray-700 mr-3" />
         <input
           type="text"
@@ -83,16 +89,16 @@ export default function CreateUserForm({ email }: CreateUserFormProps) {
           className="flex-1 outline-none"
           required
         />
-      </div>
+      </div> */}
 
-      <div className="flex items-center bg-white p-3 rounded-lg border border-indigo-950">
+      <div className="flex items-center bg-white p-3 rounded-lg border border-indigo-950 mt-4">
         <User className="text-gray-700 mr-3" />
         <select
           name="gender"
           value={formData.gender}
           onChange={handleChange}
           required
-          className="w-full flex-1 outline-none appearance-none bg-transparent"
+          className="w-full flex-1 outline-none appearance-none bg-transparentm pl-2"
         >
           <option value="">เลือกเพศ</option>
           <option value="male">ชาย</option>
@@ -118,6 +124,7 @@ export default function CreateUserForm({ email }: CreateUserFormProps) {
           KG
         </span>
       </div>
+
 
       <div className="flex gap-5">
         <div className="w-full flex border border-indigo-950 rounded-lg items-center bg-white p-3">

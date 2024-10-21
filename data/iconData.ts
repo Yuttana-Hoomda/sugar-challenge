@@ -9,6 +9,7 @@ import AccountIconActive from '../public/icons/icon-user-active.svg'
 import { useRouter } from 'next/navigation';
 
 type Path = '/' | '/beverage' | '/calendar' | `/getUser?email=${string}`;
+
 const IconData = {
     '/home' : {
         default: HomeIcon,

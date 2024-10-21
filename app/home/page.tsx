@@ -6,19 +6,34 @@ import BeverageDrank from '@/components/modal/BeverageDrank';
 import { useManageCookies } from '@/hooks/useManageCookies';
 import EmptyBeverage from '@/public/icons/hundred.svg';
 import Image from 'next/image';
+import HomeSkeleton from '@/components/skeletons/HomeSkeleton';
+import { getCookie } from 'cookies-next';
 
 
 const HomePage = () => {
-  const { sugarValue, beverageHistory } = useManageCookies();
+  const { beverageHistory } = useManageCookies();
   const [isLoading, setIsLoading] = useState(false);
+  const [sugarvalue, setSugarValue] = useState<number>(0)
 
   useEffect(() => {
+    const getData = async () => {
+      const response = await fetch('/api/cookies', {
+        method: 'GET',
+        credentials: 'include', // Ensure cookies are included
+    });}
+    getData()
+    setSugarValue(Number(getData()))
+    // const value = getCookie('sugarValue')
+    // console.log(value)
+    // if (value) {
+    //   setSugarValue(Number(value))
+    // }
     setIsLoading(true)
   }, []);
 
 
   if (!isLoading) {
-    return <h1>loading</h1>;
+    return <HomeSkeleton/>;
   }
 
   return (
@@ -29,7 +44,7 @@ const HomePage = () => {
           <FaCircleInfo size={20} color='#4F80C0' />
         </div>
         <div className='flex-center py-6'>
-          <CircularProgress size={165} sugarValue={sugarValue} />
+          <CircularProgress size={165} sugarValue={sugarvalue} />
         </div>
       </div>
 

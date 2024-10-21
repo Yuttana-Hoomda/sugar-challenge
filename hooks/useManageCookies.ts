@@ -1,5 +1,5 @@
-import { getCookie, setCookie, removeCookies } from "@/utils/cookies";
-import { useState, useEffect } from "react";
+import { getCookie, setCookie } from 'cookies-next';
+import { useState, useEffect } from 'react';
 
 interface Beverage {
     menu: string;
@@ -10,64 +10,30 @@ interface Beverage {
 }
 
 export const useManageCookies = () => {
-    const [sugarValue, setSugarValue] = useState<number>(() => {
-        const storeValue = getCookie('sugarValue');
-        return storeValue ? parseFloat(storeValue) : 0
-    });
+    const [beverageHistory, setBeverageHistory] = useState<Beverage[]>([]); // Initialize as empty array
 
-    const [beverageHistory, setBeverageHistory] = useState<Beverage[]>(() => {
-        const storeValue = getCookie('beverage');
-        console.log('Stored Cookie Value:', storeValue);
-        if (storeValue === undefined || storeValue === null || storeValue === '') {
-            return []; 
-        }
-
-        try {
-            return JSON.parse(storeValue); 
-        } catch (error) {
-            console.error('Error parsing JSON:', error);
-            return []; 
-        }
-    });
-
-    const updateSugarValue = (valueToAdd: number) => {
-        const currentSugarValue = sugarValue; 
-        const newSugarValue = currentSugarValue + valueToAdd;
-        setSugarValue(newSugarValue);
-        setCookie('sugarValue', newSugarValue.toString()); 
+    // Update beverage history
+    const updateBeverageHistory = (newBeverage: Beverage) => {
+        const updateHistory = [newBeverage, ...beverageHistory].slice(0, 4);
+        setBeverageHistory(updateHistory);
+        setCookie('beverage', JSON.stringify(updateHistory), { path: '/' });
     };
 
-    const updateBeverageHistory = (newBeverage: Beverage) => {
-        let updateHistory = [newBeverage, ...beverageHistory];
-        if (updateHistory.length > 4) {
-            updateHistory.pop();
-            updateHistory.unshift();
-        }
-
-        setBeverageHistory(updateHistory)
-        setCookie('beverage', JSON.stringify(updateHistory))
-    }
-
+    // Fetch cookie on client-side after component mounts
     useEffect(() => {
-        const storeSugarValue = getCookie('sugarValue')
-        if (storeSugarValue) {
-            setSugarValue(parseFloat(storeSugarValue));
-        }
-
-        const storeBeverageHistory = getCookie('beverage');
+        const storeBeverageHistory = getCookie('beverage'); // Get cookie on client-side
+        console.log('Stored Cookie Value:', storeBeverageHistory);
         if (storeBeverageHistory) {
             try {
-                setBeverageHistory(JSON.parse(storeBeverageHistory)); // Parse and set history safely
+                setBeverageHistory(JSON.parse(storeBeverageHistory as string)); // Parse if cookie exists
             } catch (error) {
-                console.error('Error parsing JSON in effect:', error); // Log any parsing errors
+                console.error('Error parsing JSON in effect:', error);
             }
         }
-    }, [])
+    }, []); // Empty dependency array to run only once on mount
 
     return {
-        sugarValue,
-        updateSugarValue,
         beverageHistory,
-        updateBeverageHistory
-    }
-}
+        updateBeverageHistory,
+    };
+};

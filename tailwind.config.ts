@@ -15,6 +15,8 @@ const config: Config = {
         "darkBlue": '#002D63',
         "lightBlue": '#EBF4FF',
         "buttonActive": '#D7E9FF',
+        "skeleton": '#DAEBFF',
+        "skeletonPrimary": '#c3d7f1'
       },
       boxShadow: {
         "top": '0px -2px 15px rgba(0, 0, 0, 0.15)',

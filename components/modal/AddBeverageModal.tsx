@@ -32,7 +32,7 @@ interface BeverageData {
 const AddBeverageModal: React.FC<AddBeverageModalProps> = ({ menu, img, sugarValue, handleOpen, handleClose }) => {
   const [activeSweet, setActiveSweet] = useState<number | null>(null);
   const [activeQuantitie, setActiveQuantitie] = useState<number | null>(null);
-  const {updateSugarValue, updateBeverageHistory} = useManageCookies();
+  const {updateBeverageHistory} = useManageCookies();
 
   if (handleOpen === false) {
     return null
@@ -95,11 +95,25 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({ menu, img, sugarVal
     return updatedSugar;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     let updatedSugar = calculateSugar(sugarValue, activeSweet, activeQuantitie)
     console.log(updatedSugar)
 
-    updateSugarValue(updatedSugar);
+    const email = new URLSearchParams(window.location.search).get("email");
+    const response = await fetch(`/api/submitSugar?email=${email}`, {
+      method: 'POST',
+      headers: {
+        "Content-Type" : "application/json",
+      },
+      body: JSON.stringify({addValue: updatedSugar})
+    })
+  
+    if (response.ok) {
+      const result = await response.json();
+      console.log('Value:', result.newValue);
+    } else {
+      console.error('Failed to set cookie');
+    }
 
     const BeverageData: BeverageData = {
       menu: menu,

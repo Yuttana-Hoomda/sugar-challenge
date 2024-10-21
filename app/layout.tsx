@@ -4,6 +4,7 @@ import { Kanit } from 'next/font/google';
 import BottomBar from "@/components/layout/BottomBar";
 import Header from "@/components/layout/Header";
 import {NextAuthProvider } from "@/app/Providers"
+import toast, { Toaster } from "react-hot-toast";
 
 const kanit = Kanit({
   subsets: ['latin'],
@@ -23,6 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${kanit.className} antialiased`}>
+      <Toaster />
         <NextAuthProvider>
           {children}
         </NextAuthProvider>

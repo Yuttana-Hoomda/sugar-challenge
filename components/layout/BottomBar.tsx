@@ -30,7 +30,7 @@ const BottomBar:React.FC<navBarProps> = ({IconSize}) => {
         return;
       }
       const email = session?.user?.email;
-      const url = `${path}?email=${encodeURIComponent(email || '')}`;
+      const url = `${path}`;
       router.push(url);
     }
     

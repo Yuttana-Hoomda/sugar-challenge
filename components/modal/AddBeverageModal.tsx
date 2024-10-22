@@ -10,7 +10,6 @@ import HundredActive from "../../public/icons/hundred-active.svg";
 import TwentyfiveActive from "../../public/icons/twentyfive-active.svg";
 import FiftyActive from "../../public/icons/fifty-active.svg";
 import SeventyfiveActive from "../../public/icons/seventyfive-active.svg";
-import { useManageCookies } from "@/hooks/useManageCookies";
 import toast, { Toaster } from "react-hot-toast";
 
 interface AddBeverageModalProps {
@@ -19,6 +18,11 @@ interface AddBeverageModalProps {
   handleOpen: boolean;
   handleClose: () => void;
   sugarValue: number;
+}
+
+interface SubmitSugarDataParams {
+  date: string;
+  value: number;
 }
 
 interface BeverageData {
@@ -38,11 +42,6 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({
 }) => {
   const [activeSweet, setActiveSweet] = useState<number | null>(null);
   const [activeQuantitie, setActiveQuantitie] = useState<number | null>(null);
-<<<<<<< HEAD
-  const {updateBeverageHistory} = useManageCookies();
-=======
-  const { updateSugarValue, updateBeverageHistory } = useManageCookies();
->>>>>>> master
 
   if (handleOpen === false) {
     return null;
@@ -109,46 +108,14 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({
     return updatedSugar;
   };
 
-<<<<<<< HEAD
-  const handleSubmit = async () => {
-    let updatedSugar = calculateSugar(sugarValue, activeSweet, activeQuantitie)
-    console.log(updatedSugar)
-
-    const email = new URLSearchParams(window.location.search).get("email");
-    const response = await fetch(`/api/submitSugar?email=${email}`, {
-      method: 'POST',
-      headers: {
-        "Content-Type" : "application/json",
-      },
-      body: JSON.stringify({addValue: updatedSugar})
-    })
-  
-    if (response.ok) {
-      const result = await response.json();
-      console.log('Value:', result.newValue);
-    } else {
-      console.error('Failed to set cookie');
-    }
-=======
-  const submitSugarData = async ({
-    menu,
-    quantities,
-    sweetLevel,
-    value,
-  }: {
-    menu: string | null;
-    quantities: string | null;
-    sweetLevel: string | null;
-    img?: string;
-    value: Number;
-  }) => {
+  const submitSugarData = async ({ date, value }: SubmitSugarDataParams) => {
     try {
       const response = await fetch("/api/submitSugar", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ menu, quantities, sweetLevel, value }),
+        body: JSON.stringify({ date, value }),
       });
 
       if (response.ok) {
@@ -156,7 +123,6 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({
       } else {
         toast.error("มีข้อผิดพลาด!");
       }
->>>>>>> master
 
       const result = await response.json();
       console.log("Success:", result);
@@ -178,13 +144,16 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({
       sweetLevel: activeSweet !== null ? sweetLevel[activeSweet] : "หวานปกติ",
     };
 
-    // Todo: remove this no longer use
-    updateSugarValue(updatedSugar);
+    const getFormattedDate = () => {
+      const date = new Date();
+      date.setHours(0, 0, 0, 0);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+  };
 
-    // Todo: remove this no longer use
-    updateBeverageHistory(BeverageData);
-
-    await submitSugarData(BeverageData);
+    await submitSugarData({date: getFormattedDate(), value: updatedSugar});
     handleModalClose();
   };
 

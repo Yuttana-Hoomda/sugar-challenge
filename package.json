@@ -19,13 +19,8 @@
     "mongoose": "^8.6.3",
     "next": "14.2.11",
     "next-auth": "^4.24.7",
-<<<<<<< HEAD
-    "next-cookies": "^2.0.3",
-    "node-cron": "^3.0.3",
-=======
     "node-cron": "^3.0.3",
     "nodemailer": "^6.9.15",
->>>>>>> master
     "react": "^18.3.1",
     "react-calendar": "^5.0.0",
     "react-dom": "^18.3.0",

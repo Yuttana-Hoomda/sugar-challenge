@@ -3,23 +3,19 @@ import React, { useEffect, useState } from "react";
 import { FaCircleInfo } from "react-icons/fa6";
 import CircularProgress from "@/components/CircularProgress";
 import BeverageDrank from "@/components/modal/BeverageDrank";
-import { useManageCookies } from "@/hooks/useManageCookies";
 import EmptyBeverage from "@/public/icons/hundred.svg";
 import Image from "next/image";
-import { useSession } from "next-auth/react";
+import HomeSkeleton from "@/components/skeletons/HomeSkeleton";
 
 const HomePage = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [dailySugar, setDailySugar] = useState([]);
+  const [sugarValue, setSugarValue] = useState(0);
 
   useEffect(() => {
-    setIsLoading(true)
+    setIsLoading(true);
+    getDailySugarData()
   }, []);
-
-  useEffect(() => {
-    if (!isLoading) {
-      getDailySugarData();
-    }
-  }, [isLoading]);
 
   const getDailySugarData = async () => {
     try {
@@ -35,9 +31,22 @@ const HomePage = () => {
       }
 
       const result = await response.json();
-      if (result) {
-        setDailySugar(result.dailySugar);
-        setSugarValue(result.sugarValue);
+
+      const getFormattedDate = () => {
+        const date = new Date();
+        date.setHours(0, 0, 0, 0);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+      };
+      console.log(result.date)
+      console.log(getFormattedDate())
+
+      if (result.date !== getFormattedDate()) {
+        setSugarValue(0)
+      } else {
+        setSugarValue(result.value);
       }
     } catch (error) {
       console.error("Error:", error);
@@ -45,7 +54,7 @@ const HomePage = () => {
   };
 
   if (!isLoading) {
-    return <HomeSkeleton/>;
+    return <HomeSkeleton />;
   }
 
   return (
@@ -55,7 +64,7 @@ const HomePage = () => {
           <h1 className="font-semibold text-2xl text-darkBlue">ปริมาณน้ำตาล</h1>
           <FaCircleInfo size={20} color="#4F80C0" />
         </div>
-        <div className='flex-center py-6'>
+        <div className="flex-center py-6">
           <CircularProgress size={165} sugarValue={sugarValue} />
         </div>
       </div>

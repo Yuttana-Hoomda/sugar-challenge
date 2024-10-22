@@ -27,11 +27,11 @@ const GetUser = () => {
   
   useEffect(() => {
     const fetchUser = async () => {
-      const email = new URLSearchParams(window.location.search).get("email");
-      const response = await fetch(`/api/getuser?email=${email}`);
+      const response = await fetch(`/api/getuser`);
       
       if (response.ok) {
         const userData = await response.json();
+        console.log(userData)
         setUser(userData);
       } else {
         const errorData = await response.json();

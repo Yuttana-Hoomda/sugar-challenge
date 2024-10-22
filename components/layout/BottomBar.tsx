@@ -29,7 +29,6 @@ const BottomBar:React.FC<navBarProps> = ({IconSize}) => {
         alert('User is not logged in');
         return;
       }
-      const email = session?.user?.email;
       const url = `${path}`;
       router.push(url);
     }

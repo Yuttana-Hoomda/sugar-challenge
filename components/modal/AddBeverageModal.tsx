@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { IoIosCloseCircle } from "react-icons/io";
-import SelectButton from "./SelectButton";
+import SelectButton from "../SelectButton";
 import Hundred from "../../public/icons/hundred.svg";
 import Twentyfive from "../../public/icons/twentyfive.svg";
 import Fifty from "../../public/icons/fifty.svg";
@@ -27,10 +27,11 @@ interface SubmitSugarDataParams {
 
 interface BeverageData {
   menu: string;
-  img: any;
+  img: string;
   value: number;
   quantities: string | null;
   sweetLevel: string | null;
+  createAt: string
 }
 
 const AddBeverageModal: React.FC<AddBeverageModalProps> = ({
@@ -118,12 +119,6 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({
         body: JSON.stringify({ date, value }),
       });
 
-      if (response.ok) {
-        toast.success("บันทึกข้อมูลสำเร็จ!");
-      } else {
-        toast.error("มีข้อผิดพลาด!");
-      }
-
       const result = await response.json();
       console.log("Success:", result);
     } catch (error) {
@@ -131,29 +126,51 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({
     }
   };
 
-  const handleSubmit = async() => {
+  const submitBeverageHistory = async (beverageData: BeverageData) => {
+    try {
+      const response = await fetch("/api/submitBeverage", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(beverageData),
+      });
+
+      const result = await response.json();
+      console.log("Success:", result);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
+  const handleSubmit = async () => {
     let updatedSugar = calculateSugar(sugarValue, activeSweet, activeQuantitie);
+
+    const getFormattedDate = () => {
+      const date = new Date();
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    };
+
+    const formatDate = getFormattedDate()
+
     const BeverageData: BeverageData = {
       menu: menu,
-      img: img,
+      img: img.src,
       value: updatedSugar,
       quantities:
         activeQuantitie !== null
           ? ["100%", "75%", "50%", "25%"][activeQuantitie]
           : "100%",
       sweetLevel: activeSweet !== null ? sweetLevel[activeSweet] : "หวานปกติ",
+      createAt: formatDate
     };
 
-    const getFormattedDate = () => {
-      const date = new Date();
-      date.setHours(0, 0, 0, 0);
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const day = String(date.getDate()).padStart(2, '0');
-      return `${year}-${month}-${day}`;
-  };
-
-    await submitSugarData({date: getFormattedDate(), value: updatedSugar});
+    await submitSugarData({ date: formatDate, value: updatedSugar });
+    await submitBeverageHistory(BeverageData)
+    toast.success("บันทึกข้อมูลสำเร็จ")
     handleModalClose();
   };
 
@@ -179,11 +196,10 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({
                 <div key={index}>
                   <SelectButton
                     title={level}
-                    className={`w-[90px] ${
-                      activeSweet === index
+                    className={`w-[90px] ${activeSweet === index
                         ? "bg-buttonActive border-darkBlue text-darkBlue"
                         : ""
-                    }`}
+                      }`}
                     onClick={() => handleSweetLevelButton(index)}
                   />
                 </div>
@@ -202,11 +218,10 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({
                     icon={
                       activeQuantitie === index ? items.iconActive : items.icon
                     }
-                    className={`w-[75px] ${
-                      activeQuantitie === index
+                    className={`w-[75px] ${activeQuantitie === index
                         ? "bg-buttonActive border-darkBlue text-darkBlue"
                         : ""
-                    } ${activeSweet === null ? "opacity-50" : ""}`}
+                      } ${activeSweet === null ? "opacity-50" : ""}`}
                     onClick={() => handleQuantitieLevelButton(index)}
                     disable={activeSweet === null}
                   />
@@ -216,9 +231,8 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({
           </div>
         </div>
         <div
-          className={`${
-            activeSweet === null || activeQuantitie === null ? "opacity-50" : ""
-          } flex-center pt-8`}
+          className={`${activeSweet === null || activeQuantitie === null ? "opacity-50" : ""
+            } flex-center pt-8`}
         >
           <button
             className="bg-gradient-to-r from-blue to-darkBlue text-white rounded-xl w-[80%] py-2 font-medium text-xl"

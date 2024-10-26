@@ -36,6 +36,7 @@ export const authOptions = {
               weight: 0,
               height: 0,
               bmi: 0,
+              beverageHistory: [],
               dailySugar: []
             });
           }

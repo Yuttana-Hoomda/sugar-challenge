@@ -6,7 +6,7 @@ import AddBeverageModal from './AddBeverageModal';
 
 interface BeverageCardProps {
   menu: string,
-  img: any,
+  img: string,
   sugarValue:number
 }
 

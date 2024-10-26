@@ -2,27 +2,19 @@ import React, { useEffect } from 'react'
 import BeverageIcon from '@/public/icons/beverageIcon.svg';
 import Image from 'next/image'
 
-type props = {
+interface beverageDrankProps {
     name: string,
     sugar: number,
     consume: string | null,
     level: string | null,
+    img: string
 }
 
-const imageDrinks = {
-  "กาแฟ": "/images/coffee.svg",
-  "ชา": "/images/tea.svg",
-  "น้ำผลไม้": "/images/juice.svg",
-  "นม": "/images/milk.svg",
-  "น้ำอัดลม": "/images/soft.svg",
-  "โซดา": "/images/soda.svg",
-}
-
-function BeverageDrank({ name, sugar, consume, level}: props) {
+const BeverageDrank:React.FC<beverageDrankProps> = ({ name, sugar, consume, level, img}) => {
     return (
         <div className='grid grid-cols-2 gap-2 rounded-2xl border border-blue shadow-beverage p-2 w-[160px] h-[110px]'>
             <div className='flex flex-col justify-center items-center gap-2'>
-              <Image src={imageDrinks[name]} alt='' width={40} height={40}/>
+              <Image src={img} alt='' width={40} height={40}/>
               <h2 className='text-lg text-darkBlue'>{name}</h2>
             </div>
             <div className='flex flex-col justify-between items-center'>

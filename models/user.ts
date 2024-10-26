@@ -10,6 +10,7 @@ const BeverageHistorySchema = new mongoose.Schema({
     value: { type: Number, required: true },
     quantities: {type: String, required: true},
     sweetLevel: {type: String, required: true},
+    createAt: { type: String, required: true },
 });
 
 const UserSchema = new mongoose.Schema({
@@ -19,8 +20,6 @@ const UserSchema = new mongoose.Schema({
     weight: { type: Number, default: 0 },
     height: { type: Number, default: 0 },
     bmi: { type: Number, default: 0 },
-    BeverageHistory: [BeverageHistorySchema],
-    dailySugar: [DailySugarSchema],
 });
 
 const User = mongoose.models.User || mongoose.model("User", UserSchema);

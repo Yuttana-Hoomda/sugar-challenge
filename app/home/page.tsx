@@ -7,19 +7,54 @@ import EmptyBeverage from "@/public/icons/hundred.svg";
 import Image from "next/image";
 import HomeSkeleton from "@/components/skeletons/HomeSkeleton";
 
+interface BeverageItem {
+  menu: string;
+  value: number;
+  quantities: string;
+  sweetLevel: string;
+  img: string
+}
+
 const HomePage = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [dailySugar, setDailySugar] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [beverageList, setBeverageList] = useState<BeverageItem[]>([]);
   const [sugarValue, setSugarValue] = useState(0);
 
   useEffect(() => {
-    setIsLoading(true);
-    getDailySugarData()
+    fetchData()
+    setIsLoading(false);
   }, []);
 
-  const getDailySugarData = async () => {
+  const dateFormat = () => {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  const fetchData = async () => {
     try {
-      const response = await fetch("/api/getSugar", {
+      const [dailySugarData, beverageData] = await Promise.all([
+        getData("getSugar"),
+        getData("getBeverageHistory")
+      ])
+
+      if (dailySugarData.date === dateFormat() && beverageData[0].createAt === dateFormat()) {
+        setSugarValue(dailySugarData.value)
+        setBeverageList(beverageData)
+      } else {
+        setSugarValue(0)
+        setBeverageList([])
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const getData = async (api: string) => {
+    try {
+      const response = await fetch(`/api/${api}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -31,29 +66,13 @@ const HomePage = () => {
       }
 
       const result = await response.json();
-
-      const getFormattedDate = () => {
-        const date = new Date();
-        date.setHours(0, 0, 0, 0);
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
-      };
-      console.log(result.date)
-      console.log(getFormattedDate())
-
-      if (result.date !== getFormattedDate()) {
-        setSugarValue(0)
-      } else {
-        setSugarValue(result.value);
-      }
+      return result
     } catch (error) {
       console.error("Error:", error);
     }
   };
 
-  if (!isLoading) {
+  if (isLoading) {
     return <HomeSkeleton />;
   }
 
@@ -71,15 +90,16 @@ const HomePage = () => {
 
       <div className="flex flex-col flex-auto space-y-5 mt-12">
         <h3 className="font-semibold text-2xl mt-2 text-darkBlue">ล่าสุด</h3>
-        {dailySugar.length > 0 ? (
+        {beverageList.length > 0 ? (
           <div className="grid grid-cols-2 grid-flow-row justify-items-center items-center gap-5">
-            {dailySugar.map((item, index) => (
+            {beverageList.map((item, index) => (
               <div key={index}>
                 <BeverageDrank
                   name={item.menu}
                   sugar={item.value}
                   consume={item.quantities}
                   level={item.sweetLevel}
+                  img={item.img}
                 />
               </div>
             ))}

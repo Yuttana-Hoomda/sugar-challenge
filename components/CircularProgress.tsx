@@ -17,7 +17,7 @@ const CircularProgress:React.FC<CircularProgressProps> = ({sugarValue, size}) =>
   const outerCircleRadius = radius - padding / 2;
   const dashArray = radius * Math.PI * 2;
 
-  const maxValue = 20
+  const maxValue = 24
   const duration = 500
 
   const cappedSugarValue = Math.min(sugarValue, maxValue);

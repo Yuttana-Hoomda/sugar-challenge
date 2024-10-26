@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import DropDown from "./dropDown" // Ensure the file name matches the actual file
 import { useRouter } from 'next/navigation';
 import coffee from '../images/coffee.svg';
+import { useSession } from "next-auth/react";
 
 const GetUser = () => {
   interface User {
@@ -19,6 +20,7 @@ const GetUser = () => {
   
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState(null);
+  const {data : session} = useSession();
 
   const router = useRouter();
   const handleClick = () => {
@@ -70,7 +72,7 @@ const GetUser = () => {
       <div className="grid justify-center overflow-hidden gap-12 mt-3">
         <img
           className="inline-block h-32 w-32 rounded-full ring-2 ring-white"
-          src={getProfileImage(user.gender)}
+          src={session?.user?.image || undefined}
           alt=""
         />
       </div>

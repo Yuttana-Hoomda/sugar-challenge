@@ -22,7 +22,7 @@ const IconData = {
         default: CalendarIcon,
         active: CalendarIconActive
     },
-    '/getUser?email=' : {
+    '/getUser' : {
         default: AccountIcon,
         active: AccountIconActive
     }

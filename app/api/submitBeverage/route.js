@@ -22,7 +22,11 @@ export const POST = async (req) => {
     }
 
     const beverageData = await req.json();
-    const {createAt: newCreateAt} = beverageData.createAt
+
+    const newCreateAt = beverageData.createAt;
+    if (!newCreateAt) {
+      return NextResponse.json({ message: "Invalid beverage data" }, { status: 400 });
+    }
 
     let beverageHistory = await BeverageHistory.findOne({ user_id: user._id });
     if (!beverageHistory) {
@@ -32,8 +36,8 @@ export const POST = async (req) => {
       });
     }
 
-    if(newCreateAt !== beverageHistory.beverageList[0].createAt) {
-      beverageHistory.beverageList = []
+    if (newCreateAt !== beverageHistory.beverageList[0].createAt) {
+      beverageHistory.beverageList = [];
     }
 
     if (beverageHistory.beverageList.length >= 4) {

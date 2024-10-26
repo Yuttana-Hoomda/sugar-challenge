@@ -29,7 +29,7 @@ const GetUser = () => {
   
   useEffect(() => {
     const fetchUser = async () => {
-      const response = await fetch(`/api/getuser`);
+      const response = await fetch(`/api/getUser`);
       
       if (response.ok) {
         const userData = await response.json();

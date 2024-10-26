@@ -19,13 +19,13 @@ const Longin = () => {
       if (!session?.user?.email) return;
       
       try {
-        const response = await fetch(`/api/getuser?email=${encodeURIComponent(session.user.email)}`);
+        const response = await fetch(`/api/getUser`);
         if (response.ok) {
           const userData = await response.json();
           if (userData.gender && userData.weight && userData.height) {
-            router.push(`/home?email=${encodeURIComponent(session.user.email)}`);
+            router.push(`/home`);
           } else {
-            router.push(`/createUser?email=${encodeURIComponent(session.user.email)}`);
+            router.push(`/createUser`);
           }
         } else if (response.status === 404) {
           router.push('/createUser');

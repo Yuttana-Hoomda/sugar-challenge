@@ -36,7 +36,7 @@ export const POST = async (req) => {
       });
     }
 
-    if (newCreateAt !== beverageHistory.beverageList[0].createAt) {
+    if (beverageHistory.beverageList.length > 0 && newCreateAt !== beverageHistory.beverageList[0].createAt) {
       beverageHistory.beverageList = [];
     }
 

@@ -6,7 +6,7 @@ const test = async () => {
     const session = await getServerSession(authOptions)
     console.log(session)
   return (
-    <div>{session.user.email}</div>
+    <div>{session?.user?.email}</div>
   )
 }
 

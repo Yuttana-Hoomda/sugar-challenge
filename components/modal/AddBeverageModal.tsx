@@ -18,6 +18,7 @@ interface AddBeverageModalProps {
   handleOpen: boolean;
   handleClose: () => void;
   sugarValue: number;
+  volume: number
 }
 
 interface SubmitSugarDataParams {
@@ -40,6 +41,7 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({
   sugarValue,
   handleOpen,
   handleClose,
+  volume
 }) => {
   const [activeSweet, setActiveSweet] = useState<number | null>(null);
   const [activeQuantitie, setActiveQuantitie] = useState<number | null>(null);
@@ -158,7 +160,7 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({
 
     const BeverageData: BeverageData = {
       menu: menu,
-      img: img.src,
+      img: img,
       value: updatedSugar,
       quantities:
         activeQuantitie !== null
@@ -185,7 +187,10 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({
         />
         <div className="flex flex-col justify-center items-center gap-2">
           <Image src={img} alt={`${img}`} width={80} height={80} />
-          <h2 className="font-bold text-3xl text-darkBlue">{menu}</h2>
+          <div className="flex flex-col items-center">
+            <h2 className="font-bold text-3xl text-darkBlue">{menu}</h2>
+            <a className='text-gray-500 text-lg font-light'>{volume} ml</a>
+          </div>
         </div>
         <div className="space-y-4 pt-4">
           {/* sweetLevel */}

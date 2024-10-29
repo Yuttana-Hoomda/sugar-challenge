@@ -34,20 +34,22 @@ export const useManageCookies = () => {
         const currentSugarValue = sugarValue; 
         const newSugarValue = currentSugarValue + valueToAdd;
         setSugarValue(newSugarValue);
-        setCookie('sugar', newSugarValue.toString()); 
+        setCookie('sugarValue', newSugarValue.toString()); 
     };
 
     const updateBeverageHistory = (newBeverage: Beverage) => {
-        let updateHistory = [...beverageHistory, newBeverage];
+        let updateHistory = [newBeverage, ...beverageHistory];
         if (updateHistory.length > 4) {
-            updateHistory.shift();
+            updateHistory.pop();
+            updateHistory.unshift();
         }
+
         setBeverageHistory(updateHistory)
         setCookie('beverage', JSON.stringify(updateHistory))
     }
 
     useEffect(() => {
-        const storeSugarValue = getCookie('sugar')
+        const storeSugarValue = getCookie('sugarValue')
         if (storeSugarValue) {
             setSugarValue(parseFloat(storeSugarValue));
         }

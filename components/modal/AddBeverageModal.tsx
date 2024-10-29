@@ -3,13 +3,13 @@ import React, { useState } from 'react'
 import { IoIosCloseCircle } from "react-icons/io";
 import SelectButton from './SelectButton';
 import Hundred from '../../public/icons/hundred.svg'
-import Twentyfive from '../../public/icons/seventyfive.svg'
+import Twentyfive from '../../public/icons/twentyfive.svg'
 import Fifty from '../../public/icons/fifty.svg'
-import Seventyfive from '../../public/icons/twentyfive.svg'
+import Seventyfive from '../../public/icons/seventyfive.svg'
 import HundredActive from '../../public/icons/hundred-active.svg'
-import TwentyfiveActive from '../../public/icons/seventyfive-active.svg'
+import TwentyfiveActive from '../../public/icons/twentyfive-active.svg'
 import FiftyActive from '../../public/icons/fifty-active.svg'
-import SeventyfiveActive from '../../public/icons/twentyfive-active.svg'
+import SeventyfiveActive from '../../public/icons/seventyfive-active.svg'
 import { useManageCookies } from '@/hooks/useManageCookies';
 
 interface AddBeverageModalProps {
@@ -118,7 +118,7 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({ menu, img, sugarVal
       <div className='bg-white rounded-xl w-full relative mx-4 px-4 py-6'>
         <IoIosCloseCircle size={28} color='#4F80C0' className='absolute top-2 right-2' onClick={handleModalClose} />
         <div className='flex flex-col justify-center items-center gap-2'>
-          <Image src={img} alt='' width={80} height={80} />
+          <Image src={img} alt={`${img}`} width={80} height={80}/>
           <h2 className='font-bold text-3xl text-darkBlue'>{menu}</h2>
         </div>
         <div className='space-y-4 pt-4'>

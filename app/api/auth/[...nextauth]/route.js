@@ -10,12 +10,15 @@ export const authOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
+  session: {
+    strategy: 'jwt'
+  },
   callbacks: {
     async signIn({ user, account }) {
       if (account.provider === "google") {
         const { name, email } = user;
         if (!name || !email) {
-          throw new Error("ไม่พบข้อมูล name หรือ email");
+          throw new Error("not founded");
         }
         try {
           await connectToDB();
@@ -29,27 +32,19 @@ export const authOptions = {
               weight: 0,
               height: 0,
               bmi: 0,
-              currentSugar: 0,
-              beverageHistory: [],
               dailySugar: []
             });
-            return `/createUser?email=${encodeURIComponent(email)}`;
           }
           
-          // ตรวจสอบว่าข้อมูลครบถ้วนหรือไม่
-          if (!userDoc.gender || userDoc.weight === 0 || userDoc.height === 0) {
-            return `/createUser?email=${encodeURIComponent(email)}`;
-          }
-          
-          return `/getUser?email=${encodeURIComponent(email)}`;
+          return true;
         } catch (error) {
-          console.error("เกิดข้อผิดพลาดระหว่างการเข้าสู่ระบบ:", error);
+          console.error(error);
           return `/auth/error?error=${encodeURIComponent(error.message)}`;
         }
       }
       return true;
     },
-    async session({ session, token }) {
+    async session({ session, token}) {
       await connectToDB();
       const userDoc = await User.findOne({ email: session.user.email });
       if (userDoc) {
@@ -61,6 +56,16 @@ export const authOptions = {
       }
       return session;
     },
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.gender = user.gender;
+        token.weight = user.weight;
+        token.height = user.height;
+        token.bmi = user.bmi;
+      }
+      return token;
+    }
   },
 };
 

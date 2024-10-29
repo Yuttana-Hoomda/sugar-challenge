@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState } from "react";
@@ -5,8 +6,10 @@ import { User, Weight, Ruler } from "lucide-react";
 import Image from "next/image";
 import BMI from "../images/BMI.svg"; // Adjust the path as necessary
 import CircularProgressBMI from "@/components/CircularProgressBMI"; // Adjust the import path as necessary
+import { useRouter } from "next/navigation";
 
 const Register = () => {
+  const router = useRouter()
   const [name, setName] = useState<string>("");
   const [gender, setGender] = useState<string>("");
   const [weight, setWeight] = useState<number | "">("");
@@ -66,6 +69,8 @@ const Register = () => {
     } else {
       console.error('Error creating user:', response.statusText);
     }
+
+    router.push('/');
   };
 
   return (
@@ -157,6 +162,7 @@ const Register = () => {
             <div className="text-4xl text-black text-center">{bmiCategory}</div>
           </div>
         )}
+        
       </div>
 
       <div 

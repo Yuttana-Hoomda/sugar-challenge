@@ -1,17 +1,36 @@
+'use client'
 import BeverageCard from '@/components/modal/BeverageCard'
 import React from 'react'
-import IndexBeverage from '@/data/indexBeverage'
-import AddBeverageModal from '@/components/modal/AddBeverageModal'
+import BeverageData from '@/data/beverageList.json'
+import { useRouter } from 'next/navigation'
 
 function Beverage() {
+  const router = useRouter()
+
+  const pushSlug = (slug: string) => {
+    router.push(`/beverage/${slug}`)
+  }
+
   return (
-    <div className='flex flex-col justify-center items-center'>
-      <div className='grid grid-cols-2 gap-8 items-center justify-center'>
-        {IndexBeverage.map((items) => (
-          <div key={items.menu}>
-            <BeverageCard menu={items.menu} img={items.img} sugarValue={items.sugarValue}/>
-          </div>
-        ))}
+    <div className='space-y-6'>
+      <h2 className='text-xl text-darkBlue font-medium'>เลือกเครื่องดื่ม</h2>
+      <div className='flex flex-col justify-center items-center'>
+        <div className='grid grid-cols-2 gap-8 items-center justify-center'>
+          {
+            BeverageData.length > 0 && (
+              BeverageData.map((items) => (
+                <div>
+                  <BeverageCard
+                    menu={items.categoriesName}
+                    img={items.img}
+                    link={() => pushSlug(items.categoriesName)}
+                    imgSize={50}
+                  />
+                </div>
+              ))
+            )
+          }
+        </div>
       </div>
     </div>
   )

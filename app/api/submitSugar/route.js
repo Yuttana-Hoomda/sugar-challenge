@@ -1,54 +1,106 @@
-import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "../auth/[...nextauth]/route";
-import { connectToDB } from "@/utils/connectToDB";
-import User from "@/models/user";
-import DailySugar from "@/models/dailySugar";
+import { NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '../auth/[...nextauth]/route';
+import { connectToDB } from '@/utils/connectToDB';
+import User from '@/models/user';
+import { getSession } from 'next-auth/react';
 
-export const POST = async (req) => {
+export async function POST(req, res) {
   try {
     const session = await getServerSession(authOptions);
+    console.log("Session:", session);
+
+    if (!session || !session.user) {
+      console.log("Unauthorized: No session or user");
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
+
     const email = session.user.email;
-
     const { date, value } = await req.json();
-
-    const user = await User.findOne({email});
 
     await connectToDB();
 
-    const haveData = await DailySugar.findOne({ user_id: user._id});
+    let user = await User.findOne({ email });
 
-    if (haveData) {
-      const updatedEntry = await DailySugar.findOneAndUpdate(
-        { user_id: user._id, "dailySugar.date": date },
-        { $inc: { "dailySugar.$.value": value } },
-      );
-    } else {
-      const newEntry = await DailySugar.findOneAndUpdate(
-        { user_id: user._id },
-        {
-          $push: {
-            dailySugar: {
-              $each: [{ date: date, value: value }],
-              $position: 0, 
-            },
-          },
-        },
-        { new: true, upsert: true }
-      );
+    if (!user) {
+      console.log("User not found for email:", email);
+      return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
 
-    return NextResponse.json({
-      message: "Daily sugar value updated successfully",
-      haveData,
-    });
+    user.dailySugar.push({ date, value });
+    await user.save();
+
+    return NextResponse.json({ message: "Daily sugar value added successfully", user });
   } catch (error) {
-    console.error("Error updating daily sugar value:", error);
-    return NextResponse.json(
-      { message: "Error updating daily sugar value" },
-      { status: 500 }
-    );
+    console.error("Error adding daily sugar value:", error);
+    return NextResponse.json({ message: "Error adding daily sugar value", error: error.message }, { status: 500 });
   }
-};
+}
+
+// import { NextResponse } from 'next/server'
+    // import { getServerSession } from 'next-auth/next'
+    // import { authOptions } from '../auth/[...nextauth]/route'
+    // import { connectToDB } from '@/utils/connectToDB'
+    // import User from '@/models/user'
+    // import { getSession } from 'next-auth/react'
 
 
+    // export const POST = async (req) => {
+    //     try {
+    //         const session = await getServerSession(authOptions);
+    //         console.log(session);
+    //         if (!session) {
+    //             return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    //         }
+
+    //         const userId = session.user.id; // ใช้ user id แทน
+    //         const { date, value } = await req.json();
+
+    //         await connectToDB();
+
+    //         let user = await User.findById(userId); // ค้นหาผู้ใช้ด้วย user id
+
+    //         if (!user) {
+    //             console.log("User not found");
+    //             return NextResponse.json({ message: "User not found" }, { status: 404 });
+    //         }
+
+    //         user.dailySugar.push({ date, value });
+    //         await user.save();
+
+    //         return NextResponse.json({ message: "Daily sugar value added successfully", user });
+    //     } catch (error) {
+    //         console.error("Error adding daily sugar value:", error);
+    //         return NextResponse.json({ message: "Error adding daily sugar value" }, { status: 500 });
+    //     }
+    // }
+
+
+// export const POST = async (req) => {
+//     try {
+//         const session = await getServerSession(authOptions)
+//         console.log(session)
+//         if (!session) {
+//             return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+//         }
+
+//         const email = session.user.email;
+//         const { date, value } = await req.json();
+
+//         await connectToDB();
+
+//         let user = await User.findOne({ email });
+
+//         if (!user) {
+//             console.log("User not found");
+//         }
+
+//         user.dailySugar.push({ date, value });
+//         await user.save();
+
+//         return NextResponse.json({ message: "Daily sugar value added successfully", user });
+//     } catch (error) {
+//         console.error("Error adding daily sugar value:", error);
+//         return NextResponse.json({ message: "Error adding daily sugar value" }, { status: 500 });
+//     }
+// }

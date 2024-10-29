@@ -29,6 +29,8 @@ export const GET = async (req) => {
     const { date, value } = dailySugarRecord && dailySugarRecord.dailySugar && dailySugarRecord.dailySugar.length > 0
       ? dailySugarRecord.dailySugar[0]
       : { date: null, value: 0 };
+      console.log(date);
+      console.log(value);
 
     return NextResponse.json({
       message: "Daily sugar value retrieved successfully",

@@ -24,7 +24,14 @@ function MenuList({ params }: MenuListProps) {
     return band ? band.menuList : [];
   }
 
+  const getImgByBandName = (categoryName: string, bandName: string) => {
+    const category = BeverageData.find(item => item.categoriesName === categoryName);
+    const band = category?.bandList.find(items => items.bandName === bandName)
+    return band ? band.img : '';
+  } 
+
   const menuList = getMenuListByBandName(beverageType, bandName)
+  const bandImg = getImgByBandName(beverageType, bandName)
 
   const goBack = () => {
     router.back()
@@ -48,7 +55,7 @@ function MenuList({ params }: MenuListProps) {
                 <div>
                   <BeverageCard 
                     menu={items.menu} 
-                    img={items.img} 
+                    img={bandImg} 
                     imgSize={80}
                     sugarValue={items.sugarValue}
                     volume={items.volume}

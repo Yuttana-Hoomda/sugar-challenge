@@ -23,7 +23,7 @@ const BeverageCard: React.FC<BeverageCardProps> = ({ menu, img, imgSize, sugarVa
 
   return (
     <div>
-      <AddBeverageModal menu={menu} img={img} handleOpen={isOpen} handleClose={handleClose} sugarValue={sugarValue}/>
+      <AddBeverageModal menu={menu} img={img} handleOpen={isOpen} handleClose={handleClose} sugarValue={sugarValue} volume={volume}/>
       <div
         className='w-[150px] h-[150px] border-blue border rounded-xl bg-white flex justify-center items-center relative shadow-beverage'
         onClick={handleOpen}
@@ -33,7 +33,7 @@ const BeverageCard: React.FC<BeverageCardProps> = ({ menu, img, imgSize, sugarVa
           <Image src={img} alt='' width={imgSize} height={imgSize}/>
           <div className='flex flex-col justify-items-center items-center'>
             <h2 className='text-darkBlue font-medium text-lg'>{menu}</h2>
-            <a className='text-gray-500 text-sm'>{volume} ml</a>
+            <a className='text-gray-500 text-sm font-light'>{volume} ml</a>
           </div>
         </div>
       </div>

@@ -92,7 +92,7 @@ const HomePage = () => {
       <div className="flex flex-col flex-auto space-y-5 mt-12">
         <h3 className="font-semibold text-2xl mt-2 text-darkBlue">ล่าสุด</h3>
         {beverageList.length > 0 ? (
-          <div className="grid grid-cols-2 grid-flow-row justify-items-center items-center gap-5">
+          <div className="grid grid-cols-2 grid-flow-row justify-items-center items-center gap-8">
             {beverageList.map((item, index) => (
               <div key={index}>
                 <BeverageDrank

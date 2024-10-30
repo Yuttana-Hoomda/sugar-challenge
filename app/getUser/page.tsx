@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import DropDown from "./dropDown" // Ensure the file name matches the actual file
 import { useRouter } from 'next/navigation';
 import coffee from '../images/coffee.svg';
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 const GetUser = () => {
   interface User {
@@ -26,6 +26,10 @@ const GetUser = () => {
   const handleClick = () => {
     router.push('/editAccount');
   }
+
+  const handleSignOut = () => {
+    signOut({ callbackUrl: '/' });
+  };
   
   useEffect(() => {
     const fetchUser = async () => {
@@ -111,6 +115,15 @@ const GetUser = () => {
           <div className="mt-6"><DropDown /></div>
         </div>
       </section>
+        
+        <div className="flex justify-center mt-4">
+          <button 
+              onClick={handleSignOut}
+              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Sign Out
+            </button>
+        </div>
 
       </div>
 

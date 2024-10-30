@@ -39,19 +39,19 @@ function BandList({ params }: BandListProps) {
           color='#4F80C0'
           onClick={goBack}
         />
-        <h2 className='text-xl text-darkBlue'>{beverageType}</h2>
+        <h2 className='text-xl text-darkBlue font-medium'>{beverageType}</h2>
       </div>
       <div className='flex flex-col justify-items-center items-center'>
         <div className='grid grid-cols-2 gap-8 items-center justify-center'>
           {
             bandList.length > 0 && (
-              bandList.map((items) => (
-                <div>
+              bandList.map((items, index) => (
+                <div key={index}>
                   <BeverageCard 
                     menu={items.bandName} 
                     img={items.img} 
                     link={() => pushSlug(items.bandName)}
-                    imgSize={80} 
+                    imgSize={75} 
                   />
                 </div>
               ))

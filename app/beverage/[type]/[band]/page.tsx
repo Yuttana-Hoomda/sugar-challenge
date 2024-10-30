@@ -37,6 +37,11 @@ function MenuList({ params }: MenuListProps) {
     router.back()
   }
 
+  let sweetSelect = true;
+  if(beverageType === 'น้ำอัดลม' || bandName === 'นมดีไลท์' || bandName === 'ตรามินิทเมดสแปลช') {
+    sweetSelect = false
+  }
+
   return (
     <div className='space-y-6'>
       <div className='flex items-center gap-4'>
@@ -45,20 +50,21 @@ function MenuList({ params }: MenuListProps) {
           color='#4F80C0'
           onClick={goBack}
         />
-        <h2 className='text-xl text-darkBlue'>{beverageType}/{bandName}</h2>
+        <h2 className='text-xl text-darkBlue font-medium'>{beverageType}/{bandName}</h2>
       </div>
       <div className='flex flex-col justify-items-center items-center'>
         <div className='grid grid-cols-2 gap-8 items-center justify-center'>
           {
             menuList.length > 0 && (
-              menuList.map((items) => (
-                <div>
+              menuList.map((items, index) => (
+                <div key={index}>
                   <BeverageCard 
                     menu={items.menu} 
                     img={bandImg} 
-                    imgSize={80}
+                    imgSize={75}
                     sugarValue={items.sugarValue}
                     volume={items.volume}
+                    sweetSelect={sweetSelect}
                   />
                 </div>
               ))

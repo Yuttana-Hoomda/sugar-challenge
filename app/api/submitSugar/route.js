@@ -16,14 +16,12 @@ export const POST = async (req) => {
 
     await connectToDB();
 
-    const haveData = await DailySugar.findOne({ user_id: user._id});
-
-    if (haveData) {
-      const updatedEntry = await DailySugar.findOneAndUpdate(
+    const updatedEntry = await DailySugar.findOneAndUpdate(
         { user_id: user._id, "dailySugar.date": date },
         { $inc: { "dailySugar.$.value": value } },
       );
-    } else {
+  
+    if(!updatedEntry) {
       const newEntry = await DailySugar.findOneAndUpdate(
         { user_id: user._id },
         {

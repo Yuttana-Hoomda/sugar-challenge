@@ -18,7 +18,8 @@ interface AddBeverageModalProps {
   handleOpen: boolean;
   handleClose: () => void;
   sugarValue: number;
-  volume: number
+  volume: number;
+  sweetSelect: boolean;
 }
 
 interface SubmitSugarDataParams {
@@ -41,7 +42,8 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({
   sugarValue,
   handleOpen,
   handleClose,
-  volume
+  volume,
+  sweetSelect
 }) => {
   const [activeSweet, setActiveSweet] = useState<number | null>(null);
   const [activeQuantitie, setActiveQuantitie] = useState<number | null>(null);
@@ -56,7 +58,7 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({
     handleClose();
   };
 
-  const sweetLevel = ["หวานน้อย", "หวานปกติ", "หวานมาก"];
+  const sweetLevel = ["ไม่หวาน", "หวานน้อย", "หวานปกติ", "หวานมาก"];
   const quantitieLevel = [
     { quantities: "100%", icon: Hundred, iconActive: HundredActive },
     { quantities: "75%", icon: Seventyfive, iconActive: SeventyfiveActive },
@@ -80,16 +82,21 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({
     let updatedSugar = sugarValue;
 
     // Calculate sweetness level
-    switch (activeSweet) {
-      case 0:
-        updatedSugar = sugarValue / 2;
-        break;
-      case 1:
-        updatedSugar = sugarValue;
-        break;
-      case 2:
-        updatedSugar = sugarValue * 1.5;
-        break;
+    if(sweetSelect) {
+      switch (activeSweet) {
+        case 0:
+          updatedSugar = sugarValue * 0.25;
+          break;
+        case 1:
+          updatedSugar = sugarValue * 0.5;
+          break;
+        case 2:
+          updatedSugar = sugarValue;
+          break;
+        case 3:
+          updatedSugar = sugarValue * 1.5;
+          break;
+      }
     }
 
     // Calculate quantity level
@@ -165,8 +172,8 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({
       quantities:
         activeQuantitie !== null
           ? ["100%", "75%", "50%", "25%"][activeQuantitie]
-          : "100%",
-      sweetLevel: activeSweet !== null ? sweetLevel[activeSweet] : "หวานปกติ",
+          : "-",
+      sweetLevel: activeSweet !== null ? sweetLevel[activeSweet] : "-",
       createAt: formatDate
     };
 
@@ -188,20 +195,21 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({
         <div className="flex flex-col justify-center items-center gap-2">
           <Image src={img} alt={`${img}`} width={80} height={80} />
           <div className="flex flex-col items-center">
-            <h2 className="font-bold text-3xl text-darkBlue">{menu}</h2>
-            <a className='text-gray-500 text-lg font-light'>{volume} ml</a>
+            <h2 className="font-bold text-2xl text-darkBlue text-center text-balance">{menu}</h2>
+            <a className='text-gray-500 text-lg font-medium'>{volume} ml</a>
           </div>
         </div>
         <div className="space-y-4 pt-4">
           {/* sweetLevel */}
-          <div className="space-y-2">
+          {sweetSelect &&(
+            <div className="space-y-2">
             <h3 className="text-xl text-darkBlue">ความหวาน</h3>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center justify-between">
               {sweetLevel.map((level, index) => (
                 <div key={index}>
                   <SelectButton
                     title={level}
-                    className={`w-[90px] ${activeSweet === index
+                    className={`w-[80px] ${activeSweet === index
                         ? "bg-buttonActive border-darkBlue text-darkBlue"
                         : ""
                       }`}
@@ -211,10 +219,11 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({
               ))}
             </div>
           </div>
+          )}
 
           {/* Quantitie Level */}
           <div className="space-y-2">
-            <h3 className="text-[18px] text-darkBlue">ปริมาณที่ดื่ม</h3>
+            <h3 className="text-xl text-darkBlue">ปริมาณที่ดื่ม</h3>
             <div className="flex items-center justify-between">
               {quantitieLevel.map((items, index) => (
                 <div key={index}>
@@ -223,12 +232,12 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({
                     icon={
                       activeQuantitie === index ? items.iconActive : items.icon
                     }
-                    className={`w-[75px] ${activeQuantitie === index
+                    className={`w-[80px] ${activeQuantitie === index
                         ? "bg-buttonActive border-darkBlue text-darkBlue"
                         : ""
-                      } ${activeSweet === null ? "opacity-50" : ""}`}
+                      } ${sweetSelect && activeSweet === null ? "opacity-50" : ""}`}
                     onClick={() => handleQuantitieLevelButton(index)}
-                    disable={activeSweet === null}
+                    disable={sweetSelect ? activeSweet === null : false }
                   />
                 </div>
               ))}
@@ -236,13 +245,13 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({
           </div>
         </div>
         <div
-          className={`${activeSweet === null || activeQuantitie === null ? "opacity-50" : ""
+          className={`${(sweetSelect && activeSweet === null) || activeQuantitie === null ? "opacity-50" : ""
             } flex-center pt-8`}
         >
           <button
             className="bg-gradient-to-r from-blue to-darkBlue text-white rounded-xl w-[80%] py-2 font-medium text-xl"
             onClick={handleSubmit}
-            disabled={activeSweet === null || activeQuantitie === null}
+            disabled={(sweetSelect && activeSweet === null) || activeQuantitie === null}
           >
             บันทึก
           </button>

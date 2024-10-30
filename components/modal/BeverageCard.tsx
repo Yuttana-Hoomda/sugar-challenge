@@ -15,13 +15,11 @@ const BeverageCard: React.FC<BeverageCardProps> = ({ menu, img, imgSize, link })
 
   return (
     <div
-      className='w-[150px] h-[150px] border-blue border rounded-xl bg-white flex justify-center items-center shadow-beverage'
+      className='w-[160px] h-[160px] border-blue border rounded-xl bg-white flex flex-col justify-evenly items-center shadow-beverage'
       onClick={link}
     >
-      <div className='flex flex-col justify-center items-center gap-2'>
-        <Image src={img} alt='' width={imgSize} height={imgSize} />
-        <h2 className='text-darkBlue font-medium text-lg'>{menu}</h2>
-      </div>
+      <Image src={img} alt='' width={imgSize} height={imgSize} />
+      <h2 className='text-darkBlue font-medium text-lg'>{menu}</h2>
     </div>
   )
 }

@@ -15,14 +15,13 @@ const imageDrinks = {
   "น้ำผลไม้": "/images/juice.svg",
   "นม": "/images/milk.svg",
   "น้ำอัดลม": "/images/soft.svg",
-  "โซดา": "/images/soda.svg",
-}
-
+ ""}
+ 
 function BeverageDrank({ name, sugar, consume, level}: props) {
     return (
         <div className='grid grid-cols-2 gap-2 rounded-2xl border border-blue shadow-beverage p-2 w-[160px] h-[110px]'>
             <div className='flex flex-col justify-center items-center gap-2'>
-              <Image src={imageDrinks[name]} alt='' width={40} height={40}/>
+              <Image src={imageDrinks[name as keyof typeof imageDrinks]} alt='' width={40} height={40}/>
               <h2 className='text-lg text-darkBlue'>{name}</h2>
             </div>
             <div className='flex flex-col justify-between items-center'>

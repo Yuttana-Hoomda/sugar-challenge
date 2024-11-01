@@ -38,7 +38,6 @@ export const POST = async (req) => {
 
     return NextResponse.json({
       message: "Daily sugar value updated successfully",
-      haveData,
     });
   } catch (error) {
     console.error("Error updating daily sugar value:", error);

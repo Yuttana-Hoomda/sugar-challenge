@@ -1,8 +1,9 @@
-import { NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from '../auth/[...nextauth]/route';
-import { connectToDB } from '@/utils/connectToDB';
-import User from '@/models/user';
+import { NextResponse } from "next/server";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "../auth/[...nextauth]/route";
+import { connectToDB } from "@/utils/connectToDB";
+import User from "@/models/user";
+import DailySugar from "@/models/dailySugar";
 
 export const POST = async (req) => {
   try {
@@ -14,28 +15,6 @@ export const POST = async (req) => {
     const user = await User.findOne({email});
 
     await connectToDB();
-
-    const haveData = await DailySugar.findOne({ user_id: user._id});
-
-    if (haveData) {
-      const updatedEntry = await DailySugar.findOneAndUpdate(
-        { user_id: user._id, "dailySugar.date": date },
-        { $inc: { "dailySugar.$.value": value } },
-      );
-    } else {
-      const newEntry = await DailySugar.findOneAndUpdate(
-        { user_id: user._id },
-        {
-          $push: {
-            dailySugar: {
-              $each: [{ date: date, value: value }],
-              $position: 0, 
-            },
-          },
-        },
-        { new: true, upsert: true }
-      );
-    }
 
     const updatedEntry = await DailySugar.findOneAndUpdate(
         { user_id: user._id, "dailySugar.date": date },
@@ -57,10 +36,9 @@ export const POST = async (req) => {
       );
     }
 
-    user.dailySugar.push({ date, value });
-    await user.save();
-
-    return NextResponse.json({ message: "Daily sugar value added successfully", user });
+    return NextResponse.json({
+      message: "Daily sugar value updated successfully",
+    });
   } catch (error) {
     console.error("Error updating daily sugar value:", error);
     return NextResponse.json(

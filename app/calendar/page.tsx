@@ -11,33 +11,54 @@ interface DailySugar {
 
 export default function CalendarPage() {
     const [dailySugar, setDailySugar] = useState<DailySugar[]>([]);
-    const [isClient, setIsClient] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        setIsClient(true);
-        const mockDailySugar: DailySugar[] = [
-            { date: '2024-10-22', value: 15 },
-            { date: '2024-10-23', value: 25 },
-            { date: '2024-10-24', value: 10 },
-            { date: '2024-10-25', value: 22 },
-            { date: '2024-10-26', value: 20 },
-            { date: '2024-10-27', value: 14 },
-        ];
-        setDailySugar(mockDailySugar);
+        const fetchDailySugar = async () => {
+            try {
+                const response = await fetch("/api/getDailysugar");
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log(data)
+                    setDailySugar(data.dailySugar);
+                }
+            } catch (error) {
+                console.error("Error fetching dailySugar data:", error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchDailySugar();
     }, []);
+
+    const formatDate = (date: Date): string => {
+        // ใช้ timezone ของผู้ใช้ในการแสดงผล
+        const offset = date.getTimezoneOffset();
+        const adjustedDate = new Date(date.getTime() - (offset * 60 * 1000));
+        return adjustedDate.toISOString().split('T')[0];
+    };
 
     const tileClassName = ({ date, view }: { date: Date; view: string }) => {
         if (view === 'month') {
-            const dateStr = date.toISOString().split('T')[0];
-            const sugarEntry = dailySugar.find(entry => entry.date === dateStr);
+            const dateStr = formatDate(date);
+            console.log('Checking date:', dateStr); // Debug log
+
+            const sugarEntry = dailySugar.find(entry => {
+                // แปลง date string จาก MongoDB เป็น Date object
+                const entryDate = new Date(entry.date);
+                const entryDateStr = formatDate(entryDate);
+                console.log('Comparing with entry date:', entryDateStr); // Debug log
+                return dateStr === entryDateStr;
+            });
             if (sugarEntry) {
-                return sugarEntry.value > 20 ? 'bg-red' : 'bg-green';
+                return sugarEntry.value > 24 ? 'bg-red' : 'bg-green';
             }
         }
         return null;
     };
 
-    if (!isClient) {
+    if (isLoading) {
         return <div className="flex justify-center">Loading...</div>;
     }
 

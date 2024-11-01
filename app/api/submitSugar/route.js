@@ -47,6 +47,4 @@ export const POST = async (req) => {
       { status: 500 }
     );
   }
-};
-
-
+}

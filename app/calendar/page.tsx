@@ -13,6 +13,11 @@ interface DailySugar {
 export default function CalendarPage() {
     const [dailySugar, setDailySugar] = useState<DailySugar[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [selectedMonth, setSelectedMonth] = useState<Date>(new Date());
+
+    const handleMonthChange = (date: Date) => {
+        setSelectedMonth(date);
+    };    
 
     useEffect(() => {
         const fetchDailySugar = async () => {
@@ -32,6 +37,26 @@ export default function CalendarPage() {
 
         fetchDailySugar();
     }, []);
+    
+    // useEffect(() => {
+    //     const fetchDailySugar = async () => {
+    //         try {
+    //             setIsLoading(true);
+    //             const response = await fetch("/api/getDailysugar");
+    //             if (response.ok) {
+    //                 const data = await response.json();
+    //                 setDailySugar(data.dailySugar);
+    //             }
+    //         } catch (error) {
+    //             console.error("Error fetching dailySugar data:", error);
+    //         } finally {
+    //             setIsLoading(false);
+    //         }
+    //     };
+    
+    //     fetchDailySugar();
+    // }, []);  // เรียกครั้งเดียวตอนโหลดหน้า
+    
 
     const formatDate = (date: Date): string => {
         // ใช้ timezone ของผู้ใช้ในการแสดงผล
@@ -72,7 +97,10 @@ export default function CalendarPage() {
                     onChange={() => {}}
                 />
                 <div className="m-5">
-                    <Graph/>
+                    <Graph 
+                        // data={dailySugar} 
+                        // selectedMonth={selectedMonth}
+                    />
                 </div>
             </div>
         </div>

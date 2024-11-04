@@ -1,15 +1,22 @@
+
 "use client";
 
 //npm i react@latest react-dom@latest
 //npm install chart.js react-chartjs-2
-//npm install axios
-import axios from "axios";
+//npm install chartjs-plugin-zoom
 import React, { useState, useEffect } from "react";
+import "chartjs-plugin-zoom";
 import { Line } from "react-chartjs-2";
 import "chart.js/auto";
 //test
 import { Data } from "./DataTest";
 import { ChartOptions } from "chart.js/auto";
+import page from "../app/calendar/page";
+
+// interface GraphProps {
+//   data: DailySugar[];
+//   selectedMonth: Date;
+// }
 
 const Graph = () => {
   const [graphData, setGraphData] = useState<any>({
@@ -25,6 +32,15 @@ const Graph = () => {
       },
     ],
   });
+
+//   const filteredData = data.filter((item) => {
+//     const itemDate = new Date(item.date);
+//     return (
+//       itemDate.getMonth() === selectedMonth.getMonth() &&
+//       itemDate.getFullYear() === selectedMonth.getFullYear()
+//     );
+//   });
+
   // คำนวณค่าที่ต้องการ
   const dataValues = graphData.datasets[0].data;
   const maxValue = Math.max(...dataValues);
@@ -40,18 +56,18 @@ const Graph = () => {
         grid: {
           display: false,
         },
-        ticks: {
-          callback: function (value, index, values) {
-            const isStart = value === "1";
-            const isMiddle = value === "15";
-            const isEnd = index === values.length - 1;
+        // ticks: {
+        //   callback: function (value, index, values) {
+        //     const isStart = value === "1";
+        //     const isMiddle = value === "15";
+        //     const isEnd = index === values.length - 1;
 
-            if (isStart || isMiddle || isEnd) {
-              return value;
-            }
-            return null; // ซ่อนวันที่อื่นๆ
-          },
-        },
+        //     if (isStart || isMiddle || isEnd) {
+        //       return value;
+        //     }
+        //     return null; // ซ่อนวันที่อื่นๆ
+        //   },
+        // },
       },
       y: {
         ticks: {
@@ -78,64 +94,87 @@ const Graph = () => {
             return "rgba(0, 0, 0, 0)"; // สีเส้นกริดที่ซ่อน
           },
         },
-        beginAtZero: true,
+        // beginAtZero: true,
+      },
+    },
+    plugins: {
+      zoom: {
+        pan: {
+          enabled: true,
+          mode: "x",
+        },
+        zoom: {
+          wheel: {
+            enabled: true,
+          },
+          pinch: {
+            enabled: true,
+          },
+          mode: "x",
+        },
       },
     },
   };
 
-
-  const parseData = (data: { date: string; value: number }[]): { labels: string[]; data: number[] } => {
+  const parseData = (
+    data: { date: string; value: number }[]
+  ): { labels: string[]; data: number[] } => {
     const labels: string[] = [];
     const sugarData: number[] = [];
 
     data.forEach((item) => {
-        const itemDate = new Date(item.date);
-        console.log(itemDate);
-        labels.push(itemDate.getDate().toString()); // ดึงเฉพาะวันที่
-        sugarData.push(item.value); // ใส่ค่า value
+      const itemDate = new Date(item.date);
+      console.log(itemDate);
+      labels.push(itemDate.getDate().toString()); // ดึงเฉพาะวันที่
+      sugarData.push(item.value); // ใส่ค่า value
     });
 
     return { labels, data: sugarData };
-};
+  };
 
-
-useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
-        try {
-            const response = await fetch("/api/getDailysugar");
-            if (response.ok) {
-                const data = await response.json();
-                const parsedData = parseData(data); // ใช้ฟังก์ชัน parseData
-                console.log(parsedData); // ตรวจสอบข้อมูลใน console
-
-                setGraphData({
-                    labels: parsedData.labels,
-                    datasets: [
-                        {
-                            ...graphData.datasets[0],
-                            data: parsedData.data,
-                        },
-                    ],
-                });
-            } else {
-                console.error("Failed to fetch data:", response.status);
-            }
-        } catch (error) {
-            console.error("Error fetching data:", error);
+      try {
+        const response = await fetch("/api/getDailysugar");
+        console.log("information from backend" + response);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
         }
+        const data = await response.json();
+
+        // ตรวจสอบว่า data.dailySugar เป็นอาร์เรย์ก่อน
+        if (Array.isArray(data.dailySugar)) {
+          const parsedData = parseData(data.dailySugar); // ส่งข้อมูลไปยัง parseData
+          console.log(parsedData); // ตรวจสอบข้อมูลที่ถูกส่งไป
+          setGraphData({
+            labels: parsedData.labels,
+            datasets: [
+              {
+                ...graphData.datasets[0],
+                data: parsedData.data,
+              },
+            ],
+          });
+        } else {
+          console.error("Expected dailySugar to be an array:", data.dailySugar);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     };
 
     fetchData();
-}, []);
+  }, []);
 
   return (
     <div className="flex-col">
       <div className="flex justify-center">
         <h2 className="text-blue-800"> กราฟค่าน้ำตาลรายวัน</h2>
       </div>
-      <Line data={graphData} options={options} className="m-2"/>
+      <Line data={graphData} options={options} className="m-2" />
     </div>
   );
 };
 
 export default Graph;
+

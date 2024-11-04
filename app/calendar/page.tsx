@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from "react";
-import Calendar from "react-calendar";
+import Calendar, { CalendarProps } from "react-calendar";
 import 'react-calendar/dist/Calendar.css';
 import './custom-calender.css';
 import Graph from "@/components/Graph";
@@ -14,10 +14,35 @@ export default function CalendarPage() {
     const [dailySugar, setDailySugar] = useState<DailySugar[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [selectedMonth, setSelectedMonth] = useState<Date>(new Date());
+    // const [monthView, setMonthView] = useState<string>('');
+    // const [year, setYear] = useState<number>(new Date().getFullYear());
+    const [monthView, setMonthView] = useState({ month: new Date().getMonth(), year: new Date().getFullYear() });
 
-    const handleMonthChange = (date: Date) => {
-        setSelectedMonth(date);
-    };    
+    // กำหนดประเภทของพารามิเตอร์ที่รับเข้ามา
+    // const handleActiveStartDateChange: CalendarProps['onActiveStartDateChange'] = ({ activeStartDate }) => {
+    //     if (activeStartDate) { // ตรวจสอบว่า activeStartDate ไม่ใช่ null
+    //         const monthNames = [
+    //             "January", "February", "March", "April", "May", "June",
+    //             "July", "August", "September", "October", "November", "December"
+    //         ];
+    //         const newMonth = monthNames[activeStartDate.getMonth()];
+    //         setMonthView(newMonth);
+    //         // setYear(activeStartDate.getFullYear())
+    //         console.log("Current month view:", newMonth);
+    //         console.log("-------------------------");
+    //         console.log("Current year view:", setYear(activeStartDate.getFullYear()))
+    //     }
+    // };
+    const handleMonthChange: CalendarProps['onActiveStartDateChange'] = ({ activeStartDate }) => {
+        if (activeStartDate) {
+        setMonthView({
+            month: activeStartDate.getMonth(),
+            year: activeStartDate.getFullYear(),
+        });
+        console.log("handleMonthChange is here")
+
+        };
+    }
 
     useEffect(() => {
         const fetchDailySugar = async () => {
@@ -37,25 +62,6 @@ export default function CalendarPage() {
 
         fetchDailySugar();
     }, []);
-    
-    // useEffect(() => {
-    //     const fetchDailySugar = async () => {
-    //         try {
-    //             setIsLoading(true);
-    //             const response = await fetch("/api/getDailysugar");
-    //             if (response.ok) {
-    //                 const data = await response.json();
-    //                 setDailySugar(data.dailySugar);
-    //             }
-    //         } catch (error) {
-    //             console.error("Error fetching dailySugar data:", error);
-    //         } finally {
-    //             setIsLoading(false);
-    //         }
-    //     };
-    
-    //     fetchDailySugar();
-    // }, []);  // เรียกครั้งเดียวตอนโหลดหน้า
     
 
     const formatDate = (date: Date): string => {
@@ -95,12 +101,12 @@ export default function CalendarPage() {
                     tileClassName={tileClassName}
                     className="custom-calendar"
                     onChange={() => {}}
+                    // onActiveStartDateChange={handleActiveStartDateChange}
+                    onActiveStartDateChange={handleMonthChange}
                 />
                 <div className="m-5">
-                    <Graph 
-                        // data={dailySugar} 
-                        // selectedMonth={selectedMonth}
-                    />
+                    {/* <Graph /> */}
+                    <Graph monthView={monthView} />
                 </div>
             </div>
         </div>

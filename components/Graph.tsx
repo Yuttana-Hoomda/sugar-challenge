@@ -1,4 +1,3 @@
-
 "use client";
 
 //npm i react@latest react-dom@latest
@@ -17,8 +16,12 @@ import page from "../app/calendar/page";
 //   data: DailySugar[];
 //   selectedMonth: Date;
 // }
+interface GraphProps {
+    monthView: { month: number; year: number };
+}
 
-const Graph = () => {
+
+const Graph: React.FC<GraphProps> = ({ monthView }) => {
   const [graphData, setGraphData] = useState<any>({
     labels: [],
     datasets: [
@@ -78,7 +81,7 @@ const Graph = () => {
             return "";
           },
         },
-        suggestedMax: maxValue + maxValue * 0.1, // กำหนดค่าสูงสุดของแกน Y พร้อมเพิ่มเผื่อ
+        suggestedMax: Math.max(...graphData.datasets[0].data) * 1.1, // กำหนดค่าสูงสุดของแกน Y พร้อมเพิ่มเผื่อ
         suggestedMin: 0, // กำหนดค่าเริ่มต้นเป็น 0 พร้อมเพิ่มเผื่อ
         grid: {
           color: (ctx) => {
@@ -116,16 +119,14 @@ const Graph = () => {
     },
   };
 
-  const parseData = (
-    data: { date: string; value: number }[]
-  ): { labels: string[]; data: number[] } => {
+  const parseData = (data: { date: string; value: number }[]): { labels: string[]; data: number[] } => {
     const labels: string[] = [];
     const sugarData: number[] = [];
 
     data.forEach((item) => {
       const itemDate = new Date(item.date);
       console.log(itemDate);
-      labels.push(itemDate.getDate().toString()); // ดึงเฉพาะวันที่
+      labels.push(itemDate.getDate().toString()); // ดึงเฉพาะวันที่ ต้องทำการเรียงข้อมูล ตรงนี้
       sugarData.push(item.value); // ใส่ค่า value
     });
 
@@ -144,8 +145,17 @@ const Graph = () => {
 
         // ตรวจสอบว่า data.dailySugar เป็นอาร์เรย์ก่อน
         if (Array.isArray(data.dailySugar)) {
+             // กรองข้อมูลให้เหลือเฉพาะเดือนและปีที่เลือก
+             const filteredData = data.dailySugar.filter((item: { date: string; value: number }) => {
+                const itemDate = new Date(item.date);
+                return (
+                    itemDate.getMonth() === monthView.month &&
+                    itemDate.getFullYear() === monthView.year
+                );
+            });
+
           const parsedData = parseData(data.dailySugar); // ส่งข้อมูลไปยัง parseData
-          console.log(parsedData); // ตรวจสอบข้อมูลที่ถูกส่งไป
+          console.log("Parsed Data is here!"+parsedData); // ตรวจสอบข้อมูลที่ถูกส่งไป
           setGraphData({
             labels: parsedData.labels,
             datasets: [

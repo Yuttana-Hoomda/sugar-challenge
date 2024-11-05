@@ -1,8 +1,9 @@
 'use client';
 import { useState, useEffect } from "react";
-import Calendar from "react-calendar";
+import Calendar, { CalendarProps } from "react-calendar";
 import 'react-calendar/dist/Calendar.css';
 import './custom-calender.css';
+import Graph from "@/components/Graph";
 
 interface DailySugar {
     date: string;
@@ -32,6 +33,7 @@ export default function CalendarPage() {
 
         fetchDailySugar();
     }, []);
+    
 
     const formatDate = (date: Date): string => {
         // ใช้ timezone ของผู้ใช้ในการแสดงผล
@@ -77,7 +79,7 @@ export default function CalendarPage() {
 
     return (
         <div>
-            <div className="flex justify-center rounded-xl">
+            <div className="flex-col justify-center rounded-xl">
                 <Calendar
                     tileClassName={tileClassName}
                     className="custom-calendar"
@@ -88,6 +90,10 @@ export default function CalendarPage() {
                         }
                     }}
                 />
+                {/* <div className="m-5">
+                     <Graph /> 
+                    <Graph monthView={monthView} />
+                </div> */}
             </div>
         </div>
     );

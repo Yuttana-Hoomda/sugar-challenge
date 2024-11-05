@@ -1,0 +1,22 @@
+[
+    {
+        "path": "/home",
+        "icon": "/icons/icon-home.svg",
+        "iconActive": "/icons/icon-home-active.svg"
+    },
+    {
+        "path": "/beverage",
+        "icon": "/icons/icon-coffee.svg",
+        "iconActive": "/icons/icon-coffee-active.svg"
+    },
+    {
+        "path": "/calendar",
+        "icon": "/icons/icon-calendar.svg",
+        "iconActive": "/icons/icon-calendar-active.svg"
+    },
+    {
+        "path": "/getUser",
+        "icon": "/icons/icon-user.svg",
+        "iconActive": "/icons/icon-user-active.svg"
+    }
+]

@@ -144,7 +144,7 @@ const HomePage = () => {
             •	ดื่มน้ำเปล่าหลังการดื่มน้ำหวาน <br/>
             •	ใช้หลอดดื่ม และใช้ยาสีฟันผสมฟลูออไรด์ 
             </p>
-            <button onClick={closePopup} style={{ marginTop: "10px" }}>
+            <button onClick={closePopup} className="mt-5 bg-white w-10 rounded-md">
               ปิด
             </button>
           </div>

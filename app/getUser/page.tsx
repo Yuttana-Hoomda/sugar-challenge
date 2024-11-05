@@ -4,6 +4,7 @@ import DropDown from "./dropDown" // Ensure the file name matches the actual fil
 import { useRouter } from 'next/navigation';
 import { IoIosMail } from "react-icons/io";
 import { signOut, useSession } from "next-auth/react";
+import { link } from "fs";
 
 const GetUser = () => {
   interface User {
@@ -117,7 +118,10 @@ const GetUser = () => {
       </section>
 
       <div className="flex justify-evenly items-center mt-10">
-        <div className="flex justify-center items-center gap-1 border border-darkBlue text-darkBlue font-semibold py-2 px-4 rounded">
+        <div 
+          className="flex justify-center items-center gap-1 border border-darkBlue text-darkBlue font-semibold py-2 px-4 rounded"
+          onClick={() => (window.location.href = 'https://lin.ee/IJnAkr8')}
+        >
           <IoIosMail size={20} color="#002D63"/>
           <h3>ติดต่อเรา</h3>
         </div>

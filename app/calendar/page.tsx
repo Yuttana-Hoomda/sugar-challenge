@@ -79,7 +79,7 @@ export default function CalendarPage() {
 
     return (
         <div>
-            <div className="flex-col justify-center rounded-xl">
+            <div className="flex flex-col justify-center items-center rounded-xl">
                 <Calendar
                     tileClassName={tileClassName}
                     className="custom-calendar"

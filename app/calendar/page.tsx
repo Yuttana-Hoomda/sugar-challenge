@@ -12,6 +12,7 @@ interface DailySugar {
 export default function CalendarPage() {
     const [dailySugar, setDailySugar] = useState<DailySugar[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [currentMonth, setCurrentMonth] = useState(new Date());
 
     useEffect(() => {
         const fetchDailySugar = async () => {
@@ -41,6 +42,14 @@ export default function CalendarPage() {
 
     const tileClassName = ({ date, view }: { date: Date; view: string }) => {
         if (view === 'month') {
+
+            const isCurrentMonth = date.getMonth() === currentMonth.getMonth() &&
+                                    date.getFullYear() === currentMonth.getFullYear();
+            
+            if (!isCurrentMonth) {
+                return null; // Return null for dates not in current month
+            }
+
             const dateStr = formatDate(date);
             console.log('Checking date:', dateStr); // Debug log
 
@@ -58,6 +67,10 @@ export default function CalendarPage() {
         return null;
     };
 
+    const handleMonthChange = (value: Date) => {
+        setCurrentMonth(value);
+    };
+
     if (isLoading) {
         return <div className="flex justify-center">Loading...</div>;
     }
@@ -69,6 +82,11 @@ export default function CalendarPage() {
                     tileClassName={tileClassName}
                     className="custom-calendar"
                     onChange={() => {}}
+                    onActiveStartDateChange={({ activeStartDate }) => {
+                        if (activeStartDate) {
+                            handleMonthChange(activeStartDate);
+                        }
+                    }}
                 />
             </div>
         </div>

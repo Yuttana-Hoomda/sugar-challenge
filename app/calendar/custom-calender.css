@@ -100,3 +100,8 @@
 .custom-calendar .react-calendar__tile.bg-green::before {
   background-color: #BEFFB3;
 }
+
+.transparent-background {
+  background-color: rgba(0, 0, 0, 0); /* สีพื้นหลังโปร่งแสง */
+  color: #4F80C0; /* สีตัวอักษรสำหรับวันที่นอกเดือนปัจจุบัน */
+}

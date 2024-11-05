@@ -32,10 +32,9 @@ const Graph: React.FC<GraphProps> = ({ monthView }) => {
   });
 
   // คำนวณค่าที่ต้องการ
-  const dataValues = graphData.datasets[0].data;
-  const maxValue = Math.max(...dataValues);
-  const averageValue =
-    dataValues.reduce((a: number, b: number) => a + b, 0) / dataValues.length;
+    const dataValues = graphData.datasets[0].data.filter((value: number) => !isNaN(value) && value !== undefined);
+    const maxValue = dataValues.length > 0 ? Math.max(...dataValues) : 0;
+    const averageValue = dataValues.reduce((a: number, b: number) => a + b, 0) / dataValues.length;
   // console.log(averageValue)
   const halfValue = maxValue / 2;
 
@@ -60,33 +59,33 @@ const Graph: React.FC<GraphProps> = ({ monthView }) => {
         // },
       },
       y: {
-        ticks: {
-          callback: function (value: number | string) {
-            if (value === 0 || value === maxValue || value === halfValue) {
-              return value; // แสดงเฉพาะค่า 0, ค่าสูงสุด, และค่าเฉลี่ย
-            }
-            return "";
-          },
+        // ticks: {
+        //   callback: function (value: number | string) {
+        //     if (value === 0 || value === maxValue || value === 24) {
+        //       return value; // แสดงเฉพาะค่า 0, maxValue, และ 24
+        //     }
+        //     return "";
+        //   },
+        // },
+        suggestedMax: maxValue * 1.1, // เผื่อพื้นที่ด้านบน
+        suggestedMin: 0,
+        // grid: {
+        //     color: (ctx) => {
+        //       // สร้างเส้นกริดเฉพาะค่าสำคัญ
+        //       const tickValue = ctx.tick.value; // ใช้ ctx.tick.value
+        //       if (
+        //         tickValue === 0 ||
+        //         tickValue === maxValue ||
+        //         tickValue === halfValue
+        //       ) {
+        //         return "rgba(172, 171, 171, 1)"; // สีเส้นกริดที่แสดง
+        //       }
+        //       return "rgba(0, 0, 0, 0)"; // สีเส้นกริดที่ซ่อน
+        //     },
+        //   },
+          beginAtZero: true,
         },
-        suggestedMax: Math.max(...graphData.datasets[0].data) * 1.1, // กำหนดค่าสูงสุดของแกน Y พร้อมเพิ่มเผื่อ
-        suggestedMin: 0, // กำหนดค่าเริ่มต้นเป็น 0 พร้อมเพิ่มเผื่อ
-        grid: {
-          color: (ctx) => {
-            // สร้างเส้นกริดเฉพาะค่าสำคัญ
-            const tickValue = ctx.tick.value; // ใช้ ctx.tick.value
-            if (
-              tickValue === 0 ||
-              tickValue === maxValue ||
-              tickValue === halfValue
-            ) {
-              return "rgba(172, 171, 171, 1)"; // สีเส้นกริดที่แสดง
-            }
-            return "rgba(0, 0, 0, 0)"; // สีเส้นกริดที่ซ่อน
-          },
-        },
-        // beginAtZero: true,
       },
-    },
     plugins: {
       zoom: {
         pan: {
@@ -107,18 +106,15 @@ const Graph: React.FC<GraphProps> = ({ monthView }) => {
   };
 
   const parseData = (data: { date: string; value: number }[]): { labels: string[]; data: number[] } => {
-    const labels: string[] = [];
-    const sugarData: number[] = [];
-
-    data.forEach((item) => {
-      const itemDate = new Date(item.date);
-      console.log(itemDate);
-      labels.push(itemDate.getDate().toString()); // ดึงเฉพาะวันที่ ต้องทำการเรียงข้อมูล ตรงนี้
-      sugarData.push(item.value); // ใส่ค่า value
-    });
-
+    // เรียงข้อมูลตามวันที่จากน้อยไปมาก
+    const sortedData = data.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  
+    const labels = sortedData.map((item) => new Date(item.date).getDate().toString());
+    const sugarData = sortedData.map((item) => item.value);
+  
     return { labels, data: sugarData };
   };
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -126,6 +122,7 @@ const Graph: React.FC<GraphProps> = ({ monthView }) => {
         const response = await fetch("/api/getDailysugar");
         console.log("information from backend" + response.toString());
         console.log("graph value are changing!")
+        console.log(maxValue)
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -170,6 +167,7 @@ fetchData();
         <h2 className="text-blue-800"> กราฟค่าน้ำตาลรายวัน</h2>
       </div>
       <Line data={graphData} options={options} className="m-2" />
+      {/* {console.log(maxValue)} */}
     </div>
   );
 };

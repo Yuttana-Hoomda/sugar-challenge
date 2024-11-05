@@ -130,8 +130,8 @@ const HomePage = () => {
 
       {/* Popup */}
       {isPopupOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-lightBlue p-4 rounded-xl w-[700px] text-center text-darkBlue">
+        <div className="bg-black bg-opacity-30 w-screen h-screen fixed top-0 left-0 z-[60] flex-center">
+          <div className="bg-lightBlue p-4 rounded-xl w-[700px] text-center text-darkBlue mx-4">
             <h2 className="text-xl font-semibold ">โรคฟันผุ</h2>
             <p className="text-start">
               เกิดจากการบริโภคเครื่องดื่มที่มีน้ำตาล เช่น น้ำอัดลม ชานมไข่มุก น้ำผลไม้ และเครื่องดื่มชูกำลัง มีสาเหตุหลักจากน้ำตาลและกรดที่อยู่ในเครื่องดื่มเหล่านี้ซึ่งทำลายเคลือบฟัน กระบวนการเกิดฟันผุจากเครื่องดื่มหวานมีรายละเอียดดังนี้

@@ -14,6 +14,19 @@ export default function CalendarPage() {
     const [dailySugar, setDailySugar] = useState<DailySugar[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [currentMonth, setCurrentMonth] = useState(new Date());
+    const [monthView, setMonthView] = useState({ month: new Date().getMonth(), year: new Date().getFullYear() });
+    //!
+    const handleMonthChange = (activeStartDate: Date) => {
+        // อัปเดต monthView
+        setMonthView({
+            month: activeStartDate.getMonth(),
+            year: activeStartDate.getFullYear(),
+        });
+    
+        // อัปเดต currentMonth
+        setCurrentMonth(activeStartDate);
+    };
+    
 
     useEffect(() => {
         const fetchDailySugar = async () => {
@@ -68,10 +81,10 @@ export default function CalendarPage() {
         }
         return null;
     };
-
-    const handleMonthChange = (value: Date) => {
-        setCurrentMonth(value);
-    };
+    // pp Code
+    // const handleMonthChange = (value: Date) => {
+    //     setCurrentMonth(value);
+    // };
 
     if (isLoading) {
         return <div className="flex justify-center">Loading...</div>;
@@ -90,10 +103,10 @@ export default function CalendarPage() {
                         }
                     }}
                 />
-                {/* <div className="m-5">
-                     <Graph /> 
+                <div className="m-5">
+                     {/* <Graph />  */}
                     <Graph monthView={monthView} />
-                </div> */}
+                </div>
             </div>
         </div>
     );

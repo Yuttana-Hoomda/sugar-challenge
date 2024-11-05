@@ -12,14 +12,9 @@ import { Data } from "./DataTest";
 import { ChartOptions } from "chart.js/auto";
 import page from "../app/calendar/page";
 
-// interface GraphProps {
-//   data: DailySugar[];
-//   selectedMonth: Date;
-// }
 interface GraphProps {
     monthView: { month: number; year: number };
 }
-
 
 const Graph: React.FC<GraphProps> = ({ monthView }) => {
   const [graphData, setGraphData] = useState<any>({
@@ -35,14 +30,6 @@ const Graph: React.FC<GraphProps> = ({ monthView }) => {
       },
     ],
   });
-
-//   const filteredData = data.filter((item) => {
-//     const itemDate = new Date(item.date);
-//     return (
-//       itemDate.getMonth() === selectedMonth.getMonth() &&
-//       itemDate.getFullYear() === selectedMonth.getFullYear()
-//     );
-//   });
 
   // คำนวณค่าที่ต้องการ
   const dataValues = graphData.datasets[0].data;
@@ -137,7 +124,8 @@ const Graph: React.FC<GraphProps> = ({ monthView }) => {
     const fetchData = async () => {
       try {
         const response = await fetch("/api/getDailysugar");
-        console.log("information from backend" + response);
+        console.log("information from backend" + response.toString());
+        console.log("graph value are changing!")
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -145,8 +133,8 @@ const Graph: React.FC<GraphProps> = ({ monthView }) => {
 
         // ตรวจสอบว่า data.dailySugar เป็นอาร์เรย์ก่อน
         if (Array.isArray(data.dailySugar)) {
-             // กรองข้อมูลให้เหลือเฉพาะเดือนและปีที่เลือก
-             const filteredData = data.dailySugar.filter((item: { date: string; value: number }) => {
+            // กรองข้อมูลให้เหลือเฉพาะเดือนและปีที่เลือก
+            const filteredData = data.dailySugar.filter((item: { date: string | number | Date; }) => {
                 const itemDate = new Date(item.date);
                 return (
                     itemDate.getMonth() === monthView.month &&
@@ -154,27 +142,27 @@ const Graph: React.FC<GraphProps> = ({ monthView }) => {
                 );
             });
 
-          const parsedData = parseData(data.dailySugar); // ส่งข้อมูลไปยัง parseData
-          console.log("Parsed Data is here!"+parsedData); // ตรวจสอบข้อมูลที่ถูกส่งไป
-          setGraphData({
-            labels: parsedData.labels,
-            datasets: [
-              {
-                ...graphData.datasets[0],
-                data: parsedData.data,
-              },
-            ],
-          });
+            // แปลงและตั้งค่าข้อมูลที่กรองแล้วสำหรับกราฟ
+            const parsedData = parseData(filteredData); // ส่งเฉพาะข้อมูลที่กรองแล้วเท่านั้น
+            setGraphData({
+                labels: parsedData.labels,
+                datasets: [
+                    {
+                        ...graphData.datasets[0],
+                        data: parsedData.data,
+                    },
+                ],
+            });
         } else {
-          console.error("Expected dailySugar to be an array:", data.dailySugar);
+            console.error("Expected dailySugar to be an array:", data.dailySugar);
         }
-      } catch (error) {
+    } catch (error) {
         console.error("Error fetching data:", error);
-      }
-    };
+    }
+};
 
-    fetchData();
-  }, []);
+fetchData();
+}, [monthView]); // เพิ่ม monthView เป็น dependency เพื่อดึงข้อมูลใหม่เมื่อมีการเปลี่ยนแปลง
 
   return (
     <div className="flex-col">

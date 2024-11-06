@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import DropDown from "./dropDown" // Ensure the file name matches the actual file
 import { useRouter } from 'next/navigation';
-import coffee from '../images/coffee.svg';
 import { signOut, useSession } from "next-auth/react";
 
 const GetUser = () => {
@@ -81,7 +80,6 @@ const GetUser = () => {
         />
       </div>
       <h1 className="mt-3 text-[20px] text-center">{user.name}</h1>
-
 
         {/* Edit button */}
       <div className="flex justify-center mt-4">

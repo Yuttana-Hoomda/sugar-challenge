@@ -43,7 +43,9 @@ const BottomBar:React.FC<navBarProps> = ({IconSize}) => {
                 width={IconSize}
                 height={IconSize}
             />
+      
         </div>
+       
        ))}
     </nav>
   )

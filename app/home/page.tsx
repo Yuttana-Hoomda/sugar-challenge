@@ -19,6 +19,7 @@ const HomePage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [beverageList, setBeverageList] = useState<BeverageItem[]>([]);
   const [sugarValue, setSugarValue] = useState(0);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   useEffect(() => {
     fetchData()
@@ -77,12 +78,20 @@ const HomePage = () => {
     return <HomeSkeleton />;
   }
 
+  const handleClick = () => {
+    setIsPopupOpen(true);
+  };
+
+  const closePopup = () => {
+    setIsPopupOpen(false);
+  };
+
   return (
     <div className="h-full flex flex-col">
       <div className="border-blue border bg-lightBlue rounded-xl py-2 px-4">
         <div className="flex items-center justify-between">
           <h1 className="font-semibold text-2xl text-darkBlue">ปริมาณน้ำตาล</h1>
-          <FaCircleInfo size={20} color="#4F80C0" />
+          <button onClick={handleClick}><FaCircleInfo size={20} color="#4F80C0" /></button>
         </div>
         <div className="flex-center py-6">
           <CircularProgress size={165} sugarValue={sugarValue} />
@@ -118,6 +127,29 @@ const HomePage = () => {
           </div>
         )}
       </div>
+
+      {/* Popup */}
+      {isPopupOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-lightBlue p-4 rounded-xl w-[700px] text-center text-darkBlue">
+            <h2 className="text-xl font-semibold ">น้ำตาล</h2>
+            <p className="text-start">
+            เป็นคาร์โบไฮเดรตที่ให้พลังงานสูง แต่ขาดสารอาหารอื่นที่มีประโยชน์ พบได้ทั้งในธรรมชาติและอาหารแปรรูป กรมอนามัยแนะนำให้ผู้ใหญ่บริโภคน้ำตาลไม่เกิน 6 ช้อนชาต่อวัน (ประมาณ 24 กรัม) และเด็กควรบริโภคน้อยกว่านี้ เพื่อลดความเสี่ยงต่อโรคอ้วน เบาหวาน หัวใจ และฟันผุ <br/> 
+            </p>
+            <h2 className="text-xl font-semibold ">โรคฟันผุ</h2>
+            <p className="text-start">
+            เกิดจากการบริโภคเครื่องดื่มที่มีน้ำตาลสูง เช่น น้ำอัดลม ชานมไข่มุก และน้ำผลไม้ ซึ่งกรดจากแบคทีเรียและตัวเครื่องดื่มเองจะกัดกร่อนเคลือบฟัน ทำให้ฟันอ่อนแอและเกิดโพรงฟันตามมา <br/>
+            วิธีป้องกันโรคฟันผุ <br/>
+            •	การลดปริมาณเครื่องดื่มหวาน <br/>
+            •	ดื่มน้ำเปล่าหลังการดื่มน้ำหวาน <br/>
+            •	ใช้หลอดดื่ม และใช้ยาสีฟันผสมฟลูออไรด์ 
+            </p>
+            <button onClick={closePopup} className="mt-5 bg-white w-10 rounded-md">
+              ปิด
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

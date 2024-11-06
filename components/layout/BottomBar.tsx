@@ -2,8 +2,8 @@
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation';
-import IconData from '@/data/iconData';
-import { useSession } from 'next-auth/react';
+import BottomBarList from '@/data/bottomBarList.json';
+import { icons } from 'lucide-react';
 
 interface navBarProps {
     IconSize:number
@@ -13,32 +13,28 @@ const BottomBar:React.FC<navBarProps> = ({IconSize}) => {
     const router = useRouter()
     const pathName = usePathname()
     const [activePath, setActivePath] = useState<string>('/');
-    const { data: session } = useSession();
 
     useEffect(() => {
         setActivePath(pathName || '/');
       }, [pathName]);
 
-    const getIcon = (path: string) => {
-        const key = path as keyof typeof IconData;
-        return activePath === path ? IconData[key].active : IconData[key].default;
+    const getImg = (path: string, icon: string, iconActive: string) => {
+      if (activePath === path || (activePath.startsWith('/beverage')) && path.startsWith('/beverage')) {
+        return iconActive
+      }
+      return icon
     }
 
     const handleClick = (path: string) => () => {
-      if (!session) {
-        alert('User is not logged in');
-        return;
-      }
-      const url = `${path}`;
-      router.push(url);
+      router.push(path)
     }
     
   return (
     <nav className='flex items-center justify-between px-10 py-5 shadow-top bg-white sticky bottom-0'>
-       {Object.keys(IconData).map((path) => (
-        <div key={path} onClick={handleClick(path)}>
+       {BottomBarList.map((items, index) => (
+        <div key={index} onClick={handleClick(items.path)}>
             <Image
-                src={getIcon(path)}
+                src={getImg(items.path, items.icon, items.iconActive)}
                 alt=''
                 width={IconSize}
                 height={IconSize}

@@ -2,7 +2,9 @@
 import { useEffect, useState } from "react";
 import DropDown from "./dropDown" // Ensure the file name matches the actual file
 import { useRouter } from 'next/navigation';
+import { IoIosMail } from "react-icons/io";
 import { signOut, useSession } from "next-auth/react";
+import { link } from "fs";
 
 const GetUser = () => {
   interface User {
@@ -16,10 +18,10 @@ const GetUser = () => {
     beverageHistory: string[];
     dailySugar: string[];
   }
-  
+
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState(null);
-  const {data : session} = useSession();
+  const { data: session } = useSession();
 
   const router = useRouter();
   const handleClick = () => {
@@ -29,11 +31,11 @@ const GetUser = () => {
   const handleSignOut = () => {
     signOut({ callbackUrl: '/' });
   };
-  
+
   useEffect(() => {
     const fetchUser = async () => {
       const response = await fetch(`/api/getUser`);
-      
+
       if (response.ok) {
         const userData = await response.json();
         console.log(userData)
@@ -43,10 +45,10 @@ const GetUser = () => {
         setError(errorData.error);
       }
     };
-    
+
     fetchUser();
   }, []);
-  
+
   if (error) {
     return <div>Error: {error}</div>;
   }
@@ -68,9 +70,9 @@ const GetUser = () => {
 
 
   return (
-    
+
     <div className="relative">
-      <h1 className="font-semibold text-[25px] text-center">ข้อมูลทั่วไป</h1>
+      <h1 className="font-semibold text-[25px] text-center text-darkBlue">ข้อมูลทั่วไป</h1>
 
       <div className="grid justify-center overflow-hidden gap-12 mt-3">
         <img
@@ -79,9 +81,10 @@ const GetUser = () => {
           alt=""
         />
       </div>
-      <h1 className="mt-3 text-[20px] text-center">{user.name}</h1>
+      <h1 className="mt-3 text-[20px] text-center text-darkBlue">{user.name}</h1>
 
-        {/* Edit button */}
+
+      {/* Edit button */}
       <div className="flex justify-center mt-4">
         <button
           type="button"
@@ -98,7 +101,7 @@ const GetUser = () => {
             key={index}
             className="bg-gray-100 rounded-xl p-3 text-center w-28"
           >
-            <div className="font-bold text-2xl">
+            <div className="font-bold text-2xl text-darkBlue">
               {index === 0 ? user.weight : index === 1 ? user.height : user.bmi}
             </div>
             <div className="text-gray-500 text-sm">{stat}</div>
@@ -107,35 +110,42 @@ const GetUser = () => {
       </div>
 
       {/* Dropdown */}
-      <section className="mt-4">
+      <section className="mt-6">
         <div className="grid justify-center">
-          <h1 className="font-semibold text-lg text-center mt-2">เครื่องดื่มที่บริโภคบ่อย</h1>
+          <h1 className="font-semibold text-lg text-center mt-2 text-darkBlue">เครื่องดื่มที่บริโภคบ่อย</h1>
           <div className="mt-6"><DropDown /></div>
         </div>
       </section>
-        
-        <div className="flex justify-center mt-4">
-          <button 
-              onClick={handleSignOut}
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Sign Out
-            </button>
-        </div>
 
+      <div className="flex justify-evenly items-center mt-10">
+        <div 
+          className="flex justify-center items-center gap-1 border border-darkBlue text-darkBlue font-semibold py-2 px-4 rounded"
+          onClick={() => (window.location.href = 'https://lin.ee/IJnAkr8')}
+        >
+          <IoIosMail size={20} color="#002D63"/>
+          <h3>ติดต่อเรา</h3>
+        </div>
+        <button
+          onClick={handleSignOut}
+          className="border border-darkBlue text-darkBlue font-semibold py-2 px-4 rounded"
+        >
+          ออกจากระบบ
+        </button>
       </div>
 
-      // <h1>User Information 55555</h1>
-      // <p>Name: {user.name}</p>
-      // <p>Email: {user.email}</p>
-      // <p>Gender: {user.gender}</p>
-      // <p>Weight: {user.weight}</p>
-      // <p>Height: {user.height}</p>
-      // <p>BMI: {user.bmi}</p>
-      // <p>Current Sugar: {user.currentSugar}</p>
-      // <p>Beverage History: {user.beverageHistory.join(", ")}</p>
-      // <p>Daily Sugar: {user.dailySugar.join(", ")}</p>
-  
+    </div>
+
+    // <h1>User Information 55555</h1>
+    // <p>Name: {user.name}</p>
+    // <p>Email: {user.email}</p>
+    // <p>Gender: {user.gender}</p>
+    // <p>Weight: {user.weight}</p>
+    // <p>Height: {user.height}</p>
+    // <p>BMI: {user.bmi}</p>
+    // <p>Current Sugar: {user.currentSugar}</p>
+    // <p>Beverage History: {user.beverageHistory.join(", ")}</p>
+    // <p>Daily Sugar: {user.dailySugar.join(", ")}</p>
+
   );
 };
 

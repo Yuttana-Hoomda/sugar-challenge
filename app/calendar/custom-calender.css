@@ -1,51 +1,107 @@
-custom-calendar.css
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&display=swap');
+
 .custom-calendar {
-    @apply rounded-xl p-4 bg-white border-white ; /* ขอบมน พื้นหลังสีฟ้าอ่อน */
-  }
-  
-  .custom-calendar .react-calendar__tile {
-    @apply rounded-full h-12 p-2; /* ขอบมนกับวันที่แต่ละวัน */
-  }
+  @apply rounded-xl p-4 border-white;
+  font-family: 'Kanit', sans-serif; /* ใช้ฟอนต์ Kanit */
+}
 
-  .react-calendar {
-    @apply border-white;
-  }
+.react-calendar {
+  @apply border-white bg-transparent;
+}
 
-  .react-calendar__navigation{
-    @apply font-semibold;
-  }
+/* ปรับความเฉพาะเจาะจงของ tile ทั่วไป */
+.custom-calendar .react-calendar__tile {
+  @apply rounded-full h-11 p-1;
+  position: relative;
+  z-index: 1;
+  font-family: 'Kanit', sans-serif; /* ใช้ฟอนต์ Kanit สำหรับ tile */
+}
 
-  .react-calendar__month-view__weekdays {
-    @apply border-b-2 ;
-    border-color: #4F80C0 ;
-  }
+.react-calendar__navigation {
+  @apply font-semibold;
+  font-family: 'Kanit', sans-serif; /* ใช้ฟอนต์ Kanit */
+}
 
-  .react-calendar__tile--now {
-    @apply bg-[#79aaeb];
-  }
+.react-calendar__month-view__weekdays {
+  @apply border-b-2;
+  border-color: #4F80C0;
+  font-family: 'Kanit', sans-serif; /* ใช้ฟอนต์ Kanit */
+}
 
-  /* สีวันที่จ้า อยู่ในเดือนเดียวกันสีเดียวกัน อยู่คนละเดือนแต่วันที่โผล่มาสีฟ้าอ่อน*/
-  .custom-calendar .react-calendar__tile, .react-calendar__navigation, .react-calendar__month-view__weekdays{
-    color: #002D63;
-  }
-  .custom-calendar .react-calendar__month-view__days__day--neighboringMonth, .react-calendar__decade-view__years__year--neighboringDecade, .react-calendar__century-view__decades__decade--neighboringCentury {
-    @apply text-blue; /* กำหนดสีของวันหยุดสุดสัปดาห์ */
-  }
+/* ยกเลิกสีพื้นหลังของวันที่ปัจจุบัน */
+.react-calendar__tile--now {
+  background-color: transparent !important;
+}
 
-  .react-calendar__tile--active, .react-calendar__tile:enabled:hover, .react-calendar__tile--active:enabled:hover {
-    background-color: transparent;
-  }
+/* สีของตัวอักษร */
+.custom-calendar .react-calendar__tile,
+.react-calendar__navigation,
+.react-calendar__month-view__weekdays {
+  color: #002D63;
+  font-family: 'Kanit', sans-serif; /* ใช้ฟอนต์ Kanit */
+}
 
-  .bg-red {
-    background-color: #FF7E7E; /* สีแดงสำหรับค่าน้ำตาล > 20 */
-  }
-  
-  .bg-green {
-    background-color: #BEFFB3; /* สีเขียวสำหรับค่าน้ำตาล <= 20 */
-  }
-  
-  
+/* สีของวันที่ในเดือนข้างเคียง */
+.custom-calendar .react-calendar__month-view__days__day--neighboringMonth,
+.react-calendar__decade-view__years__year--neighboringDecade,
+.react-calendar__century-view__decades__decade--neighboringCentury {
+  @apply text-blue;
+}
 
+/* ยกเลิกสีพื้นหลังเมื่อ hover และเลือก */
+.react-calendar__tile--active,
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile--active:enabled:hover {
+  background-color: transparent !important;
+}
 
+/* กำหนดสีพื้นหลังสำหรับค่าน้ำตาลสูงและต่ำ */
+.custom-calendar .react-calendar__tile.bg-red {
+  background-color: #FF7E7E !important;
+  z-index: 0;
+}
 
-  
+.custom-calendar .react-calendar__tile.bg-green {
+  background-color: #BEFFB3 !important;
+  z-index: 0;
+}
+
+/* เพิ่มความเฉพาะเจาะจงสำหรับสีพื้นหลัง */
+.custom-calendar .react-calendar__month-view__days__day.bg-red {
+  background-color: #FF7E7E !important;
+}
+
+.custom-calendar .react-calendar__month-view__days__day.bg-green {
+  background-color: #BEFFB3 !important;
+}
+
+/* ทำให้แน่ใจว่าสีพื้นหลังจะแสดงผลเสมอ */
+.custom-calendar .react-calendar__tile.bg-red,
+.custom-calendar .react-calendar__tile.bg-green {
+  position: relative;
+}
+
+.custom-calendar .react-calendar__tile.bg-red::before,
+.custom-calendar .react-calendar__tile.bg-green::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 9999px;
+  z-index: -1;
+}
+
+.custom-calendar .react-calendar__tile.bg-red::before {
+  background-color: #FF7E7E;
+}
+
+.custom-calendar .react-calendar__tile.bg-green::before {
+  background-color: #BEFFB3;
+}
+
+.transparent-background {
+  background-color: rgba(0, 0, 0, 0); /* สีพื้นหลังโปร่งแสง */
+  color: #4F80C0; /* สีตัวอักษรสำหรับวันที่นอกเดือนปัจจุบัน */
+}

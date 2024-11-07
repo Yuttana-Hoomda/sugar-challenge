@@ -13,10 +13,10 @@ interface NextAuthProviderProps {
 export const NextAuthProvider: React.FC<NextAuthProviderProps> = ({ children }) => {
   const pathname = usePathname()
   
-  if (pathname === "/" || pathname === "/register") {
+  if (pathname === "/" || pathname === "/register" || pathname === '/createUser') {
     return (
       <SessionProvider>
-        <div>
+        <div className="py-8 px-6">
           {children}
         </div>
       </SessionProvider>

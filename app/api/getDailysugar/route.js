@@ -15,32 +15,32 @@ export const GET = async (req) => {
 
     const email = session.user.email;
 
+    // Connect to the database
     await connectToDB();
 
+    // Find the user by email
     const user = await User.findOne({ email });
     if (!user) {
       console.log("User not found");
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
 
+    // Find the daily sugar records associated with the user's ID
     const dailySugarRecord = await DailySugar.findOne({ user_id: user._id });
-    console.log("DailySugar Record:", dailySugarRecord);
+    if (!dailySugarRecord || !dailySugarRecord.dailySugar) {
+      console.log("DailySugar data not found");
+      return NextResponse.json({ message: "Daily sugar data not found" }, { status: 404 });
+    }
 
-    const { date, value } = dailySugarRecord && dailySugarRecord.dailySugar && dailySugarRecord.dailySugar.length > 0
-      ? dailySugarRecord.dailySugar[0]
-      : { date: null, value: 0 };
-      console.log(date);
-      console.log(value);
-
+    // Send the entire dailySugar array to the client
     return NextResponse.json({
-      message: "Daily sugar value retrieved successfully",
-      date,
-      value
+      message: "Daily sugar data retrieved successfully",
+      dailySugar: dailySugarRecord.dailySugar,
     });
   } catch (error) {
-    console.error("Error getting daily sugar value:", error);
+    console.error("Error getting daily sugar data:", error);
     return NextResponse.json(
-      { message: "Error getting daily sugar value" },
+      { message: "Error getting daily sugar data" },
       { status: 500 }
     );
   }

@@ -9,8 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "axios": "^1.7.7",
+    "chartjs-plugin-zoom": "^2.0.1",
+    "chart.js": "^4.4.6",
+    "cookies-next": "^4.3.0",
     "express": "^4.21.0",
-    "firebase": "^10.13.2",
+    "firebase": "^10.14.1",
     "firebase-admin": "^12.5.0",
     "js-cookie": "^3.0.5",
     "lucide-react": "^0.445.0",
@@ -22,6 +26,7 @@
     "nodemailer": "^6.9.15",
     "react": "^18.3.1",
     "react-calendar": "^5.0.0",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.3.0",
     "react-hot-toast": "^2.4.1",
     "react-icons": "^5.3.0",
@@ -35,11 +40,17 @@
     "@types/next": "^9.0.0",
     "@types/next-auth": "^3.15.0",
     "@types/node": "^22.5.5",
+    "@types/node-cron": "^3.0.11",
     "@types/react": "^18.3.7",
     "@types/react-dom": "^18",
     "@types/react-slick": "^0.23.13",
     "postcss": "^8",
     "tailwindcss": "^3.4.12",
     "typescript": "5.6.2"
-  }
+  },
+  "description": "This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

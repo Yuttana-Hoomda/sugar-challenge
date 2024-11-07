@@ -8,41 +8,42 @@ import DailySugar from "@/models/dailySugar";
 export const POST = async (req) => {
   try {
     const session = await getServerSession(authOptions);
-    console.log(session);
-    if (!session) {
-      // return session;
-      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
-    }
-
     const email = session.user.email;
-    const { menu, quantities, sweetLevel, value } = await req.json();
+
+    const { date, value } = await req.json();
+
+    const user = await User.findOne({email});
 
     await connectToDB();
 
-    let user = await User.findOne({ email });
-
-    if (!user) {
-      console.log("User not found");
+    const updatedEntry = await DailySugar.findOneAndUpdate(
+        { user_id: user._id, "dailySugar.date": date },
+        { $inc: { "dailySugar.$.value": value } },
+      );
+  
+    if(!updatedEntry) {
+      const newEntry = await DailySugar.findOneAndUpdate(
+        { user_id: user._id },
+        {
+          $push: {
+            dailySugar: {
+              $each: [{ date: date, value: value }],
+              $position: 0, 
+            },
+          },
+        },
+        { new: true, upsert: true }
+      );
     }
 
-    const dailySugar = await DailySugar.create({
-      user_id: user.id, 
-      menu,
-      quantities,
-      sweetLevel,
-      value: value,
-      created_at: new Date(),
-    });
-
     return NextResponse.json({
-      message: "Daily sugar value added successfully",
-      dailySugar,
+      message: "Daily sugar value updated successfully",
     });
   } catch (error) {
-    console.error("Error adding daily sugar value:", error);
+    console.error("Error updating daily sugar value:", error);
     return NextResponse.json(
-      { message: "Error adding daily sugar value" },
+      { message: "Error updating daily sugar value" },
       { status: 500 }
     );
   }
-};
+}

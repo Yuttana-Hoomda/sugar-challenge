@@ -1,13 +1,5 @@
 import mongoose from "mongoose";
 
-const BeverageHistorySchema = new mongoose.Schema({
-    menu: {type: String, required: true},
-    img: {type: String, required: true},
-    value: { type: Number, required: true },
-    quantities: {type: String, required: true},
-    sweetLevel: {type: String, required: true},
-});
-
 const UserSchema = new mongoose.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },

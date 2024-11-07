@@ -6,6 +6,7 @@ const config: Config = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  safelist: ['bg-red', 'bg-green'],
   theme: {
     extend: {
       colors: {
@@ -15,6 +16,8 @@ const config: Config = {
         "darkBlue": '#002D63',
         "lightBlue": '#EBF4FF',
         "buttonActive": '#D7E9FF',
+        "skeleton": '#DAEBFF',
+        "skeletonPrimary": '#c3d7f1'
       },
       boxShadow: {
         "top": '0px -2px 15px rgba(0, 0, 0, 0.15)',

@@ -11,7 +11,11 @@ export const authOptions = {
     }),
   ],
   session: {
-    strategy: 'jwt'
+    strategy: 'jwt',
+    
+  },
+  jwt: {
+    secret: process.env.NEXTAUTH_SECRET
   },
   callbacks: {
     async signIn({ user, account }) {
@@ -32,6 +36,7 @@ export const authOptions = {
               weight: 0,
               height: 0,
               bmi: 0,
+              beverageHistory: [],
               dailySugar: []
             });
           }
@@ -66,7 +71,7 @@ export const authOptions = {
       }
       return token;
     }
-  },
+},
 };
 
 const handler = NextAuth(authOptions);

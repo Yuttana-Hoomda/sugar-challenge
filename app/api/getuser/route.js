@@ -1,9 +1,12 @@
 import { NextResponse } from "next/server"; // นำเข้า NextResponse
 import { connectToDB } from "@/utils/connectToDB";
+import { authOptions } from "../auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
 import User from "@/models/user";
 
 export async function GET(req) {
-  const email = req.nextUrl.searchParams.get("email");
+  const session = await getServerSession(authOptions);
+  const email = session.user.email;
   
   if (!email) {
     return NextResponse.json({ error: "Email is required" }, { status: 400 });

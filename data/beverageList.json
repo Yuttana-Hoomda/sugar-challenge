@@ -1,0 +1,822 @@
+[
+    {
+        "categoriesName": "กาแฟ",
+        "img": "/images/coffee.svg",
+        "bandList": [
+            {
+                "bandName": "Amazon",
+                "img": "/images/amazon.png",
+                "menuList": [
+                    {
+                        "menu": "เอสเปรสโซ่",
+                        "volume": 650,
+                        "sugarValue": 25
+                    },
+                    {
+                        "menu": "แบล็คคอฟฟี่",
+                        "volume": 650,
+                        "sugarValue": 4
+                    },
+                    {
+                        "menu": "แบล็คคอฟฟี่น้ำผึ้ง",
+                        "volume": 650,
+                        "sugarValue": 30
+                    },
+                    {
+                        "menu": "แบล็คคอฟฟี่น้ำผึ้งมะนาว",
+                        "volume": 650,
+                        "sugarValue": 22
+                    },
+                    {
+                        "menu": "คาปูชิโน่",
+                        "volume": 650,
+                        "sugarValue": 32
+                    },
+                    {
+                        "menu": "ลาเต้",
+                        "volume": 650,
+                        "sugarValue": 35
+                    },
+                    {
+                        "menu": "มอคค่า",
+                        "volume": 650,
+                        "sugarValue": 26
+                    },
+                    {
+                        "menu": "ไวท์ ช้อค มัคคิอาโต้",
+                        "volume": 650,
+                        "sugarValue": 59
+                    },
+                    {
+                        "menu": "คาราเมลมัคคิอาโต้",
+                        "volume": 650,
+                        "sugarValue": 25
+                    }
+                ]
+            },
+            {
+                "bandName": "ชาตรามือ",
+                "img": "/images/cha_tramue.png",
+                "menuList": [
+                    {
+                        "menu": "มอคค่าไทย",
+                        "volume": 650,
+                        "sugarValue": 20
+                    },
+                    {
+                        "menu": "แบล็คทีลาเต้",
+                        "volume": 650,
+                        "sugarValue": 20
+                    },
+                    {
+                        "menu": "โฮจิฉะลาเต้",
+                        "volume": 650,
+                        "sugarValue": 20
+                    },
+                    {
+                        "menu": "โกโก้ลาเต้",
+                        "volume": 650,
+                        "sugarValue": 20
+                    },
+                    {
+                        "menu": "มัทฉะลาเต้",
+                        "volume": 650,
+                        "sugarValue": 20
+                    },
+                    {
+                        "menu": "กาแฟสดลาเต้",
+                        "volume": 650,
+                        "sugarValue": 20
+                    },
+                    {
+                        "menu": "ชาเขียวเอ็กซ์ตร้ากรีนลาเต้",
+                        "volume": 650,
+                        "sugarValue": 20
+                    },
+                    {
+                        "menu": "เอสเปรสโซ่",
+                        "volume": 360,
+                        "sugarValue": 5
+                    },
+                    {
+                        "menu": "กาแฟตรามือ",
+                        "volume": 480,
+                        "sugarValue": 15
+                    },
+                    {
+                        "menu": "ลาเต้",
+                        "volume": 650,
+                        "sugarValue": 20
+                    },
+                    {
+                        "menu": "อเมริกาโน่",
+                        "volume": 480,
+                        "sugarValue": 5
+                    },
+                    {
+                        "menu": "มอคค่า",
+                        "volume": 650,
+                        "sugarValue": 20
+                    },
+                    {
+                        "menu": "คาปูชิโน่",
+                        "volume": 650,
+                        "sugarValue": 20
+                    },
+                    {
+                        "menu": "ฮันนี่คอฟฟี่",
+                        "volume": 480,
+                        "sugarValue": 15
+                    },
+                    {
+                        "menu": "โอเลี้ยง",
+                        "volume": 480,
+                        "sugarValue": 10
+                    },
+                    {
+                        "menu": "กาแฟโบราณ",
+                        "volume": 480,
+                        "sugarValue": 15
+                    }
+                ]
+            },
+            {
+                "bandName": "บาวคาเฟ่",
+                "img": "/images/bao_cafe.png",
+                "menuList": [
+                    {
+                        "menu": "กาแฟสด",
+                        "volume": 650,
+                        "sugarValue": 10
+                    },
+                    {
+                        "menu": "อเมริกาโน่",
+                        "volume": 650,
+                        "sugarValue": 5
+                    },
+                    {
+                        "menu": "คาปูชิโน่",
+                        "volume": 650,
+                        "sugarValue": 15
+                    },
+                    {
+                        "menu": "ลาเต้",
+                        "volume": 650,
+                        "sugarValue": 15
+                    },
+                    {
+                        "menu": "มอคค่า",
+                        "volume": 650,
+                        "sugarValue": 20
+                    },
+                    {
+                        "menu": "เอสเปรสโซ่",
+                        "volume": 650,
+                        "sugarValue": 5
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "categoriesName": "น้ำผลไม้",
+        "img": "/images/juice.svg",
+        "bandList": [
+            {
+                "bandName": "ตรามินิทเมดสแปลช",
+                "img": "/images/minimade.png",
+                "menuList": [
+                    {
+                        "menu": "น้ำส้ม 12%",
+                        "sugarValue": 33,
+                        "volume": 335
+                    },
+                    {
+                        "menu": "น้ำส้ม 20%",
+                        "sugarValue": 32,
+                        "volume": 290
+                    },
+                    {
+                        "menu": "น้ำส้ม 30%",
+                        "sugarValue": 20,
+                        "volume": 250
+                    },
+                    {
+                        "menu": "น้ำส้ม 30%",
+                        "sugarValue": 14,
+                        "volume": 180
+                    },
+                    {
+                        "menu": "น้ำส้ม 30%",
+                        "sugarValue": 15,
+                        "volume": 290
+                    },
+                    {
+                        "menu": "น้ำมะเขือเทศ 21.36% ผสมน้ำส้ม 4.66%",
+                        "sugarValue": 18,
+                        "volume": 280
+                    },
+                    {
+                        "menu": "น้ำรสเสาวรส ผสมน้ำมะนาว และน้ำผึ้ง",
+                        "sugarValue": 26,
+                        "volume": 280
+                    },
+                    {
+                        "menu": "น้ำองุ่นแดง 25% ผสมเนื้อว่านหางจระเข้",
+                        "sugarValue": 30,
+                        "volume": 290
+                    },
+                    {
+                        "menu": "น้ำรสส้ม 14.57% ผสมวิตามินเอ,บี6, บี12, ดี, ซี, แคลเซียมและสังกะสี",
+                        "sugarValue": 22,
+                        "volume": 180
+                    },
+                    {
+                        "menu": "น้ำรสส้มผสมมะม่วง 14.85% ผสมวิตามิน ตรามินิท เมด ไวตา คิดส์",
+                        "sugarValue": 21,
+                        "volume": 180
+                    },
+                    {
+                        "menu": "น้ำส้ม 37% ผสมเนื้อส้มและไฟเบอร์",
+                        "sugarValue": 15,
+                        "volume": 290
+                    },
+                    {
+                        "menu": "น้ำเลมอนผสมน้ำองุ่นขาว 25% ผสมน้ำผึ้งและวิตามินซี",
+                        "sugarValue": 13,
+                        "volume": 290
+                    },
+                    {
+                        "menu": "น้ำมะเขือเทศ 21.36% ผสมน้ำส้ม 4.66%",
+                        "sugarValue": 21,
+                        "volume": 335
+                    },
+                    {
+                        "menu": "น้ำรสส้ม 15%",
+                        "sugarValue": 13,
+                        "volume": 180
+                    },
+                    {
+                        "menu": "น้ำส้ม 20% ผสมเนื้อส้ม",
+                        "sugarValue": 27,
+                        "volume": 335
+                    },
+                    {
+                        "menu": "น้ำส้ม 20% ผสมเนื้อส้ม",
+                        "sugarValue": 64,
+                        "volume": 800
+                    },
+                    {
+                        "menu": "น้ำรสส้มแมนดาริน 12% สูตรน้ำตาลน้อย",
+                        "sugarValue": 33,
+                        "volume": 335
+                    },
+                    {
+                        "menu": "น้ำผลไม้รวม 20% ผสมเนื้อส้ม",
+                        "sugarValue": 32,
+                        "volume": 290
+                    }
+                ]
+            },
+            {
+                "bandName": "Amazon",
+                "img": "/images/amazon.png",
+                "menuList": [
+                    {
+                        "menu": "ไลท์คอฟฟี่ฮันนี่",
+                        "sugarValue": 32,
+                        "volume": 650
+                    }
+                ]
+            },
+            {
+                "bandName": "บาวคาเฟ่",
+                "img": "/images/bao_cafe.png",
+                "menuList": [
+                    {
+                        "menu": "น้ำผลไม้ปั่น",
+                        "sugarValue": 20,
+                        "volume": 650
+                    },
+                    {
+                        "menu": "สมูทตี้",
+                        "sugarValue": 20,
+                        "volume": 650
+                    },
+                    {
+                        "menu": "น้ำมะนาว",
+                        "sugarValue": 15,
+                        "volume": 650
+                    },
+                    {
+                        "menu": "น้ำผึ้งมะนาว",
+                        "sugarValue": 15,
+                        "volume": 650
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "categoriesName": "น้ำอัดลม",
+        "img": "/images/soda.svg",
+        "bandList": [
+            {
+                "bandName": "โคคา-โคลา",
+                "img": "/images/coca_cola.png",
+                "menuList": [
+                    {
+                        "menu": "โค้ก ซีโร่",
+                        "volume": 180,
+                        "sugarValue": 0
+                    },
+                    {
+                        "menu": "โค้ก ซีโร่",
+                        "volume": 245,
+                        "sugarValue": 0
+                    },
+                    {
+                        "menu": "โค้ก ซีโร่",
+                        "volume": 325,
+                        "sugarValue": 0
+                    },
+                    {
+                        "menu": "โค้ก ซีโร่",
+                        "volume": 330,
+                        "sugarValue": 0
+                    },
+                    {
+                        "menu": "โค้ก ซีโร่",
+                        "volume": 375,
+                        "sugarValue": 0
+                    },
+                    {
+                        "menu": "โค้ก ซีโร่",
+                        "volume": 450,
+                        "sugarValue": 0
+                    },
+                    {
+                        "menu": "โค้ก ซีโร่",
+                        "volume": 500,
+                        "sugarValue": 0
+                    },
+                    {
+                        "menu": "โค้ก ซีโร่",
+                        "volume": 1000,
+                        "sugarValue": 0
+                    },
+                    {
+                        "menu": "โค้ก ซีโร่)",
+                        "volume": 1250,
+                        "sugarValue": 0
+                    },
+                    {
+                        "menu": "โค้ก ซีโร่",
+                        "volume": 1500,
+                        "sugarValue": 0
+                    },
+                    {
+                        "menu": "โค้ก ซีโร่",
+                        "volume": 2000,
+                        "sugarValue": 0
+                    },
+                    {
+                        "menu": "โค้ก สูตรน้ำตาลน้อย",
+                        "volume": 375,
+                        "sugarValue": 28
+                    },
+                    {
+                        "menu": "โค้ก สูตรน้ำตาลน้อย",
+                        "volume": 500,
+                        "sugarValue": 38
+                    },
+                    {
+                        "menu": "โค้ก สูตรน้ำตาลน้อย",
+                        "volume": 590,
+                        "sugarValue": 45
+                    },
+                    {
+                        "menu": "โค้ก สูตรน้ำตาลน้อย",
+                        "volume": 1000,
+                        "sugarValue": 75
+                    },
+                    {
+                        "menu": "โค้ก สูตรน้ำตาลน้อย",
+                        "volume": 1250,
+                        "sugarValue": 90
+                    },
+                    {
+                        "menu": "โค้ก สูตรน้ำตาลน้อย",
+                        "volume": 1600,
+                        "sugarValue": 120
+                    },
+                    {
+                        "menu": "โค้ก สูตรน้ำตาลน้อย",
+                        "volume": 2000,
+                        "sugarValue": 650
+                    },
+                    {
+                        "menu": "โค้ก ออริจินัล",
+                        "volume": 180,
+                        "sugarValue": 19
+                    },
+                    {
+                        "menu": "โค้ก ออริจินัล",
+                        "volume": 245,
+                        "sugarValue": 26
+                    },
+                    {
+                        "menu": "โค้ก ออริจินัล",
+                        "volume": 325,
+                        "sugarValue": 34
+                    },
+                    {
+                        "menu": "โค้ก ออริจินัล",
+                        "volume": 330,
+                        "sugarValue": 29
+                    },
+                    {
+                        "menu": "โค้ก ออริจินัล",
+                        "volume": 375,
+                        "sugarValue": 40
+                    },
+                    {
+                        "menu": "โค้ก ออริจินัล",
+                        "volume": 450,
+                        "sugarValue": 42
+                    },
+                    {
+                        "menu": "โค้ก ออริจินัล",
+                        "volume": 500,
+                        "sugarValue": 53
+                    },
+                    {
+                        "menu": "โค้ก ออริจินัล",
+                        "volume": 1000,
+                        "sugarValue": 105
+                    },
+                    {
+                        "menu": "โค้ก ออริจินัล",
+                        "volume": 1250,
+                        "sugarValue": 126
+                    },
+                    {
+                        "menu": "โค้ก ออริจินัล",
+                        "volume": 1600,
+                        "sugarValue": 168
+                    },
+                    {
+                        "menu": "โค้ก ออริจินัล",
+                        "volume": 2000,
+                        "sugarValue": 210
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "categoriesName": "นม",
+        "img": "/images/milk.svg",
+        "bandList": [
+            {
+                "bandName": "นมดีไลท์",
+                "img": "/images/delight.png",
+                "menuList": [
+                    {
+                        "menu": "นมเปรี้ยวดีไลท์ สีฟ้า สูตรน้ำตาลน้อย",
+                        "volume": 100,
+                        "sugarValue": 9
+                    },
+                    {
+                        "menu": "นมเปรี้ยวดีไลท์ สีฟ้า สูตรน้ำตาลน้อย",
+                        "volume": 650,
+                        "sugarValue": 16
+                    },
+                    {
+                        "menu": "นมเปรี้ยวดีไลท์ สีฟ้า สูตรน้ำตาลน้อย",
+                        "volume": 400,
+                        "sugarValue": 35
+                    },
+                    {
+                        "menu": "นมเปรี้ยวดีไลท์ โพรไบโอติก สูตรดั้งเดิม",
+                        "volume": 100,
+                        "sugarValue": 17
+                    },
+                    {
+                        "menu": "นมเปรี้ยวดีไลท์ โพรไบโอติก สูตรดั้งเดิม",
+                        "volume": 650,
+                        "sugarValue": 28
+                    },
+                    {
+                        "menu": "นมเปรี้ยวดีไลท์ โพรไบโอติก สูตรดั้งเดิม",
+                        "volume": 400,
+                        "sugarValue": 65
+                    }
+                ]
+            },
+            {
+                "bandName": "Amazon",
+                "img": "/images/amazon.png",
+                "menuList": [
+                    {
+                        "menu": "นมสด",
+                        "volume": 650,
+                        "sugarValue": 15
+                    },
+                    {
+                        "menu": "ช้อคโกแลต",
+                        "volume": 650,
+                        "sugarValue": 50
+                    },
+                    {
+                        "menu": "สตรอเบอรี่ชีสเค้ก",
+                        "volume": 650,
+                        "sugarValue": 75
+                    },
+                    {
+                        "menu": "โยเกิร์ตสมูทตี้",
+                        "volume": 650,
+                        "sugarValue": 33
+                    }
+                ]
+            },
+            {
+                "bandName": "ชาตรามือ",
+                "img": "/images/cha_tramue.png",
+                "menuList": [
+                    {
+                        "menu": "โกโก้",
+                        "volume": 480,
+                        "sugarValue": 20
+                    }
+                ]
+            },
+            {
+                "bandName": "บาวคาเฟ่",
+                "img": "/images/bao_cafe.png",
+                "menuList": [
+                    {
+                        "menu": "โกโก้",
+                        "volume": 650,
+                        "sugarValue": 20
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "categoriesName": "ชา",
+        "img": "/images/tea.svg",
+        "bandList": [
+            {
+                "bandName": "Amezon",
+                "img": "/images/amazon.png",
+                "menuList": [
+                    {
+                        "menu": "ชาเขียวนม",
+                        "volume": 650,
+                        "sugarValue": 32
+                    },
+                    {
+                        "menu": "ชานม",
+                        "volume": 650,
+                        "sugarValue": 16
+                    },
+                    {
+                        "menu": "ชามะนาว",
+                        "volume": 650,
+                        "sugarValue": 22
+                    },
+                    {
+                        "menu": "ชาดำ",
+                        "volume": 650,
+                        "sugarValue": 5
+                    },
+                    {
+                        "menu": "ชาเขียวมะนาวเจลลี่",
+                        "volume": 650,
+                        "sugarValue": 40
+                    },
+                    {
+                        "menu": "มัทฉะถั่วแดง",
+                        "volume": 650,
+                        "sugarValue": 30
+                    },
+                    {
+                        "menu": "มัทฉะลาเต้",
+                        "volume": 650,
+                        "sugarValue": 30
+                    },
+                    {
+                        "menu": "มัทฉะฮันนี่",
+                        "volume": 650,
+                        "sugarValue": 31
+                    }
+                ]
+            },
+            {
+                "bandName": "Koi the",
+                "img": "/images/koi_the.png",
+                "menuList": [
+                    {
+                        "menu": "Golden Bubble Milk Tea",
+                        "volume": 355,
+                        "sugarValue": 20
+                    },
+                    {
+                        "menu": "Golden Bubble Milk Tea",
+                        "volume": 475,
+                        "sugarValue": 30
+                    },
+                    {
+                        "menu": "Golden Bubble Milk Tea",
+                        "volume": 650,
+                        "sugarValue": 40
+                    },
+                    {
+                        "menu": "Black Tea Macchiato",
+                        "volume": 355,
+                        "sugarValue": 15
+                    },
+                    {
+                        "menu": "Black Tea Macchiato",
+                        "volume": 475,
+                        "sugarValue": 20
+                    },
+                    {
+                        "menu": "Black Tea Macchiato",
+                        "volume": 650,
+                        "sugarValue": 35
+                    },
+                    {
+                        "menu": "KOI Thai Tea",
+                        "volume": 355,
+                        "sugarValue": 15
+                    },
+                    {
+                        "menu": "KOI Thai Tea",
+                        "volume": 475,
+                        "sugarValue": 20
+                    },
+                    {
+                        "menu": "KOI Thai Tea",
+                        "volume": 650,
+                        "sugarValue": 25
+                    },
+                    {
+                        "menu": "Jasmine Green Tea",
+                        "volume": 355,
+                        "sugarValue": 15
+                    },
+                    {
+                        "menu": "Jasmine Green Tea",
+                        "volume": 475,
+                        "sugarValue": 20
+                    },
+                    {
+                        "menu": "Jasmine Green Tea",
+                        "volume": 650,
+                        "sugarValue": 25
+                    },
+                    {
+                        "menu": "Passion Frult Green Tea",
+                        "volume": 355,
+                        "sugarValue": 20
+                    },
+                    {
+                        "menu": "Passion Frult Green Tea",
+                        "volume": 475,
+                        "sugarValue": 25
+                    },
+                    {
+                        "menu": "Passion Frult Green Tea",
+                        "volume": 650,
+                        "sugarValue": 30
+                    },
+                    {
+                        "menu": "Milk Tea",
+                        "volume": 355,
+                        "sugarValue": 25
+                    },
+                    {
+                        "menu": "Milk Tea",
+                        "volume": 475,
+                        "sugarValue": 30
+                    },
+                    {
+                        "menu": "Milk Tea",
+                        "volume": 650,
+                        "sugarValue": 35
+                    }
+                ]
+            },
+            {
+                "bandName": "ชาตรามือ",
+                "img": "/images/cha_tramue.png",
+                "menuList": [
+                    {
+                        "menu": "ชาไทย",
+                        "volume": 650,
+                        "sugarValue": 20
+                    },
+                    {
+                        "menu": "ชาเขียวนม",
+                        "volume": 650,
+                        "sugarValue": 20
+                    },
+                    {
+                        "menu": "ชาไทยลาเต้",
+                        "volume": 650,
+                        "sugarValue": 20
+                    },
+                    {
+                        "menu": "ชานมอัสสัมไข่มุกและเจลลี่บราวน์ชูการ์",
+                        "volume": 650,
+                        "sugarValue": 25
+                    },
+                    {
+                        "menu": "ชาดำเย็น",
+                        "volume": 650,
+                        "sugarValue": 15
+                    },
+                    {
+                        "menu": "ชาเขียวกรีนที",
+                        "volume": 480,
+                        "sugarValue": 15
+                    },
+                    {
+                        "menu": "ชามะนาว",
+                        "volume": 480,
+                        "sugarValue": 15
+                    },
+                    {
+                        "menu": "ชาแดงบ๊วย",
+                        "volume": 480,
+                        "sugarValue": 15
+                    }
+                ]
+            },
+            {
+                "bandName": "บาวคาเฟ่",
+                "img": "/images/bao_cafe.png",
+                "menuList": [
+                    {
+                        "menu": "ชาเขียวนม",
+                        "volume": 650,
+                        "sugarValue": 20
+                    },
+                    {
+                        "menu": "ชานมไข่มุก",
+                        "volume": 650,
+                        "sugarValue": 25
+                    },
+                    {
+                        "menu": "ชาไทย",
+                        "volume": 650,
+                        "sugarValue": 20
+                    },
+                    {
+                        "menu": "ชาเขียว",
+                        "volume": 650,
+                        "sugarValue": 15
+                    },
+                    {
+                        "menu": "ชามะนาว",
+                        "volume": 650,
+                        "sugarValue": 15
+                    },
+                    {
+                        "menu": "ชาเย็น",
+                        "volume": 650,
+                        "sugarValue": 20
+                    },
+                    {
+                        "menu": "ชานม",
+                        "volume": 650,
+                        "sugarValue": 20
+                    },
+                    {
+                        "menu": "ชาเขียวมัทฉะ",
+                        "volume": 650,
+                        "sugarValue": 20
+                    },
+                    {
+                        "menu": "ชาอู่หลง",
+                        "volume": 650,
+                        "sugarValue": 15
+                    },
+                    {
+                        "menu": "ชาแดงบ๊วย",
+                        "volume": 650,
+                        "sugarValue": 15
+                    },
+                    {
+                        "menu": "ชาดำ",
+                        "volume": 650,
+                        "sugarValue": 15
+                    }
+                ]
+            }
+        ]
+    }
+]

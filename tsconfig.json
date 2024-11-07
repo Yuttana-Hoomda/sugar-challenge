@@ -33,7 +33,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-, "app/api/user/crude_app/server.ts", "utils/cookies.ts", "app/api/submitSugar/route.js"  ],
+, "app/api/user/crude_app/server.ts", "utils/cookies/cookies.js", "app/api/submitSugar/route.js", "utils/cronJob.js", "app/api/auth/[...nextauth]/route.js", "app/api/cron/route.js"  ],
   "exclude": [
     "node_modules"
   ]

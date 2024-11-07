@@ -1,9 +1,9 @@
-import React from 'react';
+// import React from 'react';
 
-import RegisterComponent from "./register";
+// import RegisterComponent from "./register";
 
-export default function Register(){
-    return(
-        <RegisterComponent/>
-    )
-}
+// export default function Register(){
+//     return(
+//         <RegisterComponent/>
+//     )
+// }

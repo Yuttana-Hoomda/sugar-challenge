@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"; // นำเข้า NextResponse
 import { connectToDB } from "@/utils/connectToDB";
-import { authOptions } from "../auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import User from "@/models/user";
 

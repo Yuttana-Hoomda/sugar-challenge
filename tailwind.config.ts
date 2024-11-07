@@ -26,6 +26,9 @@ const config: Config = {
       gridTemplateRows: {
         '10-80-10': '10% 80% 10%',
       },
+      backgroundImage: {
+          'signIn': "url('/icons/Subtract.svg')"
+      },
     },
   },
   plugins: [],

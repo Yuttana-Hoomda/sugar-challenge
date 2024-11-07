@@ -22,23 +22,20 @@ export default function CalendarPage() {
             month: activeStartDate.getMonth(),
             year: activeStartDate.getFullYear(),
         });
-    
+
         // อัปเดต currentMonth
         setCurrentMonth(activeStartDate);
     };
-    
+
 
     useEffect(() => {
         const fetchDailySugar = async () => {
             try {
-                if (typeof window !== "undefined") {
-                    // Ensure this code only runs on the client side
-                    const response = await fetch("/api/getDailysugar");
-                    if (response.ok) {
-                        const data = await response.json();
-                        console.log(data);
-                        setDailySugar(data.dailySugar);
-                    }
+                const response = await fetch("/api/getDailysugar");
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log(data)
+                    setDailySugar(data.dailySugar);
                 }
             } catch (error) {
                 console.error("Error fetching dailySugar data:", error);
@@ -49,7 +46,7 @@ export default function CalendarPage() {
 
         fetchDailySugar();
     }, []);
-    
+
 
     const formatDate = (date: Date): string => {
         // ใช้ timezone ของผู้ใช้ในการแสดงผล
@@ -62,8 +59,8 @@ export default function CalendarPage() {
         if (view === 'month') {
 
             const isCurrentMonth = date.getMonth() === currentMonth.getMonth() &&
-                                    date.getFullYear() === currentMonth.getFullYear();
-            
+                date.getFullYear() === currentMonth.getFullYear();
+
             if (!isCurrentMonth) {
                 return null; // Return null for dates not in current month
             }
@@ -95,22 +92,23 @@ export default function CalendarPage() {
 
     return (
         <div>
-            <div className="flex flex-col justify-center items-center rounded-xl">
-                <Calendar
-                    tileClassName={tileClassName}
-                    className="custom-calendar"
-                    onChange={() => {}}
-                    onActiveStartDateChange={({ activeStartDate }) => {
-                        if (activeStartDate) {
-                            handleMonthChange(activeStartDate);
-                        }
-                    }}
-                />
-                <div className="m-5">
-                     {/* <Graph />  */}
-                    <Graph monthView={monthView} />
+            {typeof window !== 'undefined' && (
+                <div className="flex flex-col justify-center items-center rounded-xl">
+                    <Calendar
+                        tileClassName={tileClassName}
+                        className="custom-calendar"
+                        onChange={() => { }}
+                        onActiveStartDateChange={({ activeStartDate }) => {
+                            if (activeStartDate) {
+                                handleMonthChange(activeStartDate);
+                            }
+                        }}
+                    />
+                    <div className="m-5">
+                        <Graph monthView={monthView} />
+                    </div>
                 </div>
-            </div>
+            )}
         </div>
     );
 }

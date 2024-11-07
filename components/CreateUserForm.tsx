@@ -71,7 +71,7 @@ export default function CreateUserForm({ email }: CreateUserFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 max-w-md mx-auto">
+    <form onSubmit={handleSubmit} className="space-y-6 max-w-md mx-auto">
       <div className="flex items-center p-3 rounded-xl mt-6 border border-indigo-950">
         <User className="text-gray-700 mr-3" />
         <input

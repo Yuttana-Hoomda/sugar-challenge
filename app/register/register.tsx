@@ -148,7 +148,7 @@ const Register = () => {
           <div className="mt-3">คำนวณค่ามาตรฐาน</div>
         </div>
 
-        {bmi !== null && (
+        {/* {bmi !== null && (
           <div className="flex flex-col items-center text-white font-medium text-2xl rounded-2xl bg-blue-500 bg-gray-300 px-24 py-8 gap-5 justify-center">
             <div className="w-full max-w-xs">
               <CircularProgressBMI
@@ -161,7 +161,7 @@ const Register = () => {
             </div>
             <div className="text-4xl text-black text-center">{bmiCategory}</div>
           </div>
-        )}
+        )} */}
         
       </div>
 

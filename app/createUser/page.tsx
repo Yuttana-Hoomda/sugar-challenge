@@ -29,7 +29,7 @@ export default function CreateUserPage() {
   }
 
   return (
-    <div>
+    <div className="px-6 py-8">
     <div className="text-center font-light text-2xl">Hey there,</div>
     <div className="text-center mt-4 font-bold text-3xl">
       Create an account

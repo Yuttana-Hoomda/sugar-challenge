@@ -31,11 +31,14 @@ export default function CalendarPage() {
     useEffect(() => {
         const fetchDailySugar = async () => {
             try {
-                const response = await fetch("/api/getDailysugar");
-                if (response.ok) {
-                    const data = await response.json();
-                    console.log(data)
-                    setDailySugar(data.dailySugar);
+                if (typeof window !== "undefined") {
+                    // Ensure this code only runs on the client side
+                    const response = await fetch("/api/getDailysugar");
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log(data);
+                        setDailySugar(data.dailySugar);
+                    }
                 }
             } catch (error) {
                 console.error("Error fetching dailySugar data:", error);

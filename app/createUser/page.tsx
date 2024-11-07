@@ -2,19 +2,11 @@
 
 import { useSession } from "next-auth/react";
 import CreateUserForm from '@/components/CreateUserForm';
-import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from "react";
 
 export default function CreateUserPage() {
   const { data: session, status } = useSession();
-  const searchParams = useSearchParams();
-  const [email, setEmail] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (searchParams) {
-      setEmail(searchParams.get('email'));
-    }
-  }, [searchParams]);
+  const email = session?.user?.email;
 
   console.log('Session:', session);
   console.log('Status:', status);
@@ -34,7 +26,7 @@ export default function CreateUserPage() {
     <div className="text-center mt-4 font-bold text-3xl">
       Create an account
     </div>
-      <CreateUserForm email={session?.user?.email || email || ''} />
+      <CreateUserForm/>
     </div>
   );
 }

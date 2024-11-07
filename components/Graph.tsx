@@ -17,6 +17,11 @@ interface GraphProps {
 }
 
 const Graph: React.FC<GraphProps> = ({ monthView }) => {
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      import('chartjs-plugin-zoom');
+    }
+  }, []);
   const [graphData, setGraphData] = useState<any>({
     labels: [],
     datasets: [

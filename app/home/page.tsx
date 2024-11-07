@@ -22,8 +22,28 @@ const HomePage = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   useEffect(() => {
-    fetchData()
-    setIsLoading(false);
+    const fetchData = async () => {
+      try {
+        const [dailySugarData, beverageData] = await Promise.all([
+          getData("getSugar"),
+          getData("getBeverageHistory")
+        ]);
+
+        if (dailySugarData?.date === dateFormat() && beverageData[0]?.createAt === dateFormat()) {
+          setSugarValue(dailySugarData.value);
+          setBeverageList(beverageData);
+        } else {
+          setSugarValue(0);
+          setBeverageList([]);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
   const dateFormat = () => {
@@ -34,38 +54,22 @@ const HomePage = () => {
     return `${year}-${month}-${day}`;
   }
 
-  const fetchData = async () => {
-    try {
-      const [dailySugarData, beverageData] = await Promise.all([
-        getData("getSugar"),
-        getData("getBeverageHistory")
-      ])
-
-      if (dailySugarData.date === dateFormat() && beverageData[0].createAt === dateFormat()) {
-        setSugarValue(dailySugarData.value)
-        setBeverageList(beverageData)
-      } else {
-        setSugarValue(0)
-        setBeverageList([])
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   const getData = async (api: string) => {
     try {
-      const response = await fetch(`/api/${api}`)
+      const response = await fetch(`/api/${api}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       if (!response.ok) {
-        throw new Error("Failed to submit sugar data");
+        throw new Error(`Failed to fetch data from ${api}`);
       }
 
-      const result = await response.json();
-      console.log(result)
-      return result
+      return response.json();
     } catch (error) {
-      console.error("Error:", error);
+      console.error(`Error fetching ${api}:`, error);
     }
   };
 
@@ -129,15 +133,15 @@ const HomePage = () => {
           <div className="bg-lightBlue p-4 rounded-xl w-[700px] text-center text-darkBlue">
             <h2 className="text-xl font-semibold ">น้ำตาล</h2>
             <p className="text-start">
-            เป็นคาร์โบไฮเดรตที่ให้พลังงานสูง แต่ขาดสารอาหารอื่นที่มีประโยชน์ พบได้ทั้งในธรรมชาติและอาหารแปรรูป กรมอนามัยแนะนำให้ผู้ใหญ่บริโภคน้ำตาลไม่เกิน 6 ช้อนชาต่อวัน (ประมาณ 24 กรัม) และเด็กควรบริโภคน้อยกว่านี้ เพื่อลดความเสี่ยงต่อโรคอ้วน เบาหวาน หัวใจ และฟันผุ <br/> 
+              เป็นคาร์โบไฮเดรตที่ให้พลังงานสูง แต่ขาดสารอาหารอื่นที่มีประโยชน์ พบได้ทั้งในธรรมชาติและอาหารแปรรูป กรมอนามัยแนะนำให้ผู้ใหญ่บริโภคน้ำตาลไม่เกิน 6 ช้อนชาต่อวัน (ประมาณ 24 กรัม) และเด็กควรบริโภคน้อยกว่านี้ เพื่อลดความเสี่ยงต่อโรคอ้วน เบาหวาน หัวใจ และฟันผุ <br />
             </p>
             <h2 className="text-xl font-semibold ">โรคฟันผุ</h2>
             <p className="text-start">
-            เกิดจากการบริโภคเครื่องดื่มที่มีน้ำตาลสูง เช่น น้ำอัดลม ชานมไข่มุก และน้ำผลไม้ ซึ่งกรดจากแบคทีเรียและตัวเครื่องดื่มเองจะกัดกร่อนเคลือบฟัน ทำให้ฟันอ่อนแอและเกิดโพรงฟันตามมา <br/>
-            วิธีป้องกันโรคฟันผุ <br/>
-            •	การลดปริมาณเครื่องดื่มหวาน <br/>
-            •	ดื่มน้ำเปล่าหลังการดื่มน้ำหวาน <br/>
-            •	ใช้หลอดดื่ม และใช้ยาสีฟันผสมฟลูออไรด์ 
+              เกิดจากการบริโภคเครื่องดื่มที่มีน้ำตาลสูง เช่น น้ำอัดลม ชานมไข่มุก และน้ำผลไม้ ซึ่งกรดจากแบคทีเรียและตัวเครื่องดื่มเองจะกัดกร่อนเคลือบฟัน ทำให้ฟันอ่อนแอและเกิดโพรงฟันตามมา <br />
+              วิธีป้องกันโรคฟันผุ <br />
+              •	การลดปริมาณเครื่องดื่มหวาน <br />
+              •	ดื่มน้ำเปล่าหลังการดื่มน้ำหวาน <br />
+              •	ใช้หลอดดื่ม และใช้ยาสีฟันผสมฟลูออไรด์
             </p>
             <button onClick={closePopup} className="mt-5 bg-white w-10 rounded-md">
               ปิด

@@ -4,17 +4,13 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { Ruler, User, Weight } from "lucide-react";
 
-interface CreateUserFormProps {
-  email: string;
-}
-
-export default function CreateUserForm({ email }: CreateUserFormProps) {
+export default function CreateUserForm() {
   const [formData, setFormData] = useState({
     name: "",
     gender: "",
     weight: "",
     height: "",
-    email: email || "",
+    email: "",
   });
   const [error, setError] = useState("");
   const router = useRouter();
@@ -59,7 +55,7 @@ export default function CreateUserForm({ email }: CreateUserFormProps) {
         const data = await res.json();
         console.log("Profile updated:", data);
         // Redirect to the data fetching page
-        router.push(`/home?email=${encodeURIComponent(email)}`); // Adjust this URL to your actual data fetching page
+        router.push(`/home}`); // Adjust this URL to your actual data fetching page
       } else {
         const errorData = await res.json();
         throw new Error(errorData.message || "Failed to update profile");

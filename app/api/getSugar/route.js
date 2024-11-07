@@ -5,8 +5,6 @@ import { connectToDB } from "@/utils/connectToDB";
 import User from "@/models/user";
 import DailySugar from "@/models/dailySugar";
 
-export const dynamic = "force-dynamic";
-
 export const GET = async (req) => {
   try {
     const session = await getServerSession(authOptions);

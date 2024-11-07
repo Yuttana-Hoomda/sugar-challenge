@@ -55,12 +55,7 @@ const HomePage = () => {
 
   const getData = async (api: string) => {
     try {
-      const response = await fetch(`/api/${api}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(`/api/${api}`)
 
       if (!response.ok) {
         throw new Error("Failed to submit sugar data");

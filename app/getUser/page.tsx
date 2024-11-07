@@ -59,9 +59,6 @@ const GetUser = () => {
   }
 
 
-
-
-
   return (
 
     <div className="relative">

@@ -4,13 +4,17 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { Ruler, User, Weight } from "lucide-react";
 
-export default function CreateUserForm() {
+interface CreateUserFormProps {
+  email: string;
+}
+
+export default function CreateUserForm({ email }: CreateUserFormProps) {
   const [formData, setFormData] = useState({
     name: "",
     gender: "",
     weight: "",
     height: "",
-    email: "",
+    email: email || "",
   });
   const [error, setError] = useState("");
   const router = useRouter();
@@ -33,7 +37,7 @@ export default function CreateUserForm() {
     console.log("Form data:", formData);
 
     // Check if all fields are filled
-    if (!formData.name || !formData.gender || !formData.weight || !formData.height) {
+    if (!formData.name || !formData.gender || !formData.weight || !formData.height || !formData.email) {
       setError("All fields are required");
       
       return;

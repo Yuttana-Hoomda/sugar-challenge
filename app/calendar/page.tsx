@@ -1,9 +1,11 @@
 'use client';
 import { useState, useEffect } from "react";
-import Calendar, { CalendarProps } from "react-calendar";
 import 'react-calendar/dist/Calendar.css';
 import './custom-calender.css';
 import Graph from "@/components/Graph";
+import dynamic from "next/dynamic";
+
+const Calendar = dynamic(() => import('react-calendar'), { ssr: false });
 
 interface DailySugar {
     date: string;
@@ -92,23 +94,22 @@ export default function CalendarPage() {
 
     return (
         <div>
-            {typeof window !== 'undefined' && (
-                <div className="flex flex-col justify-center items-center rounded-xl">
-                    <Calendar
-                        tileClassName={tileClassName}
-                        className="custom-calendar"
-                        onChange={() => { }}
-                        onActiveStartDateChange={({ activeStartDate }) => {
-                            if (activeStartDate) {
-                                handleMonthChange(activeStartDate);
-                            }
-                        }}
-                    />
-                    <div className="m-5">
-                        <Graph monthView={monthView} />
-                    </div>
+            <div className="flex flex-col justify-center items-center rounded-xl">
+                <Calendar
+                    tileClassName={tileClassName}
+                    className="custom-calendar"
+                    onChange={() => { }}
+                    onActiveStartDateChange={({ activeStartDate }) => {
+                        if (activeStartDate) {
+                            handleMonthChange(activeStartDate);
+                        }
+                    }}
+                />
+                <div className="m-5">
+                    <Graph monthView={monthView} />
                 </div>
-            )}
+            </div>
+
         </div>
     );
 }

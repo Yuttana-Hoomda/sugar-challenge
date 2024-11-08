@@ -33,7 +33,7 @@ export default function CreateUserForm() {
     console.log("Form data:", formData);
 
     // Check if all fields are filled
-    if (!formData.name || !formData.gender || !formData.weight || !formData.height || !formData.email) {
+    if (!formData.name || !formData.gender || !formData.weight || !formData.height) {
       setError("All fields are required");
       
       return;

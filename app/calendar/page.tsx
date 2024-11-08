@@ -2,10 +2,10 @@
 import { useState, useEffect } from "react";
 import 'react-calendar/dist/Calendar.css';
 import './custom-calender.css';
-import Graph from "@/components/Graph";
 import dynamic from "next/dynamic";
 
 const Calendar = dynamic(() => import('react-calendar'), { ssr: false });
+const Graph = dynamic(() => import('@/components/Graph'), { ssr: false });
 
 interface DailySugar {
     date: string;

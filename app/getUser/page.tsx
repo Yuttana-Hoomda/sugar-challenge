@@ -4,7 +4,6 @@ import DropDown from "./dropDown" // Ensure the file name matches the actual fil
 import { useRouter } from 'next/navigation';
 import { IoIosMail } from "react-icons/io";
 import { signOut, useSession } from "next-auth/react";
-import { link } from "fs";
 
 const GetUser = () => {
   interface User {
@@ -132,20 +131,7 @@ const GetUser = () => {
           ออกจากระบบ
         </button>
       </div>
-
     </div>
-
-    // <h1>User Information 55555</h1>
-    // <p>Name: {user.name}</p>
-    // <p>Email: {user.email}</p>
-    // <p>Gender: {user.gender}</p>
-    // <p>Weight: {user.weight}</p>
-    // <p>Height: {user.height}</p>
-    // <p>BMI: {user.bmi}</p>
-    // <p>Current Sugar: {user.currentSugar}</p>
-    // <p>Beverage History: {user.beverageHistory.join(", ")}</p>
-    // <p>Daily Sugar: {user.dailySugar.join(", ")}</p>
-
   );
 };
 

@@ -52,9 +52,9 @@ const GetUser = () => {
     return <div>Error: {error}</div>;
   }
 
-  if (!user) {
-    return <div>Loading...</div>;
-  }
+  // if (!user) {
+  //   return <div>Loading...</div>;
+  // }
 
   const getProfileImage = (gender: string) => {
     if (gender === "female") {

@@ -3,6 +3,9 @@ import { useState, useEffect } from "react";
 import 'react-calendar/dist/Calendar.css';
 import './custom-calender.css';
 import dynamic from "next/dynamic";
+import CalendarSkeleton from "@/components/skeletons/CalendarSkeleton";
+import HomeSkeleton from "@/components/skeletons/HomeSkeleton";
+
 
 const Calendar = dynamic(() => import('react-calendar'), { ssr: false });
 const Graph = dynamic(() => import('@/components/Graph'), { ssr: false });
@@ -89,7 +92,8 @@ export default function CalendarPage() {
     // };
 
     if (isLoading) {
-        return <div className="flex justify-center">Loading...</div>;
+        return <CalendarSkeleton/>
+        // return <HomeSkeleton/>
     }
 
     return (

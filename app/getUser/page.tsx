@@ -101,7 +101,7 @@ const GetUser = () => {
             className="bg-gray-100 rounded-xl p-3 text-center w-28"
           >
             <div className="font-bold text-2xl text-darkBlue">
-              {index === 0 ? user.weight : index === 1 ? user.height : user.bmi}
+              {index === 0 ? user?.weight : index === 1 ? user?.height : user?.bmi}
             </div>
             <div className="text-gray-500 text-sm">{stat}</div>
           </div>

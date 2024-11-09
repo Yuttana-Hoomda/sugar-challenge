@@ -33,20 +33,23 @@ const GetUser = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const response = await fetch(`/api/getUser`);
-
-      if (response.ok) {
-        const userData = await response.json();
-        console.log(userData)
-        setUser(userData);
-      } else {
-        const errorData = await response.json();
-        setError(errorData.error);
+      try {
+        const response = await fetch(`/api/getUser`);
+        if (response.ok) {
+          const userData = await response.json();
+          setUser(userData);
+        } else {
+          const errorData = await response.json();
+          console.error("Error response data:", errorData);
+          setError(errorData.error);
+        }
+      } catch (err) {
+        console.error("Fetch error:", err); 
       }
     };
-
     fetchUser();
   }, []);
+  
 
   if (error) {
     return <div>Error: {error}</div>;

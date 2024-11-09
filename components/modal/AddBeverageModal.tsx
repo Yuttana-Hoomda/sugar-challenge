@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { IoIosCloseCircle } from "react-icons/io";
 import SelectButton from "../SelectButton";
 import Hundred from "../../public/icons/hundred.svg";
@@ -37,7 +37,12 @@ interface BeverageData {
   createAt: string
 }
 
-const AddBeverageModal: React.FC<AddBeverageModalProps> = ({
+interface DailySugar {
+  date: string;
+  value: number
+}
+
+const AddBeverageModal: React.FC<AddBeverageModalProps> = memo(({
   menu,
   img,
   sugarValue,
@@ -119,37 +124,20 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({
     return updatedSugar;
   };
 
-  const submitSugarData = async ({ date, value }: SubmitSugarDataParams) => {
+  const postData = async (data: BeverageData | DailySugar, api: string) => {
     try {
-      const response = await fetch("/api/submitSugar", {
+      const res = await fetch(`/api/${api}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ date, value }),
+        body: JSON.stringify(data)
       });
 
-      const result = await response.json();
-      console.log("Success:", result);
+      const result = await res.json()
+      console.log(result);
     } catch (error) {
-      console.error("Error:", error);
-    }
-  };
-
-  const submitBeverageHistory = async (beverageData: BeverageData) => {
-    try {
-      const response = await fetch("/api/submitBeverage", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(beverageData),
-      });
-
-      const result = await response.json();
-      console.log("Success:", result);
-    } catch (error) {
-      console.error("Error:", error);
+      console.log(error)
     }
   }
 
@@ -188,7 +176,12 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({
 
     const formatDate = getFormattedDate()
 
-    const BeverageData: BeverageData = {
+    const dailySugarData: DailySugar = {
+      date: formatDate,
+      value: updatedSugar
+    }
+
+    const beverageData: BeverageData = {
       menu: menu,
       img: img,
       value: updatedSugar,
@@ -200,10 +193,15 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({
       createAt: formatDate
     };
 
-    await submitSugarData({ date: formatDate, value: updatedSugar });
-    await submitBeverageHistory(BeverageData)
-    toast.success("บันทึกข้อมูลสำเร็จ")
     handleModalClose();
+
+    await Promise.all([
+      postData(dailySugarData, 'submitSugar'),
+      postData(beverageData, 'submitBeverage')
+    ])
+
+    toast.dismiss()
+    toast.success("บันทึกข้อมูลสำเร็จ")
 
     if (checkTimeInRange()) {
       Swal.fire({
@@ -290,6 +288,6 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({
       </div>
     </div>
   );
-};
+});
 
 export default AddBeverageModal;

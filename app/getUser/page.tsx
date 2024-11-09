@@ -80,7 +80,7 @@ const GetUser = () => {
           alt=""
         />
       </div>
-      <h1 className="mt-3 text-[20px] text-center text-darkBlue">{user.name}</h1>
+      <h1 className="mt-3 text-[20px] text-center text-darkBlue">{user?.name}</h1>
 
 
       {/* Edit button */}

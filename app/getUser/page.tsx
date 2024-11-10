@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { IoIosMail } from "react-icons/io";
 import { signOut, useSession } from "next-auth/react";
 import Image from 'next/image';
-
+import defualt from '@/public/images/Logo.svg';
 const GetUser = () => {
   interface User {
     name: string;
@@ -25,7 +25,7 @@ const GetUser = () => {
         return session.user.image;
       }
       // รูปภาพ default กรณีไม่มีรูปจาก email
-      return '/default-avatar.png'; // ใส่รูป default ของคุณ
+      return defualt.src; // ใส่รูป default ของคุณ
     };
   
 
@@ -79,15 +79,6 @@ const GetUser = () => {
   //   return <div>Loading...</div>;
   // }
 
-  // const getProfileImage = (gender: string) => {
-  //   if (gender === "female") {
-  //     return "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80";
-  //   } else if (gender === "male") {
-  //     return "https://images.unsplash.com/photo-1502767089025-6572583495b4?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"; // Replace with the actual male image URL
-  //   } else {
-  //     return "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"; // Default image
-  //   }
-  // };
 
   return (
 
@@ -102,7 +93,6 @@ const GetUser = () => {
           width={128}
           height={128}
           className="rounded-full ring-2 ring-white object-cover"
-         
         />
       </div>
     </div>

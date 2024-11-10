@@ -49,7 +49,6 @@ const GetUser = () => {
     }
     if(!session){
       console.log("ยังไม่ได้เข้าสู่ระบบ");
-      router.push('/login');
       return;
     }
     
@@ -69,7 +68,7 @@ const GetUser = () => {
       }
     };
     fetchUser();
-  }, [session, status , router]);
+  }, []);
   
 
   if (error) {
@@ -79,6 +78,16 @@ const GetUser = () => {
   // if (!user) {
   //   return <div>Loading...</div>;
   // }
+
+  // const getProfileImage = (gender: string) => {
+  //   if (gender === "female") {
+  //     return "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80";
+  //   } else if (gender === "male") {
+  //     return "https://images.unsplash.com/photo-1502767089025-6572583495b4?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"; // Replace with the actual male image URL
+  //   } else {
+  //     return "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"; // Default image
+  //   }
+  // };
 
   return (
 
@@ -90,13 +99,10 @@ const GetUser = () => {
         <Image
           src={getProfileImage()}
           alt="Profile Picture"
-          width={130}
-          height={130}
+          width={128}
+          height={128}
           className="rounded-full ring-2 ring-white object-cover"
-          priority
-          onError={(e) => {
-            e.currentTarget.src = '/default-avatar.png'; // ถ้าโหลดรูปไม่สำเร็จ
-          }}
+         
         />
       </div>
     </div>

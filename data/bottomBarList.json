@@ -15,7 +15,7 @@
         "iconActive": "/icons/icon-calendar-active.svg"
     },
     {
-        "path": "/getUser",
+        "path": "/profile",
         "icon": "/icons/icon-user.svg",
         "iconActive": "/icons/icon-user-active.svg"
     }

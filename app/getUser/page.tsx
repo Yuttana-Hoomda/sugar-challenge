@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { IoIosMail } from "react-icons/io";
 import { signOut, useSession } from "next-auth/react";
 import Image from 'next/image';
-
+import defualt from '@/public/images/Logo.svg';
 const GetUser = () => {
   interface User {
     name: string;
@@ -25,7 +25,7 @@ const GetUser = () => {
         return session.user.image;
       }
       // รูปภาพ default กรณีไม่มีรูปจาก email
-      return '/default-avatar.png'; // ใส่รูป default ของคุณ
+      return defualt.src; // ใส่รูป default ของคุณ
     };
   
 
@@ -49,7 +49,6 @@ const GetUser = () => {
     }
     if(!session){
       console.log("ยังไม่ได้เข้าสู่ระบบ");
-      router.push('/login');
       return;
     }
     
@@ -69,7 +68,7 @@ const GetUser = () => {
       }
     };
     fetchUser();
-  }, [session, status , router]);
+  }, []);
   
 
   if (error) {
@@ -79,6 +78,7 @@ const GetUser = () => {
   // if (!user) {
   //   return <div>Loading...</div>;
   // }
+
 
   return (
 
@@ -90,13 +90,9 @@ const GetUser = () => {
         <Image
           src={getProfileImage()}
           alt="Profile Picture"
-          width={130}
-          height={130}
+          width={128}
+          height={128}
           className="rounded-full ring-2 ring-white object-cover"
-          priority
-          onError={(e) => {
-            e.currentTarget.src = '/default-avatar.png'; // ถ้าโหลดรูปไม่สำเร็จ
-          }}
         />
       </div>
     </div>

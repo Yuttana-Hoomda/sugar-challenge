@@ -55,7 +55,7 @@ const GetUser = () => {
     
     const fetchUser = async () => {
       try {
-        const response = await fetch(`/api/getUser`);
+        const response = await fetch(`/api/getuser`);
         if (response.ok) {
           const userData = await response.json();
           setUser(userData);

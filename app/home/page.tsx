@@ -129,8 +129,8 @@ const HomePage = () => {
 
       {/* Popup */}
       {isPopupOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-lightBlue p-4 rounded-xl w-[700px] text-center text-darkBlue">
+        <div className="fixed top-0 left-0 z-[60] inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-lightBlue p-4 rounded-xl w-[700px] text-center text-darkBlue mx-4">
             <h2 className="text-xl font-semibold ">น้ำตาล</h2>
             <p className="text-start">
               เป็นคาร์โบไฮเดรตที่ให้พลังงานสูง แต่ขาดสารอาหารอื่นที่มีประโยชน์ พบได้ทั้งในธรรมชาติและอาหารแปรรูป กรมอนามัยแนะนำให้ผู้ใหญ่บริโภคน้ำตาลไม่เกิน 6 ช้อนชาต่อวัน (ประมาณ 24 กรัม) และเด็กควรบริโภคน้อยกว่านี้ เพื่อลดความเสี่ยงต่อโรคอ้วน เบาหวาน หัวใจ และฟันผุ <br />

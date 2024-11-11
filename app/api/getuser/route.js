@@ -7,10 +7,10 @@ import User from "@/models/user";
 export async function GET(req) {
   const session = await getServerSession(authOptions);
   const email = session.user.email;
-  
+
   try {
     await connectToDB();
-    const userDoc = await User.findOne({ email });ฃ
+    const userDoc = await User.findOne({ email });
     console.log("User document",userDoc);
 
     if (!userDoc) {

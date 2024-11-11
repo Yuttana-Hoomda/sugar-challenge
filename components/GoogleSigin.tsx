@@ -4,7 +4,7 @@ import googleLogo from '@/public/icons/google-Logo.svg'
 
 export default function GoogleSigin() {
     const handleSignIn = () => {
-        signIn('google', { callbackUrl: '/home' })
+        signIn('google')
     }
     return (
         <div className="justify-center items-center w-full px-14">

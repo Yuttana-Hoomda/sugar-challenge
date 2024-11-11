@@ -10,7 +10,7 @@ interface CreateUserFormProps {
 
 export default function CreateUserForm({ email }: CreateUserFormProps) {
   const [formData, setFormData] = useState({
-    name: "",
+    // name: "",
     gender: "",
     weight: "",
     height: "",
@@ -37,7 +37,7 @@ export default function CreateUserForm({ email }: CreateUserFormProps) {
     console.log("Form data:", formData);
 
     // Check if all fields are filled
-    if (!formData.name || !formData.gender || !formData.weight || !formData.height || !formData.email) {
+    if ( !formData.gender || !formData.weight || !formData.height || !formData.email) {
       setError("All fields are required");
       
       return;
@@ -72,7 +72,7 @@ export default function CreateUserForm({ email }: CreateUserFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6 max-w-md mx-auto">
-      <div className="flex items-center p-3 rounded-xl mt-6 border border-indigo-950">
+      {/* <div className="flex items-center p-3 rounded-xl mt-6 border border-indigo-950">
         <User className="text-gray-700 mr-3" />
         <input
           type="text"
@@ -83,9 +83,9 @@ export default function CreateUserForm({ email }: CreateUserFormProps) {
           className="flex-1 outline-none"
           required
         />
-      </div>
+      </div> */}
 
-      <div className="flex items-center bg-white p-3 rounded-lg border border-indigo-950">
+      <div className="flex items-center bg-white p-3 rounded-lg border border-indigo-950 mt-10">
         <User className="text-gray-700 mr-3" />
         <select
           name="gender"

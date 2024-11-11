@@ -43,14 +43,15 @@ const GetUser = () => {
   };
 
   useEffect(() => {
-    if (status == 'loading' ){
+    if (status == 'loading' ){ // ไม่ต้องทำอะไรเมื่อกำลังโหลด
       console.log("Loading");
       return;
     }
     if(!session){
       console.log("ยังไม่ได้เข้าสู่ระบบ");
+      router.push('/login');
       return;
-    }
+    } 
     
     const fetchUser = async () => {
       try {

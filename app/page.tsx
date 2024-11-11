@@ -57,7 +57,7 @@ const Longin = () => {
         <GoogleSignin />
       </div>
       <div className='w-full text-center text-white absolute bottom-0'>
-        <h2>copyright © 2024 Sirindhorn College of Public Health Khon kaen. All Rights Reserved</h2>
+        <h2 className='font-light text-pretty'>copyright © 2024 Sirindhorn College of Public Health Khon kaen. All Rights Reserved</h2>
       </div>
     </div>
   );

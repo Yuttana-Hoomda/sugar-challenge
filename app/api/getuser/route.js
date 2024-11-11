@@ -7,18 +7,7 @@ import User from "@/models/user";
 export async function GET(req) {
   const session = await getServerSession(authOptions);
   const email = session.user.email;
-  if(!session){
-    return NextResponse.json({ error: "กรุณาเข้าสู่ระบบก่อน" }, { status: 401 });
-  }
   
-  if (session.user.email) {
-    return NextResponse.json({ error: "ไม่พบอีเมลในเซสชัน" }, { status: 400 });
-  }
-  
-  if (!email) {
-    return NextResponse.json({ error: "Email is required" }, { status: 400 });
-  }
-
   try {
     await connectToDB();
     const userDoc = await User.findOne({ email });

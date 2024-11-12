@@ -24,7 +24,7 @@ const Longin = () => {
     if (!session?.user?.email) return;
 
     try {
-      const response = await fetch('/api/getUser');
+      const response = await fetch('/api/getuser');
       if (response.ok) {
         const userData = await response.json();
         if (userData.gender && userData.weight && userData.height) {

@@ -10,6 +10,7 @@ import { Ruler, User, Weight, X } from "lucide-react";
 
 
 const GetUser = () => {
+  
   interface User {
     name: string;
     email: string;

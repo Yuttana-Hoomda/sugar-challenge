@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { IoIosCloseCircle } from "react-icons/io";
 import SelectButton from "../SelectButton";
 import Hundred from "../../public/icons/hundred.svg";
@@ -11,6 +11,7 @@ import TwentyfiveActive from "../../public/icons/twentyfive-active.svg";
 import FiftyActive from "../../public/icons/fifty-active.svg";
 import SeventyfiveActive from "../../public/icons/seventyfive-active.svg";
 import toast, { Toaster } from "react-hot-toast";
+import Swal from 'sweetalert2';
 
 interface AddBeverageModalProps {
   menu: string;
@@ -36,7 +37,12 @@ interface BeverageData {
   createAt: string
 }
 
-const AddBeverageModal: React.FC<AddBeverageModalProps> = ({
+interface DailySugar {
+  date: string;
+  value: number
+}
+
+const AddBeverageModal: React.FC<AddBeverageModalProps> = memo(({
   menu,
   img,
   sugarValue,
@@ -118,54 +124,64 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({
     return updatedSugar;
   };
 
-  const submitSugarData = async ({ date, value }: SubmitSugarDataParams) => {
+  const postData = async (data: BeverageData | DailySugar, api: string) => {
     try {
-      const response = await fetch("/api/submitSugar", {
+      const res = await fetch(`/api/${api}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ date, value }),
+        body: JSON.stringify(data)
       });
 
-      const result = await response.json();
-      console.log("Success:", result);
+      const result = await res.json()
+      console.log(result);
     } catch (error) {
-      console.error("Error:", error);
-    }
-  };
-
-  const submitBeverageHistory = async (beverageData: BeverageData) => {
-    try {
-      const response = await fetch("/api/submitBeverage", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(beverageData),
-      });
-
-      const result = await response.json();
-      console.log("Success:", result);
-    } catch (error) {
-      console.error("Error:", error);
+      console.log(error)
     }
   }
+
+  const getFormattedDate = () => {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  const checkTimeInRange = () => {
+    // Get current time in Thailand timezone
+    const options: Intl.DateTimeFormatOptions = { timeZone: 'Asia/Bangkok', hour: 'numeric', minute: 'numeric' };
+    const thailandTime = new Date().toLocaleString('en-US', options);
+    const [timeStr, period] = thailandTime.split(' ');
+    const [hours, minutes] = timeStr.split(':');
+     // Convert to 24-hour format
+     let hour = parseInt(hours);
+     if (period === 'PM' && hour !== 12) {
+       hour += 12;
+     } else if (period === 'AM' && hour === 12) {
+       hour = 0;
+     }
+ 
+     // Check if time is within allowed ranges
+     const morningRange = hour >= 10 && hour < 11;
+     const afternoonRange = hour >= 14 && hour < 17;
+     const eveningRange = hour >= 19;
+ 
+     return morningRange || afternoonRange || eveningRange;
+   };
 
   const handleSubmit = async () => {
     let updatedSugar = calculateSugar(sugarValue, activeSweet, activeQuantitie);
 
-    const getFormattedDate = () => {
-      const date = new Date();
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const day = String(date.getDate()).padStart(2, '0');
-      return `${year}-${month}-${day}`;
-    };
-
     const formatDate = getFormattedDate()
 
-    const BeverageData: BeverageData = {
+    const dailySugarData: DailySugar = {
+      date: formatDate,
+      value: updatedSugar
+    }
+
+    const beverageData: BeverageData = {
       menu: menu,
       img: img,
       value: updatedSugar,
@@ -177,10 +193,23 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({
       createAt: formatDate
     };
 
-    await submitSugarData({ date: formatDate, value: updatedSugar });
-    await submitBeverageHistory(BeverageData)
-    toast.success("บันทึกข้อมูลสำเร็จ")
     handleModalClose();
+
+    await Promise.all([
+      postData(dailySugarData, 'submitSugar'),
+      postData(beverageData, 'submitBeverage')
+    ])
+
+    toast.dismiss()
+    toast.success("บันทึกข้อมูลสำเร็จ")
+
+    if (checkTimeInRange()) {
+      Swal.fire({
+        icon: 'info',
+        title: 'เวลานี้เป็นเวลานอกมื้ออาหาร!',
+        text: 'หลังจากดื่มนํ้าหวานควรดื่มนํ้าเปล่าตามมากๆ หรือแปรงฟันให้สะอาด',
+      });
+    }
   };
 
   return (
@@ -259,6 +288,6 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = ({
       </div>
     </div>
   );
-};
+});
 
 export default AddBeverageModal;

@@ -4,8 +4,8 @@ import DropDown from "./dropDown" // Ensure the file name matches the actual fil
 import { useRouter } from 'next/navigation';
 import { IoIosMail } from "react-icons/io";
 import { signOut, useSession } from "next-auth/react";
-import { link } from "fs";
-
+import Image from 'next/image';
+import defualt from '@/public/images/Logo.svg';
 const GetUser = () => {
   interface User {
     name: string;
@@ -18,10 +18,20 @@ const GetUser = () => {
     beverageHistory: string[];
     dailySugar: string[];
   }
+    
+  // สร้างฟังก์ชันสำหรับแสดงรูปโปรไฟล์
+    const getProfileImage = () => {
+      if (session?.user?.image) {
+        return session.user.image;
+      }
+      // รูปภาพ default กรณีไม่มีรูปจาก email
+      return defualt.src; // ใส่รูป default ของคุณ
+    };
+  
 
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState(null);
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   const router = useRouter();
   const handleClick = () => {
@@ -33,56 +43,60 @@ const GetUser = () => {
   };
 
   useEffect(() => {
+    if (status == 'loading' ){ // ไม่ต้องทำอะไรเมื่อกำลังโหลด
+      console.log("Loading");
+      return;
+    }
+    if(!session){
+      console.log("ยังไม่ได้เข้าสู่ระบบ");
+      router.push('/login');
+      return;
+    } 
+    
     const fetchUser = async () => {
-      const response = await fetch(`/api/getUser`);
-
-      if (response.ok) {
-        const userData = await response.json();
-        console.log(userData)
-        setUser(userData);
-      } else {
-        const errorData = await response.json();
-        setError(errorData.error);
+      try {
+        const response = await fetch(`/api/getuser`);
+        if (response.ok) {
+          const userData = await response.json();
+          setUser(userData);
+        } else {
+          const errorData = await response.json();
+          console.error("Error response data:", errorData);
+          setError(errorData.error);
+        }
+      } catch (err) {
+        console.error("Fetch error:", err); 
       }
     };
-
     fetchUser();
   }, []);
+  
 
   if (error) {
     return <div>Error: {error}</div>;
   }
 
-  if (!user) {
-    return <div>Loading...</div>;
-  }
-
-  const getProfileImage = (gender: string) => {
-    if (gender === "female") {
-      return "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80";
-    } else if (gender === "male") {
-      return "https://images.unsplash.com/photo-1502767089025-6572583495b4?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"; // Replace with the actual male image URL
-    } else {
-      return "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"; // Default image
-    }
-  };
-
+  // if (!user) {
+  //   return <div>Loading...</div>;
+  // }
 
 
   return (
 
     <div className="relative">
-      <h1 className="font-semibold text-[25px] text-center text-darkBlue">ข้อมูลทั่วไป</h1>
+    <h1 className="font-semibold text-[25px] text-center text-darkBlue">ข้อมูลทั่วไป</h1>
 
-      <div className="grid justify-center overflow-hidden gap-12 mt-3">
-        <img
-          className="inline-block h-32 w-32 rounded-full ring-2 ring-white"
-          src={session?.user?.image || undefined}
-          alt=""
+    <div className="grid justify-center overflow-hidden gap-12 mt-3">
+      <div className="relative w-32 h-32">
+        <Image
+          src={getProfileImage()}
+          alt="Profile Picture"
+          width={128}
+          height={128}
+          className="rounded-full ring-2 ring-white object-cover"
         />
       </div>
-      <h1 className="mt-3 text-[20px] text-center text-darkBlue">{user.name}</h1>
-
+    </div>
 
       {/* Edit button */}
       <div className="flex justify-center mt-4">
@@ -102,7 +116,7 @@ const GetUser = () => {
             className="bg-gray-100 rounded-xl p-3 text-center w-28"
           >
             <div className="font-bold text-2xl text-darkBlue">
-              {index === 0 ? user.weight : index === 1 ? user.height : user.bmi}
+              {index === 0 ? user?.weight : index === 1 ? user?.height : user?.bmi}
             </div>
             <div className="text-gray-500 text-sm">{stat}</div>
           </div>
@@ -132,20 +146,7 @@ const GetUser = () => {
           ออกจากระบบ
         </button>
       </div>
-
     </div>
-
-    // <h1>User Information 55555</h1>
-    // <p>Name: {user.name}</p>
-    // <p>Email: {user.email}</p>
-    // <p>Gender: {user.gender}</p>
-    // <p>Weight: {user.weight}</p>
-    // <p>Height: {user.height}</p>
-    // <p>BMI: {user.bmi}</p>
-    // <p>Current Sugar: {user.currentSugar}</p>
-    // <p>Beverage History: {user.beverageHistory.join(", ")}</p>
-    // <p>Daily Sugar: {user.dailySugar.join(", ")}</p>
-
   );
 };
 

@@ -16,7 +16,7 @@ export const NextAuthProvider: React.FC<NextAuthProviderProps> = ({ children }) 
   if (pathname === "/" || pathname === "/register" || pathname === '/createUser') {
     return (
       <SessionProvider>
-        <div className="py-8 px-6">
+        <div >
           {children}
         </div>
       </SessionProvider>

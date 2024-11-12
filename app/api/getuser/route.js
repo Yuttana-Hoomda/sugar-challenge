@@ -1,20 +1,17 @@
 import { NextResponse } from "next/server"; // นำเข้า NextResponse
 import { connectToDB } from "@/utils/connectToDB";
-import { authOptions } from "../auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import User from "@/models/user";
 
 export async function GET(req) {
   const session = await getServerSession(authOptions);
   const email = session.user.email;
-  
-  if (!email) {
-    return NextResponse.json({ error: "Email is required" }, { status: 400 });
-  }
 
   try {
     await connectToDB();
     const userDoc = await User.findOne({ email });
+    console.log("User document",userDoc);
 
     if (!userDoc) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });

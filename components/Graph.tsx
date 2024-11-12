@@ -8,9 +8,7 @@ import "chartjs-plugin-zoom";
 import { Line } from "react-chartjs-2";
 import "chart.js/auto";
 //test
-import { Data } from "./DataTest";
 import { ChartOptions } from "chart.js/auto";
-import page from "../app/calendar/page";
 
 interface GraphProps {
     monthView: { month: number; year: number };

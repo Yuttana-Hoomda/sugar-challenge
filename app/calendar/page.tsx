@@ -1,9 +1,12 @@
 'use client';
 import { useState, useEffect } from "react";
-import Calendar, { CalendarProps } from "react-calendar";
 import 'react-calendar/dist/Calendar.css';
 import './custom-calender.css';
-import Graph from "@/components/Graph";
+import dynamic from "next/dynamic";
+import CalendarSkeleton from "@/components/skeletons/CalendarSkeleton";
+
+const Calendar = dynamic(() => import('react-calendar'), { ssr: false });
+const Graph = dynamic(() => import('@/components/Graph'), { ssr: false });
 
 interface DailySugar {
     date: string;
@@ -22,11 +25,11 @@ export default function CalendarPage() {
             month: activeStartDate.getMonth(),
             year: activeStartDate.getFullYear(),
         });
-    
+
         // อัปเดต currentMonth
         setCurrentMonth(activeStartDate);
     };
-    
+
 
     useEffect(() => {
         const fetchDailySugar = async () => {
@@ -46,7 +49,7 @@ export default function CalendarPage() {
 
         fetchDailySugar();
     }, []);
-    
+
 
     const formatDate = (date: Date): string => {
         // ใช้ timezone ของผู้ใช้ในการแสดงผล
@@ -59,8 +62,8 @@ export default function CalendarPage() {
         if (view === 'month') {
 
             const isCurrentMonth = date.getMonth() === currentMonth.getMonth() &&
-                                    date.getFullYear() === currentMonth.getFullYear();
-            
+                date.getFullYear() === currentMonth.getFullYear();
+
             if (!isCurrentMonth) {
                 return null; // Return null for dates not in current month
             }
@@ -81,13 +84,9 @@ export default function CalendarPage() {
         }
         return null;
     };
-    // pp Code
-    // const handleMonthChange = (value: Date) => {
-    //     setCurrentMonth(value);
-    // };
 
     if (isLoading) {
-        return <div className="flex justify-center">Loading...</div>;
+        return <CalendarSkeleton/>
     }
 
     return (
@@ -96,7 +95,7 @@ export default function CalendarPage() {
                 <Calendar
                     tileClassName={tileClassName}
                     className="custom-calendar"
-                    onChange={() => {}}
+                    onChange={() => { }}
                     onActiveStartDateChange={({ activeStartDate }) => {
                         if (activeStartDate) {
                             handleMonthChange(activeStartDate);
@@ -104,10 +103,10 @@ export default function CalendarPage() {
                     }}
                 />
                 <div className="m-5">
-                     {/* <Graph />  */}
                     <Graph monthView={monthView} />
                 </div>
             </div>
+
         </div>
     );
 }

@@ -2,35 +2,21 @@
 
 import { useSession } from "next-auth/react";
 import CreateUserForm from '@/components/CreateUserForm';
-import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
 
 export default function CreateUserPage() {
   const { data: session, status } = useSession();
-  const searchParams = useSearchParams();
-  const [email, setEmail] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (searchParams) {
-      setEmail(searchParams.get('email'));
-    }
-  }, [searchParams]);
-
-  console.log('Session:', session);
-  console.log('Status:', status);
-  console.log('Email from query:', email);
+  const email = session?.user?.email;
 
   if (status === "loading") {
     return <p>กำลังโหลด...</p>;
   }
-
 
   return (
     <div>
     <div className="text-center mt-4 font-bold text-3xl">
       แก้ไขข้อมูลส่วนตัว
     </div>
-      <CreateUserForm email={session?.user?.email || email || ''} />
+      <CreateUserForm email={email ?? ''}/>
     </div>
   );
 }

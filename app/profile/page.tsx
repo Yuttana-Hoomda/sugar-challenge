@@ -6,8 +6,7 @@ import { IoIosMail } from "react-icons/io";
 import { signOut, useSession } from "next-auth/react";
 import Image from 'next/image';
 import defualt from '@/public/images/Logo.svg';
-import { Ruler, User, Weight, X } from "lucide-react";
-
+import { Ruler, User, Weight, X, Check } from "lucide-react";
 
 const GetUser = () => {
   
@@ -97,7 +96,7 @@ const GetUser = () => {
     e.preventDefault();
     setError(null);
 
-    if (!formData.gender || !formData.weight || !formData.height ) {
+    if (!formData.weight || !formData.height ) {
       setError("กรุณากรอกข้อมูลให้ครบถ้วน");
       return;
     }
@@ -296,6 +295,9 @@ const GetUser = () => {
           </div>
         </div>
       )}
+      
+
+
     </div>
   );
 };

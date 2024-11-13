@@ -134,8 +134,6 @@ const AddBeverageModal: React.FC<AddBeverageModalProps> = memo(({
         body: JSON.stringify(data)
       });
 
-      const result = await res.json()
-      console.log(result);
     } catch (error) {
       console.log(error)
     }

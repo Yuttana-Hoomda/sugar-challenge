@@ -8,7 +8,7 @@ import { connectToDB } from "@/utils/connectToDB";
 export const GET = async (req) => {
   try {
     const session = await getServerSession(authOptions);
-    console.log("Session", session)
+
     if (!session || !session.user || !session.user.email) {
       return NextResponse.json({ message: "Please sign in first" }, { status: 401 });
     }
@@ -17,20 +17,17 @@ export const GET = async (req) => {
     await connectToDB();
 
     const user = await User.findOne({ email });
-    console.log("User found",user)
     if (!user) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
 
     const beverageHistory = await BeverageHistory.findOne({ user_id: user._id });
-    console.log("Beverage history found",beverageHistory)
 
     if (!beverageHistory) {
       return NextResponse.json({ message: "Beverage history not found" }, { status: 404 });
     }
 
     const beverageList = beverageHistory.beverageList
-    console.log(beverageList)
 
     return NextResponse.json(beverageList);
   } catch (error) {

@@ -34,7 +34,6 @@ export default function CreateUserForm({ email }: CreateUserFormProps) {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
-    console.log("Form data:", formData);
 
     // Check if all fields are filled
     if ( !formData.gender || !formData.weight || !formData.height || !formData.email) {
@@ -56,8 +55,6 @@ export default function CreateUserForm({ email }: CreateUserFormProps) {
       });
 
       if (res.ok) {
-        const data = await res.json();
-        console.log("Profile updated:", data);
         // Redirect to the data fetching page
         router.push(`/home`); // Adjust this URL to your actual data fetching page
       } else {
@@ -72,19 +69,6 @@ export default function CreateUserForm({ email }: CreateUserFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6 max-w-md mx-auto">
-      {/* <div className="flex items-center p-3 rounded-xl mt-6 border border-indigo-950">
-        <User className="text-gray-700 mr-3" />
-        <input
-          type="text"
-          name="name"
-          placeholder="ชื่อ-นามสกุล"
-          value={formData.name}
-          onChange={handleChange}
-          className="flex-1 outline-none"
-          required
-        />
-      </div> */}
-
       <div className="flex items-center bg-white p-3 rounded-lg border border-indigo-950 mt-10">
         <User className="text-gray-700 mr-3" />
         <select

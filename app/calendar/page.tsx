@@ -37,7 +37,6 @@ export default function CalendarPage() {
                 const response = await fetch("/api/getDailysugar");
                 if (response.ok) {
                     const data = await response.json();
-                    console.log(data)
                     setDailySugar(data.dailySugar);
                 }
             } catch (error) {
@@ -69,13 +68,10 @@ export default function CalendarPage() {
             }
 
             const dateStr = formatDate(date);
-            console.log('Checking date:', dateStr); // Debug log
-
             const sugarEntry = dailySugar.find(entry => {
                 // แปลง date string จาก MongoDB เป็น Date object
                 const entryDate = new Date(entry.date);
                 const entryDateStr = formatDate(entryDate);
-                console.log('Comparing with entry date:', entryDateStr); // Debug log
                 return dateStr === entryDateStr;
             });
             if (sugarEntry) {

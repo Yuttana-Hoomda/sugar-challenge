@@ -24,13 +24,10 @@ export const GET = async (req) => {
     }
 
     const dailySugarRecord = await DailySugar.findOne({ user_id: user._id });
-    console.log("DailySugar Record:", dailySugarRecord);
 
     const { date, value } = dailySugarRecord && dailySugarRecord.dailySugar && dailySugarRecord.dailySugar.length > 0
       ? dailySugarRecord.dailySugar[0]
       : { date: null, value: 0 };
-      console.log(date);
-      console.log(value);
 
     return NextResponse.json({
       message: "Daily sugar value retrieved successfully",
